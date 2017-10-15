@@ -15,39 +15,34 @@ LaTeX template for IMT Atlantique reports
 
 In order to use this template, create a new directory, and copy into it the following files:
 
-\begin{itemize}
-\item \imtaInlinecode{bash}{imta.tex}: this file declares all the data that composes the template.%
-      It needs to be included to the main document, by calling \imtaInlinecode{latex}{\include{imta}}.
-\item \imtaInlinecode{bash}{titlepage.pdf}: the title page of the document.%
-      It is a blank version of the IMT Atlantique report template, over which an overlay title is written %
-      by the \imtaInlinecode{latex}{\imtaMaketitlepage} command.
-\end{itemize}
+- \imtaInlinecode{bash}{imta.tex}: this file declares all the data that composes the template.
+  It needs to be included to the main document, by calling \imtaInlinecode{latex}{\include{imta}}.
+- \imtaInlinecode{bash}{titlepage.pdf}: the title page of the document.
+  It is a blank version of the IMT Atlantique report template, over which an overlay title is written
+  by the \imtaInlinecode{latex}{\imtaMaketitlepage} command.
 
-Your document should be a \imtaInlinecode{bash}{.tex} file, with the following skeleton:
+Your document should be a `.tex` file, with the following skeleton:
 
-% Report skeleton
-\begin{minted}{latex}
-\documentclass{article}
-
-\include{imta}
-
-\author{Author name}
-\date{Writing date}
-\title{Document name}
-\subtitle{Short description or subtitle}
-
-\begin{document}
-
-\imtaMaketitlepage
-
-\section{First section}
-
-...
-
-\end{document}
-
-\end{minted}
-% Skeleton end
+    \documentclass{article}
+    
+    \include{imta}
+    
+    \author{Author name}
+    \date{Writing date}
+    \title{Document name}
+    \subtitle{Short description or subtitle}
+    
+    \begin{document}
+    
+    \imtaMaketitlepage
+    
+    \section{First section}
+    
+    ...
+    
+    \end{document}
+    
+    \end{minted}
 
 
 \subsection{Compilation}
