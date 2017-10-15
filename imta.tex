@@ -1,0 +1,185 @@
+%%%%%%%%%% PACKAGES %%%%%%%%%%
+
+% Document geometry management
+\usepackage[a4paper, margin=2cm, top=3cm]{geometry}
+
+% Images management
+\usepackage{graphicx}
+
+% Floats management
+\usepackage{float}
+
+% Output font management
+\usepackage[T1]{fontenc}
+
+% Document encoding management
+\usepackage[utf8]{inputenc}
+
+% Include external pdf documents
+% Used for generating the cover
+\usepackage{pdfpages}
+
+% Fancy headers and footers
+\usepackage{fancyhdr}
+
+% Fancy code listings
+\usepackage{minted}
+
+% Pictures drawing
+\usepackage{tikz}
+
+% Metadata access
+\usepackage{titling}
+
+% Arbitrary font size
+\usepackage{anyfontsize}
+
+% Fancy frames and boxes
+\usepackage{mdframed}
+
+% Section styling
+\usepackage{sectsty}
+
+
+
+%%%%%%%%%% COLORS %%%%%%%%%%
+
+% The three colors of IMTA: green, light blue, and dark blue
+\definecolor{imtaGreen}{RGB}{164, 210, 51}
+\definecolor{imtaLightBlue}{RGB}{0, 184, 222}
+\definecolor{imtaDarkBlue}{RGB}{12, 35, 64}
+\definecolor{imtaGray}{RGB}{87, 87, 87}
+
+% Colors related to code formatting
+\definecolor{imtaCodeBackground}{RGB}{245, 245, 245}
+\definecolor{imtaInlineCodeBackground}{RGB}{230, 230, 230}
+
+
+
+%%%%%%%%%% GENERAL SETTINGS %%%%%%%%%%
+
+\raggedbottom
+
+
+
+%%%%%%%%%% PACKAGES SETTINGS %%%%%%%%%%
+
+% minted
+\setminted{linenos, breaklines}
+\BeforeBeginEnvironment{minted}{%
+    \vspace{0.5\baselineskip}
+    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]%
+}
+\AfterEndEnvironment{minted}{%
+    \end{mdframed}%
+}
+\renewcommand{\theFancyVerbLine}{\ttfamily \textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}
+
+\setmintedinline{breaklines=false}
+
+
+% fancyhdr
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[L]{\thetitle}
+\fancyhead[R]{\theauthor}
+\fancyfoot[C]{\thepage}
+
+\fancypagestyle{imtaFirstpage}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+
+
+%%%%%%%%%% COMMANDS %%%%%%%%%%
+
+% \subtitle
+% Command for the cover's subtitle
+\newcommand{\subtitleValue}{}
+\newcommand{\subtitle}[1]{%
+    \renewcommand{\subtitleValue}{#1}
+}
+
+% \imtaInlinecode
+% Typeset inline code
+% First parameter is the language of the text to typeset
+% Second parameter is the text to typeset
+\newcommand{\imtaInlinecode}[2]{%
+    \setlength{\fboxsep}{2pt}\colorbox{imtaInlineCodeBackground}{\mintinline{#1}{#2}}%
+}
+
+% \imtaQuestion
+% Output "Question" followed by the current question number
+% The \imtaQuestionReset command should be called after each new section or subsection,
+% in order to resest the question counter
+\newcounter{imtaQuestionCounter}
+\newcommand{\imtaQuestion}{%
+    \stepcounter{imtaQuestionCounter}%
+    \subsection*{Question \arabic{imtaQuestionCounter}}%
+}
+
+% \imtaQuestionReset
+% Reset the question counter
+\newcommand{\imtaQuestionReset}{%
+    \setcounter{\imtaQuestionCounter}{0}%
+}
+
+% \imtaMakeCover
+% Output the IMTA title page
+\newcommand{\imtaMaketitlepage}{%
+    \thispagestyle{imtaFirstpage}
+    \pagenumbering{gobble}
+    \includepdf[pagecommand={%
+        \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=west, align=left] at (-0.5, -10.5) {%
+            \large\fontfamily{phv}\selectfont\thedate \\
+            \large\fontfamily{phv}\selectfont\theauthor \vspace{1.5cm}\\
+            \textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace{.5cm}\\
+            \textcolor{imtaGreen}{\Large\fontfamily{phv}\selectfont\subtitleValue}
+        };
+        \end{tikzpicture}
+    }]{titlepage}
+    \newpage
+    \pagenumbering{arabic}
+    \setcounter{page}{2}
+}
+
+% \imtaSetIMTStyle
+% Set a styling that conforms to the official report template
+\newcommand{\imtaSetIMTStyle}{%
+    % Set global font to Helvetica
+    \usepackage{helvet}
+    \renewcommand{\familydefault}{\sfdefault}
+
+    % Set heading style
+    \sectionfont{\bf\LARGE\color{imtaGreen}}
+    \subsectionfont{\bf\Large\color{imtaGray}}
+    \subsubsectionfont{\bf\large\color{imtaGray}}
+    \paragraphfont{\color{imtaGray}}
+    \subparagraphfont{\color{imtaGray}}
+
+    % Set header and footer style
+    \pagestyle{fancy}
+    \fancyhead{}
+    \fancyfoot{}
+    \fancyhead[L]{\nouppercase\leftmark}
+    \fancyfoot[R]{\thepage}
+    \fancypagestyle{imtaFirstpage}{%
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+    }
+}
+
+
+
+%%%%%%%%%% ENVIRONMENTS %%%%%%%%%% 
+
+% imtaCode
+% Typeset code listings
+\newenvironment{imtaCode}[1]{
+    \begin{minted}[frame=single, framesep=5pt, xleftmargin=\parindent, linenos, breaklines]{#1}
+}{
+    \end{minted}
+}
