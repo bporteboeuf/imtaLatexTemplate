@@ -105,7 +105,32 @@ The following is an abstract from the \imtaInlinecode{latex}{PACKAGES} section o
 \end{minted}
 
 \subsection{\texttt{anyfontsize}}
+
+The \imtaInlinecode{latex}{anyfontsize} package allows picking an arbitrary size for a local font.
+It provides the \imtaInlinecode{latex}{\fontsize} command, used for generating the title page inside of a \imtaInlinecode{latex}{tikzpicture} environment.
+
 \subsection{\texttt{fancyhdr}}
+
+The \imtaInlinecode{latex}{fancyhdr} package lets define custom headers and footers.
+For instance, the IMT Atlantique header and footer style is defined as follows (inside of the \imtaInlinecode{latex}{\imtaSetIMTStyle} command):
+
+\begin{minted}{latex}
+\pagestyle{fancy}                       % Select the fancy style provided by fancyhdr
+
+\fancyhead{}                            % Clear the current header style
+\fancyfoot{}                            % Clear the current footer style
+
+\fancyhead[L]{\nouppercase\leftmark}    % Define the content of the header:
+                                        %     the current section title, on the left
+\fancyfoot[R]{\thepage}                 % Define the content of the footer:
+                                        %     the current page number, on the right
+
+\fancypagestyle{imtaFirstpage}{%        % Define the style for the first page
+    \fancyhf{}                          % Clear the current style
+    \renewcommand{\headrulewidth}{0pt}  % Clear the horizontal rule under the header
+}
+\end{minted}
+
 \subsection{\texttt{float}}
 \subsection{\texttt{fontenc}}
 \subsection{\texttt{geometry}}
@@ -143,6 +168,38 @@ It takes a single parameter, that is the subtitle to display.
 
 \subsubsection{Answer questions with \texttt{imtaQuestion} and \texttt{imtaQuestionReset}}
 
+The \imtaInlinecode{latex}{\imtaQuestion} command outputs and formats a question counter.
+It's meant to be used in reports for assignment with questions.
+The counter should be reset with the \imtaInlinecode{latex}{\imtaQuestionReset}.
+The output is as follows:
+
+\imtaQuestion
+Answer to first question
+
+\imtaQuestion
+Answer to second question
+
+\imtaQuestionReset
+
+\imtaQuestion
+Answer to first question of the second section
+
+\vspace{\baselineskip}
+And the corresponding code:
+
+\begin{minted}{latex}
+\imtaQuestion
+Answer to the first question
+
+\imtaQuestion
+Answer to the second question
+
+\imtaQuestionReset
+
+\imtaQuestion
+Answer to the first question of the second section
+\end{minted}
+
 
 
 %%%%%%%%%% ENVIRONMENTS %%%%%%%%%% 
@@ -153,6 +210,20 @@ It takes a single parameter, that is the subtitle to display.
 
 \subsubsection{Typeset code listings with \texttt{minted}}
 
+%\subsection{\texttt{imta} environments}
+%
+%\subsubsection{Typeset console sessions with \texttt{imtaConsoleSession}}
+%
+%The \imtaInlinecode{latex}{imtaConsoleSession} environment provides a way to format console sessions.
+%It outputs raw text in texttyper font, in a framed box.
+%Here is an output example:
+%
+%\begin{imtaConsoleSession}
+%    user@host:~$ mkdir newDirectory
+%    user@host:~$ cd newDirectory
+%    user@host:~$ touch newFile
+%\end{imtaConsoleSession}
+
 
 
 %%%%%%%%%% STYLING %%%%%%%%%% 
@@ -160,7 +231,7 @@ It takes a single parameter, that is the subtitle to display.
 \section{IMT Atlantique styling}
 
 The official IMT Atlantique styling is not really \LaTeX-ish, and takes the decision to use a sans-serif font for body text.
-Therefore, I chose to use the default \LaTeX{] font settings, which look much more professional.
+Therefore, I chose to use the default \LaTeX{} font settings, which look much more professional.
 Of course, this style does not suit the official report style.
 Thus, I decided to provide a command that enables that official style.
 

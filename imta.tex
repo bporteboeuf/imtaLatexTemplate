@@ -123,7 +123,7 @@
 % \imtaQuestionReset
 % Reset the question counter
 \newcommand{\imtaQuestionReset}{%
-    \setcounter{\imtaQuestionCounter}{0}%
+    \setcounter{imtaQuestionCounter}{0}%
 }
 
 % \imtaMakeCover
@@ -176,10 +176,21 @@
 
 %%%%%%%%%% ENVIRONMENTS %%%%%%%%%% 
 
-% imtaCode
-% Typeset code listings
-\newenvironment{imtaCode}[1]{
-    \begin{minted}[frame=single, framesep=5pt, xleftmargin=\parindent, linenos, breaklines]{#1}
-}{
-    \end{minted}
-}
+%% imtaCode
+%% Typeset code listings
+%\newenvironment{imtaCode}[1]{
+%    \begin{minted}[frame=single, framesep=5pt, xleftmargin=\parindent, linenos, breaklines]{#1}
+%}{
+%    \end{minted}
+%}
+%
+%
+%% imtaConsoleSession
+%% Typeset a console session
+%\newenvironment{imtaConsoleSession}{
+%    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]
+%    \texttt
+%    \noexpand
+%}{
+%    \end{mdframed}
+%}
