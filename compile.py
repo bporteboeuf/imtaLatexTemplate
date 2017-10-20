@@ -1,5 +1,8 @@
 #! /usr/bin/python3
 
+import glob
+import os
+import pickle
 import subprocess
 import sys
 import traceback
@@ -7,11 +10,19 @@ import traceback
 
 OPENING_BRACKETS = ['(', '[', '{']
 CLOSING_BRACKETS = [')', ']', '}']
+SETUP_PATH = ".latexCompileSetup"
+
+
+class SetupFile:
+    def __init__(self, path, **kwargs):
+        self.path = path
+        for k, v in kwargs:
+            self.__setattr__(k, v)
 
 
 def ask(question, yes=['yes', 'y'], no=['no', 'n']):
     print(question)
-    answer = input("({}/{})> ".format(yes[0], no[0]))
+    answer = input("[{}/{}]> ".format(yes[0], no[0]))
 
     if answer in yes:
         return True
@@ -95,10 +106,46 @@ def compile_to_pdf(path, flags=None):
     subprocess.call(["pdflatex"] + flags + [path])
 
 
-def main(path, flags=None):
-    parse(path)
-    compile_to_pdf(path, flags=flags)
+def setup_main_file():
+    texFiles = glob.glob("*tex")
+    try:
+        texFiles.remove("imta.tex")
+    except:
+        pass
+
+    mainFile = min(texFiles, key=lambda f: os.path.getmtime(f))
+    answer = ask("Is {} the main file?".format(mainFile))
+    if answer:
+        return mainFile
+    else:
+        return input("Type in the path of the main file\n> ")
+
+
+def setup():
+    setupFileObject = SetupFile(SETUP_PATH)
+
+    mainFile = setup_main_file()
+    setupFileObject.mainFile = mainFile
+
+    with open(SETUP_PATH, 'wb') as setupFile:
+        pickle.dump(setupFileObject, setupFile)
+
+
+def main(flags=None):
+    try:
+        with open(SETUP_PATH, 'rb') as _:
+            pass
+
+    except Exception as error:
+        setup()
+
+    with open(SETUP_PATH, 'rb') as setupFile:
+        setupFileObject = pickle.load(setupFile)
+        mainFile = setupFileObject.mainFile
+
+        parse(mainFile)
+        compile_to_pdf(mainFile, flags=flags)
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], flags=['-shell-escape'])
+    main(flags=['-shell-escape'])
