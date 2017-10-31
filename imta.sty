@@ -1,44 +1,46 @@
+\NeedsTeXFormat{LaTeX2e}
+
 %%%%%%%%%% PACKAGES %%%%%%%%%%
 
 % Document geometry management
-\usepackage[a4paper, margin=2cm, top=3cm]{geometry}
+\RequirePackage[a4paper, margin=2cm, top=3cm]{geometry}
 
 % Images management
-\usepackage{graphicx}
+\RequirePackage{graphicx}
 
 % Floats management
-\usepackage{float}
+\RequirePackage{float}
 
 % Output font management
-\usepackage[T1]{fontenc}
+\RequirePackage[T1]{fontenc}
 
 % Document encoding management
-\usepackage[utf8]{inputenc}
+\RequirePackage[utf8]{inputenc}
 
 % Include external pdf documents
 % Used for generating the cover
-\usepackage{pdfpages}
+\RequirePackage{pdfpages}
 
 % Fancy headers and footers
-\usepackage{fancyhdr}
+\RequirePackage{fancyhdr}
 
 % Fancy code listings
-\usepackage{minted}
+\RequirePackage{minted}
 
 % Pictures drawing
-\usepackage{tikz}
+\RequirePackage{tikz}
 
 % Metadata access
-\usepackage{titling}
+\RequirePackage{titling}
 
 % Arbitrary font size
-\usepackage{anyfontsize}
+\RequirePackage{anyfontsize}
 
 % Fancy frames and boxes
-\usepackage{mdframed}
+\RequirePackage{mdframed}
 
 % Section styling
-\usepackage{sectsty}
+\RequirePackage{sectsty}
 
 
 
@@ -109,7 +111,7 @@
 % \imtaInlinecode
 % Typeset inline code
 % First parameter is the language of the text to typeset
-% Second parameter is the text to typeset
+%% Second parameter is the text to typeset
 \newcommand{\imtaInlinecode}[2]{%
     \setlength{\fboxsep}{2pt}\colorbox{imtaInlineCodeBackground}{\mintinline{#1}{#2}}%
 }
