@@ -1,7 +1,42 @@
-% Note: some functionalities require the Minted Package.
-%       This package further requires:
-%         1. To use the --escape-shell option when compiling the document
-%         2. To have Pymentize installed (Having Python installed, you can simply run pip install Pygments)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File Name:       imta_extra
+%
+% Description:     Enables advanced functionalities of the IMT Atlantique
+%                  LaTeX Template.
+%
+% Note:            some functionalities require the Minted Package.
+%                  This package further requires:
+%                     1. To use the --escape-shell option when compiling 
+%                        the document
+%                     2. To have Pymentize installed (Having Python installed,
+%                        you can simply run the command: pip install Pygments)
+%
+% Limitations:     /
+%
+% Errors:          None known
+%
+% Dependencies:    imta_core
+%                  anyfontsize
+%                  float
+%                  mdframed
+%                  minted
+%                  titling
+%
+% Author:          A. Foucault - armand.foucault@telecom-bretagne.eu
+% Contributors:    B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
+%
+% University :     IMT Atlantique, Brest (France)
+%
+% TeX Environment: TeXLive + pdfLaTeX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Revision List:
+% Version    Author   Date         Changes
+% 1.0        BP       31.10.2017   Original imta.sty package split into
+%                                  imt_core.sty and imta_extra.sty
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Note: 
 
 
 \NeedsTeXFormat{LaTeX2e}
@@ -11,14 +46,8 @@
 % Document geometry management
 \RequirePackage{imta_core}
 
-% Floats management
-\RequirePackage{float}
-
 % Fancy code listings
 \RequirePackage{minted}
-
-% Metadata access
-\RequirePackage{titling}
 
 % Arbitrary font size
 \RequirePackage{anyfontsize}

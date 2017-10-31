@@ -1,3 +1,43 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File Name:       imta_core
+%
+% Description:     Overall layout and colours of the IMT Atlantique
+%                  LaTeX Template.
+%
+% Note:            /
+%
+% Limitations:     /
+%
+% Errors:          None known
+%
+% Dependencies:    anyfontsize
+%                  geometry
+%                  graphicx
+%                  fancyhdr
+%                  float
+%                  fontenc
+%                  inputenc
+%                  pdfpages
+%                  secsty
+%                  tikz
+%                  titling
+%
+% Author:          A. Foucault - armand.foucault@telecom-bretagne.eu
+% Contributors:    B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
+%
+% University :     IMT Atlantique, Brest (France)
+%
+% TeX Environment: TeXLive + pdfLaTeX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Revision List:
+% Version    Author   Date         Changes
+% 1.0.0      AF       15.10.2017   First Draft
+% 1.0.1      BP       31.10.2017   Original preamble .tex file changed
+%                                  to a .sty package
+% 1.1.0      BP       31.10.2017   Original imta.sty package split into
+%                                  imt_core.sty and imta_extra.sty
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \NeedsTeXFormat{LaTeX2e}
 
 %%%%%%%%%% PACKAGES %%%%%%%%%%
@@ -24,9 +64,6 @@
 % Fancy headers and footers
 \RequirePackage{fancyhdr}
 
-% Fancy code listings
-\RequirePackage{minted}
-
 % Pictures drawing
 \RequirePackage{tikz}
 
@@ -35,9 +72,6 @@
 
 % Arbitrary font size
 \RequirePackage{anyfontsize}
-
-% Fancy frames and boxes
-\RequirePackage{mdframed}
 
 % Section styling
 \RequirePackage{sectsty}
