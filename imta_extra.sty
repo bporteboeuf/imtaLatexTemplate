@@ -1,0 +1,77 @@
+% Note: some functionalities require the Minted Package.
+%       This package further requires:
+%         1. To use the --escape-shell option when compiling the document
+%         2. To have Pymentize installed (Having Python installed, you can simply run pip install Pygments)
+
+
+\NeedsTeXFormat{LaTeX2e}
+
+%%%%%%%%%% PACKAGES %%%%%%%%%%
+
+% Document geometry management
+\RequirePackage{imta_core}
+
+% Floats management
+\RequirePackage{float}
+
+% Fancy code listings
+\RequirePackage{minted}
+
+% Metadata access
+\RequirePackage{titling}
+
+% Arbitrary font size
+\RequirePackage{anyfontsize}
+
+% Fancy frames and boxes
+\RequirePackage{mdframed}
+
+
+
+
+
+% minted
+\setminted{linenos, breaklines}
+\BeforeBeginEnvironment{minted}{%
+    \vspace{0.5\baselineskip}
+    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]%
+}
+\AfterEndEnvironment{minted}{%
+    \end{mdframed}%
+}
+\renewcommand{\theFancyVerbLine}{\ttfamily \textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}
+
+\setmintedinline{breaklines=false}
+
+
+%%%%%%%%%% COMMANDS %%%%%%%%%%
+
+% \imtaInlinecode
+% Typeset inline code
+% First parameter is the language of the text to typeset
+%% Second parameter is the text to typeset
+\newcommand{\imtaInlinecode}[2]{%
+    \setlength{\fboxsep}{2pt}\colorbox{imtaInlineCodeBackground}{\mintinline{#1}{#2}}%
+}
+
+
+%%%%%%%%%% ENVIRONMENTS %%%%%%%%%% 
+
+%% imtaCode
+%% Typeset code listings
+%\newenvironment{imtaCode}[1]{
+%    \begin{minted}[frame=single, framesep=5pt, xleftmargin=\parindent, linenos, breaklines]{#1}
+%}{
+%    \end{minted}
+%}
+%
+%
+%% imtaConsoleSession
+%% Typeset a console session
+%\newenvironment{imtaConsoleSession}{
+%    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]
+%    \texttt
+%    \noexpand
+%}{
+%    \end{mdframed}
+%}
