@@ -241,19 +241,19 @@ Answer to the first question of the second section
 
 \subsubsection{Typeset code listings with \texttt{minted}}
 
-%\subsection{\texttt{imta} environments}
-%
-%\subsubsection{Typeset console sessions with \texttt{imtaConsoleSession}}
-%
-%The \imtaInlinecode{latex}{imtaConsoleSession} environment provides a way to format console sessions.
-%It outputs raw text in texttyper font, in a framed box.
-%Here is an output example:
-%
-%\begin{imtaConsoleSession}
-%    user@host:~$ mkdir newDirectory
-%    user@host:~$ cd newDirectory
-%    user@host:~$ touch newFile
-%\end{imtaConsoleSession}
+\subsection{\texttt{imta} environments}
+
+% \subsubsection{Typeset console sessions with \texttt{minted} and the \texttt{imtaConsole} style}
+% 
+% The \imtaInlinecode{latex}{imtaConsole} style for \imtaInlinecode{latex}{minted} provides a way to format console sessions.
+% It outputs raw text in texttyper font, in a framed box.
+% Here is an output example:
+% 
+% \begin{minted}{imtaConsole}
+%     user@host:~$ mkdir newDirectory
+%     user@host:~$ cd newDirectory
+%     user@host:~$ touch newFile
+% \end{minted}
 
 
 
@@ -269,19 +269,19 @@ Thus, I decided to provide a command that enables that official style.
 The main aspects of the official style are:
 
 \begin{itemize}
-    \item Use of the Helvetica font for the body;
-    \item Section titles in green (\imtaInlinecode{latex}{\imtaGreen}) and other heading titles in gray (\imtaInlinecode{latex}{\imtaGray});
-    \item Section title in the header;
-    \item Page number at the right corner of the footer.
+\item Use of the Helvetica font for the body;
+\item Section titles in green (\imtaInlinecode{latex}{\imtaGreen}) and other heading titles in gray (\imtaInlinecode{latex}{\imtaGray});
+\item Section title in the header;
+\item Page number at the right corner of the footer.
 \end{itemize}
 
 For comparison, the default style of the template is:
 
 \begin{itemize}
-    \item Use of the default Computer Modern font for the body;
-    \item Default style for headings: all in black;
-    \item Document title at the left corner and author's name at the right corner of the header;
-    \item Page number at the center of the footer.
+\item Use of the default Computer Modern font for the body;
+\item Default style for headings: all in black;
+\item Document title at the left corner and author's name at the right corner of the header;
+\item Page number at the center of the footer.
 \end{itemize}
 
 The official IMT Atlantique style can be toggled with the \imtaInlinecode{latex}{\imtaSetIMTStyle} command.
