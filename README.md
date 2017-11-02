@@ -2,14 +2,14 @@
 LaTeX template for IMT Atlantique reports
 
 
-# Project creation
+## Project creation
 
 This package contains two LaTeX files: `imta_core.sty` and `imta_extra.sty`.
 The `core` file provides the main features for producing a report that conforms to the official IMT Atlantique style.
 The `extra` file provides advanced features, including code formatting.
 
 
-# Compilation
+## Compilation
 
 This template is intended to be compiled with `pdflatex`.
 Furthermore, it makes use of the `minted` package.
@@ -33,3 +33,9 @@ At the first execution, the script will ask you the path of the main file, that 
     > 
 
 This will create a `.latexCompileSetup` file, that contains a pickled Python object, representing the settings for your project.
+
+
+## TODO
+
+- Complete and update the documentation (`imta_documentation.tex`)
+- Improve the experimental `\imtaLogo` command (`tikz_logo` branch)
