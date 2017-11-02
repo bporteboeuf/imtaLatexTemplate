@@ -101,9 +101,8 @@
 %%%%%%%%%% PACKAGES SETTINGS %%%%%%%%%%
 
 
-
 % graphicx
-\setkeys{Gin}{width=\linewidth}
+%\setkeys{Gin}{width=\linewidth}
 
 
 % fancyhdr
@@ -131,7 +130,6 @@
 }
 
 
-
 % \imtaQuestion
 % Output "Question" followed by the current question number
 % The \imtaQuestionReset command should be called after each new section or subsection,
@@ -142,31 +140,72 @@
     \subsection*{Question \arabic{imtaQuestionCounter}}%
 }
 
+
 % \imtaQuestionReset
 % Reset the question counter
 \newcommand{\imtaQuestionReset}{%
     \setcounter{imtaQuestionCounter}{0}%
 }
 
-% \imtaMakeCover
-% Output the IMTA title page
-\newcommand{\imtaMaketitlepage}{%
+
+% \geteltsize gets the 1/10th of the smallest dimension of the paper used
+\def\geteltsize{%
+    \ifdim \paperwidth < \paperheight
+    \paperwidth/10
+    \else
+    \paperheight/10
+    \fi%
+}
+
+
+% \logoIMTA{<width>} includes the IMTA logo according to the given width
+\newcommand\logoIMTA[1]{\includegraphics[width = #1]{IMT_Atlantique_logo_RVB.pdf}}
+
+\makeatletter
+%\titleLayout is the actual layout used for the cover by \imtaMaketitlepage
+\def\titleLayout{%
+%    \thispagestyle{empty}
     \thispagestyle{imtaFirstpage}
     \pagenumbering{gobble}
-    \includepdf[pagecommand={%
-        \begin{tikzpicture}[remember picture, overlay]
-        \node[anchor=west, align=left] at (-0.5, -10.5) {%
+    \newgeometry{top = 1cm, bottom = 1cm, inner = 1cm, outer = 1cm}
+    \begin{flushright}
+        \begin{tikzpicture}
+        \filldraw[draw=imtaGreen,fill=imtaGreen] (-3\geteltsize,0) -- (0,-3\geteltsize) -- (0\geteltsize,0) -- cycle;
+        \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\geteltsize,-3\geteltsize) -- (0,-5.24\geteltsize) -- (0,-3\geteltsize) -- cycle;
+        \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\geteltsize,0) -- (-2.24\geteltsize,-3\geteltsize) -- (-5.24\geteltsize,-3\geteltsize) -- cycle;
+        
+        \node (date) [draw=none, text width=.95\textwidth, align=left, anchor=west] at (-.95\textwidth, -6\geteltsize) {
             \large\fontfamily{phv}\selectfont\thedate \\
-            \large\fontfamily{phv}\selectfont\theauthor \vspace{1.5cm}\\
-            \textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace{.5cm}\\
-            \textcolor{imtaGreen}{\Large\fontfamily{phv}\selectfont\subtitleValue}
-        };
+            \large\fontfamily{phv}\selectfont\theauthor \vspace*{1.5cm}\\
+            \textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace*{.5cm}\\
+            \textcolor{imtaGreen}{\Large\fontfamily{phv}\selectfont\subtitleValue}};
         \end{tikzpicture}
-    }]{titlepage}
-    \newpage
+        \vfill
+        \begin{minipage}{.98\linewidth}
+            \begin{flushleft}
+                \logoIMTA{6.26cm}
+            \end{flushleft}
+        \end{minipage}
+    \end{flushright}
+    \cleardoublepage
+    \restoregeometry
     \pagenumbering{arabic}
     \setcounter{page}{2}
 }
+
+%\imtaMaketitlepage is a twocolumns robust titlepage command
+\newcommand\imtaMaketitlepage{%
+    \clearpage
+    \if@twocolumn
+        \onecolumn % we force it to a one column environment
+        \titleLayout
+        \twocolumn
+    \else
+        \titleLayout
+    \fi
+}
+\makeatother
+
 
 % \imtaSetIMTStyle
 % Set a styling that conforms to the official report template
@@ -193,6 +232,7 @@
         \renewcommand{\headrulewidth}{0pt}
     }
 }
+
 
 
 
