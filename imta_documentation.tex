@@ -71,7 +71,7 @@ In order to use this template, create a new directory, and copy into it the foll
 Your document should be a \imtaInlinecode{bash}{.tex} file, with the following skeleton:
 
 % Report skeleton
-\begin{minted}{latex}
+\begin{imtaCode}{latex}
 \documentclass{article}
 
 \include{imta}
@@ -91,7 +91,7 @@ Your document should be a \imtaInlinecode{bash}{.tex} file, with the following s
 
 \end{document}
 
-\end{minted}
+\end{imtaCode}
 % Skeleton end
 
 
@@ -103,9 +103,9 @@ As a consequence, the compiler needs to be passed the \imtaInlinecode{bash}{-she
 In addition, as usual when wishing a table of contents, the main document should be compiled twice, so as to make sure that the references refer to the right labels.
 If your main document is called \imtaInlinecode{bash}{main.tex}, use the following command to compile it:
 
-\begin{minted}[linenos=no]{bash}
+\begin{imtaConsole}
 $ pdflatex -shell-escape main.tex
-\end{minted}
+\end{imtaConsole}
 
 
 
@@ -118,7 +118,7 @@ Besides, some packages are further configured, through specific commands.
 These can be found in the source code itself, at the \imtaInlinecode{latex}{PACKAGES SETTINGS} section.
 The following is an abstract from the \imtaInlinecode{latex}{PACKAGES} section of the \imtaInlinecode{bash}{imta.tex} file.
 
-\begin{minted}{latex}
+\begin{imtaCode}{latex}
 
 \usepackage[a4paper, margin=2cm, top=3cm]{geometry}
 \usepackage{graphicx}
@@ -133,7 +133,7 @@ The following is an abstract from the \imtaInlinecode{latex}{PACKAGES} section o
 \usepackage{anyfontsize}
 \usepackage{mdframed}
 
-\end{minted}
+\end{imtaCode}
 
 \subsection{\texttt{anyfontsize}}
 
@@ -145,7 +145,7 @@ It provides the \imtaInlinecode{latex}{\fontsize} command, used for generating t
 The \imtaInlinecode{latex}{fancyhdr} package lets define custom headers and footers.
 For instance, the IMT Atlantique header and footer style is defined as follows (inside of the \imtaInlinecode{latex}{\imtaSetIMTStyle} command):
 
-\begin{minted}{latex}
+\begin{imtaCode}{latex}
 \pagestyle{fancy}                       % Select the fancy style provided by fancyhdr
 
 \fancyhead{}                            % Clear the current header style
@@ -160,7 +160,7 @@ For instance, the IMT Atlantique header and footer style is defined as follows (
     \fancyhf{}                          % Clear the current style
     \renewcommand{\headrulewidth}{0pt}  % Clear the horizontal rule under the header
 }
-\end{minted}
+\end{imtaCode}
 
 \subsection{\texttt{float}}
 \subsection{\texttt{fontenc}}
@@ -239,7 +239,11 @@ Answer to the first question of the second section
 
 \subsection{Generic environments}
 
-\subsubsection{Typeset code listings with \texttt{minted}}
+\subsubsection{Typeset code listings with \texttt{imtaCode}}
+
+\begin{imtaCode}{cpp}
+int a = 5;
+\end{imtaCode}
 
 \subsection{\texttt{imta} environments}
 

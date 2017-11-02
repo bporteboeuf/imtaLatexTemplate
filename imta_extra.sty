@@ -56,32 +56,6 @@
 
 
 
-%%%%%%%%%% PACKAGES SETTINGS %%%%%%%%%%
-
-% minted
-\setminted{linenos, breaklines}
-\BeforeBeginEnvironment{minted}{%
-    \vspace{0.5\baselineskip}
-    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]%
-}
-\AfterEndEnvironment{minted}{%
-    \end{mdframed}%
-}
-\renewcommand{\theFancyVerbLine}{\ttfamily \textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}
-
-\setmintedinline{breaklines=false}
-
-
-
-%%%%%%%%%% MINTED STYLES %%%%%%%%%%
-
-% imtaConsole
-% Formatting for a console session
-\newminted{imtaConsole}{%
-    linenos=no
-}
-
-
 %%%%%%%%%% COMMANDS %%%%%%%%%%
 
 % \imtaInlinecode
@@ -90,4 +64,36 @@
 % Second parameter is the text to typeset
 \newcommand{\imtaInlinecode}[2]{%
     \setlength{\fboxsep}{2pt}\colorbox{imtaInlineCodeBackground}{\mintinline{#1}{#2}}%
+}
+
+
+
+%%%%%%%%%% ENVIRONMENTS %%%%%%%%%%
+
+% imtaCode
+% Format a listing of code
+% This environment actually is an alias for the minted environment, that only exists
+% for the sake of naming uniformity
+\newenvironment{imtaCode}[1]{%
+    \VerbatimEnvironment%
+    \renewcommand{\theFancyVerbLine}{\ttfamily \textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}%
+    \vspace{0.5\baselineskip}%
+    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]%
+    \begin{minted}[linenos, breaklines]{#1}%
+}{
+    \end{minted}%
+    \end{mdframed}%
+}
+
+
+% imtaConsole
+% Format a console session
+\newenvironment{imtaConsole}{%
+    \VerbatimEnvironment%
+    \vspace{0.5\baselineskip}%
+    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]%
+    \begin{minted}{text}%
+}{
+    \end{minted}%
+    \end{mdframed}%
 }
