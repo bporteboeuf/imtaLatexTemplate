@@ -158,11 +158,17 @@
 }
 
 
-% \imtaLogo{<width>} includes the IMTA logo according to the given width
-\newcommand\imtaLogo[1]{\includegraphics[width = #1]{IMT_Atlantique_logo_RVB.pdf}}
+% \imtaLogo
+% Include the IMTA logo according to the given width
+\newcommand\imtaLogo[1]{\includegraphics[width = #1]{imta_logo.pdf}}
 
+
+% \imtaMaketitlepage
+% Output the title page, with regards for the IMT Atlantique official style
+% This is a twocolumns robust titlepage command
 \makeatletter
-%\titleLayout is the actual layout used for the cover by \imtaMaketitlepage
+
+% \titleLayout is the actual layout used for the cover by \imtaMaketitlepage
 \def\titleLayout{%
 %    \thispagestyle{empty}
     \thispagestyle{imtaFirstpage}
@@ -193,7 +199,6 @@
     \setcounter{page}{2}
 }
 
-%\imtaMaketitlepage is a twocolumns robust titlepage command
 \newcommand\imtaMaketitlepage{%
     \clearpage
     \if@twocolumn
