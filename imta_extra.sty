@@ -11,6 +11,8 @@
 %                     2. To have Pymentize installed (Having Python installed,
 %                        you can simply run the command: pip install Pygments)
 %
+%                  Package options: nouppersectioninlof and nouppersectioninlot
+%
 % Limitations:     /
 %
 % Errors:          None known
@@ -33,6 +35,9 @@
 % Version    Author   Date         Changes
 % 1.0        BP       31.10.2017   Original imta.sty package split into
 %                                  imt_core.sty and imta_extra.sty
+% 1.1        BP       02.11.2017   \frontmatter & \mainmatter commands
+%                                  introduced - support for uppersection
+%                                  display in List of Tables/Figures
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -40,7 +45,9 @@
 
 
 
-%%%%%%%%%% PACKAGES %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%      P A C K A G E S        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Document geometry management
 \RequirePackage{imta_core}
@@ -56,7 +63,47 @@
 
 
 
-%%%%%%%%%% COMMANDS %%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%      D E F A U L T      E X P O R T       S E T T I N G S        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Some export-related booleans are introduced
+\makeatletter
+    \newif\if@printuppersectioninLOF      \@printuppersectioninLOFtrue
+    \newif\if@printuppersectioninLOT      \@printuppersectioninLOTtrue
+\makeatother
+
+\makeatletter
+    \global\newif\if@uppersectionprintedinLOF  \global\@uppersectionprintedinLOFfalse
+    \global\newif\if@uppersectionprintedinLOT  \global\@uppersectionprintedinLOTfalse
+    \gdef\uppersectiontitle\doctitle
+    \gdef\uppersectionnumber{ }
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%           O P T I O N S          D E C L A R A T I O N           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+    % Disables the printing of the upper section in the List Of Figures
+    \DeclareOption{nouppersectioninlof}{\@printuppersectioninLOFfalse} 
+    % Disables the printing of the upper section in the List Of Tables
+    \DeclareOption{nouppersectioninlot}{\@printuppersectioninLOTfalse}
+\makeatother
+
+
+\ExecuteOptions{}
+\ProcessOptions\relax
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%           C O M M A N D S           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \imtaInlinecode
 % Typeset inline code
@@ -79,7 +126,58 @@
 \makeatother
 
 
-%%%%%%%%%% ENVIRONMENTS %%%%%%%%%%
+\makeatletter
+\newif\if@chapterdefined % A new \if statement is created to allow easier checking for the existance of \chapter
+\@ifundefined{chapter}{\global \@chapterdefinedfalse}{\global \@chapterdefinedtrue}
+
+% The chapter command is redefined when relevant, in order to update the upper section informations
+\if@chapterdefined
+\let\oldchapter\chapter % The reference command is saved and a new one is redefined, based on the old. 
+% It is VERY important to catch the star version as well, otherwise it will not compile
+\renewcommand*{\chapter}{\@ifstar{\starchapter}{\@dblarg\nostarchapter}}
+
+\newcommand*\starchapter[1]{%
+    \if@twocolumn % We want to make sure the chapter page is always on a one column full page
+    \onecolumn \cleardoublepage \oldchapter*{#1} \twocolumn
+    \else
+    \cleardoublepage \oldchapter*{#1}
+    \fi
+    \gdef\uppersectiontitle{#1} \gdef\uppersectionnumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+
+\def\nostarchapter[#1]#2{%
+    \if@twocolumn % We want to make sure the chapter page is always on a one column full page
+    \onecolumn \cleardoublepage \oldchapter[{#1}]{#2} \twocolumn
+    \else
+    \cleardoublepage \oldchapter[{#1}]{#2}
+    \fi
+    \gdef\uppersectiontitle{#1}  \gdef\uppersectionnumber{\thechapter. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+
+\else
+\relax
+\fi
+\makeatother
+
+
+% The section command is redefined, in order to update the upper section informations
+\makeatletter
+    \if@chapterdefined
+        \relax
+    \else
+        \let\oldsection\section
+        \renewcommand{\section}{\@ifstar{\starsection}{\@dblarg\nostarsection}}
+        \newcommand\starsection[1]{%
+            \oldsection*{#1}  \gdef\uppersectiontitle{#1} \gdef\uppersectionnumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+        \def\nostarsection[#1]#2{%
+            \oldsection[{#1}]{#2} \gdef\uppersectiontitle{#1} \gdef\uppersectionnumber{\thesection. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+    \fi
+\makeatother
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%           E N V I R O N M E N T S           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % imtaCode
 % Format a listing of code
@@ -108,3 +206,56 @@
     \end{minted}%
     \end{mdframed}%
 }
+
+
+
+
+% The figure environment is redefined to update the LOF with the upper section title when relevant
+\makeatletter
+    \def\printuppersectioninlof{%
+        \if@uppersectionprintedinLOF
+            \relax
+        \else
+            \if@printuppersectioninLOF
+                \addcontentsline{lof}{chapter}{\uppersectionnumber \uppersectiontitle}
+            \fi
+        \fi
+        \global\@uppersectionprintedinLOFtrue}
+    
+    \let\oldfigure\figure
+    
+    \def\figure{\@ifnextchar{[}{\figurewarg}{\figurewotarg}}
+    
+    
+    \def\figurewarg[#1]{%        
+        \oldfigure[#1]\printuppersectioninlof}
+    
+    \def\figurewotarg{%
+        \oldfigure\printuppersectioninlof}
+\makeatother
+
+
+
+% The table environment is redefined to update the LOT with the upper section title when relevant
+\makeatletter
+    \def\printuppersectioninlot{%
+        \if@uppersectionprintedinLOT
+            \relax
+        \else
+            \if@printuppersectioninLOT
+                \addcontentsline{lot}{chapter}{\uppersectionnumber \uppersectiontitle}
+            \fi
+        \fi
+        \global\@uppersectionprintedinLOTtrue}
+    
+    \let\oldtable\table
+    
+    \def\table{\@ifnextchar{[}{\tablewarg}{\tablewotarg}}    
+    
+    \def\tablewarg[#1]{%        
+        \oldtable[#1]\printuppersectioninlot}
+    
+    \def\tablewotarg{%
+        \oldtable\printuppersectioninlot}
+\makeatother
+
