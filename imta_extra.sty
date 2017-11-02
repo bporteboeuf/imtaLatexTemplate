@@ -72,8 +72,8 @@
 
 % imtaCode
 % Format a listing of code
-% This environment actually is an alias for the minted environment, that only exists
-% for the sake of naming uniformity
+% The only argument of this environment is the language of the code to format
+% This environment wraps around minted, and is therefore a verbatim environment
 \newenvironment{imtaCode}[1]{%
     \VerbatimEnvironment%
     \renewcommand{\theFancyVerbLine}{\ttfamily \textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}%
