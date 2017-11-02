@@ -28,7 +28,7 @@
 \documentclass{article}
 
 
-\usepackage{imta_core}       % IMTA Template's core (general layout and colors, compatible with standard TeX configurations)
+\usepackage{imta_core}  % IMTA Template's core (general layout and colors, compatible with standard TeX configurations)
 \usepackage{imta_extra} % IMTA Template's more advanced functionalities (might not be compatible with standard TeX configurations)
 
 
@@ -232,13 +232,6 @@ Answer to the first question of the second section
 \end{minted}
 
 
-\subsubsection{\texttt{imtaLogoTikz}}
-
-Outputs the IMT Atlantique logo, using the \imtaInlinecode{latex}{tikz} package.
-Sample output:\\
-
-\imtaLogoTikz
-
 
 %%%%%%%%%% ENVIRONMENTS %%%%%%%%%% 
 
@@ -299,6 +292,7 @@ The official IMT Atlantique style can be toggled with the \imtaInlinecode{latex}
 Since it makes use of the \imtaInlinecode{latex}{\usepackage} macro, it needs to be called in the preamble.
 No way is provided to disable later in the document the official style.
 As a consequence, you cannot have half of the document with the official style, and the other half in the default style.
+
 
 
 \end{document}
