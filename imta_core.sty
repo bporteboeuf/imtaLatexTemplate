@@ -159,8 +159,7 @@
 % \imtaLogoTikz
 % Outputs the IMT Atlantique logo using tikz
 \newcommand{\imtaLogoTikz}[1]{%
-    \begin{scaletikzpicturetowidth}{\textwidth}
-    \begin{tikzpicture}[scale=\tikzscale, every node/.style={inner sep=0,outer sep=0}]
+    \begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
         \draw (-1,1) -- (8,1);
         \draw (-1,0) -- (8,0);
         \draw (-1,-1) -- (8,-1);
@@ -186,7 +185,6 @@
         \node [anchor=north west] at (0,-3) {\Large\fontfamily{phv}\selectfont Bretagne - Pays de la Loire};
         \node [anchor=south west] at (0,-4) {\Large\fontfamily{phv}\selectfont École Mines-Télécom};
     \end{tikzpicture}
-    \end{scaletikzpicturetowidth}
 }
 
 
