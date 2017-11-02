@@ -38,4 +38,5 @@ This will create a `.latexCompileSetup` file, that contains a pickled Python obj
 ## TODO
 
 - Complete and update the documentation (`imta_documentation.tex`)
-- Improve the experimental `\imtaLogo` command (`tikz_logo` branch)
+- Improve the experimental `\imtaLogo` command (`imta_core.tex`)
+- Add the desired width as a parameter to the `\imtaLogoTikz` command (`imta_core.tex`)
