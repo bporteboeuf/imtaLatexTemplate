@@ -66,6 +66,17 @@
     \setlength{\fboxsep}{2pt}\colorbox{imtaInlineCodeBackground}{\mintinline{#1}{#2}}%
 }
 
+\makeatletter
+% We propose the possibility to switch from roman to arabic numbers when starting the core content of the report
+\newif\if@mainmatter \@mainmattertrue
+% The \frontmatter command defines the begining of the document and its introduction
+% attributes (title page, table of contents, etc)
+\def\frontmatter{%
+    \@mainmatterfalse \pagenumbering{roman}}
+% The \mainmatter[o] command defines the begining of the document's core
+\def\mainmatter{%
+    \@mainmattertrue \pagenumbering{arabic}}
+\makeatother
 
 
 %%%%%%%%%% ENVIRONMENTS %%%%%%%%%%
