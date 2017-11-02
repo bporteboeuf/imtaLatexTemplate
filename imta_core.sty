@@ -148,16 +148,6 @@
 }
 
 
-% \geteltsize gets the 1/10th of the smallest dimension of the paper used
-\def\geteltsize{%
-    \ifdim \paperwidth < \paperheight
-    \paperwidth/10
-    \else
-    \paperheight/10
-    \fi%
-}
-
-
 % \imtaLogo
 % Include the IMTA logo according to the given width
 \newcommand\imtaLogo[1]{\includegraphics[width = #1]{imta_logo.pdf}}
@@ -167,6 +157,15 @@
 % Output the title page, with regards for the IMT Atlantique official style
 % This is a twocolumns robust titlepage command
 \makeatletter
+
+% \geteltsize gets the 1/10th of the smallest dimension of the paper used
+\def\geteltsize{%
+    \ifdim \paperwidth < \paperheight
+    \paperwidth/10
+    \else
+    \paperheight/10
+    \fi%
+}
 
 % \titleLayout is the actual layout used for the cover by \imtaMaketitlepage
 \def\titleLayout{%
