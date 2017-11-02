@@ -118,6 +118,9 @@ def setup_main_file():
     if answer:
         return mainFile
     else:
+        texFiles.remove(mainFile)
+        print("Detected .tex files:")
+        print("\n".join("\t" + it_file for it_file in texFiles))
         return input("Type in the path of the main file\n> ")
 
 
@@ -136,15 +139,21 @@ def main(flags=None):
         with open(SETUP_PATH, 'rb') as _:
             pass
 
-    except Exception as error:
+    except Exception:
         setup()
 
-    with open(SETUP_PATH, 'rb') as setupFile:
-        setupFileObject = pickle.load(setupFile)
-        mainFile = setupFileObject.mainFile
+    while True:
+        with open(SETUP_PATH, 'rb') as setupFile:
+            setupFileObject = pickle.load(setupFile)
+            mainFile = setupFileObject.mainFile
 
-        parse(mainFile)
-        compile_to_pdf(mainFile, flags=flags)
+            if os.path.exists(mainFile):
+                break
+            else:
+                 setup()
+
+    parse(mainFile)
+    compile_to_pdf(mainFile, flags=flags)
 
 
 if __name__ == '__main__':
