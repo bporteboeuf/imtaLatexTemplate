@@ -74,6 +74,9 @@
 % Pictures drawing
 \RequirePackage{tikz}
 
+% For title style customization
+\RequirePackage{titlesec}
+
 % Metadata access
 \RequirePackage{titling}
 
@@ -334,3 +337,29 @@
         \renewcommand{\headrulewidth}{0pt}
     }
 }
+
+
+% We introduce another layer with the \subsubsubsection command
+% Subsubsubsection
+\setcounter{secnumdepth}{4}                              % We increase the counters' level of visibility to 4
+\newcommand\subsubsubsection{}                           % We create a new command
+\titleclass{\subsubsubsection}{straight}[\subsubsection] % Make it a title command
+\newcounter{subsubsubsection}[subsubsection]             % We create a new counter that inherits from subsubsection
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}} % The complete counter is updated
+\titlespacing{\subsubsubsection}{0pt}{2em}{1em}                                % Spacing is updated
+\titleformat{\subsubsubsection}[hang]{\normalsize\it}                % Layout is updated
+{\thesubsubsubsection.}{1em}{\normalsize\it}[\normalsize] % Formatting is updated
+
+
+% Adjusting Table Of Contents levels
+\makeatletter
+    \setcounter{tocdepth}{6} % We increase the level of visibility in the TOC
+    \def\toclevel@subsubsubsection{4}
+    \def\l@subsubsubsection{\@dottedtocline{5}{11em}{5em}}
+    \def\toclevel@paragraph{5}
+    \def\l@paragraph{\@dottedtocline{5}{14em}{6em}}
+    \def\toclevel@subparagraph{6}
+    \def\l@subparagraph{\@dottedtocline{6}{17em}{7em}}
+\makeatother
+
+
