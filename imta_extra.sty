@@ -119,10 +119,10 @@
 % The \frontmatter command defines the begining of the document and its introduction
 % attributes (title page, table of contents, etc)
 \def\frontmatter{%
-    \@mainmatterfalse \pagenumbering{roman}}
+    \@mainmatterfalse \pagenumbering{roman} \setcounter{page}{1}}
 % The \mainmatter[o] command defines the begining of the document's core
 \def\mainmatter{%
-    \@mainmattertrue \pagenumbering{arabic}}
+    \@mainmattertrue \pagenumbering{arabic} \setcounter{page}{1}}
 \makeatother
 
 
@@ -132,28 +132,28 @@
 
 % The chapter command is redefined when relevant, in order to update the upper section informations
 \if@chapterdefined
-\let\oldchapter\chapter % The reference command is saved and a new one is redefined, based on the old. 
-% It is VERY important to catch the star version as well, otherwise it will not compile
-\renewcommand*{\chapter}{\@ifstar{\starchapter}{\@dblarg\nostarchapter}}
-
-\newcommand*\starchapter[1]{%
-    \if@twocolumn % We want to make sure the chapter page is always on a one column full page
-    \onecolumn \cleardoublepage \oldchapter*{#1} \twocolumn
-    \else
-    \cleardoublepage \oldchapter*{#1}
-    \fi
-    \gdef\uppersectiontitle{#1} \gdef\uppersectionnumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
-
-\def\nostarchapter[#1]#2{%
-    \if@twocolumn % We want to make sure the chapter page is always on a one column full page
-    \onecolumn \cleardoublepage \oldchapter[{#1}]{#2} \twocolumn
-    \else
-    \cleardoublepage \oldchapter[{#1}]{#2}
-    \fi
-    \gdef\uppersectiontitle{#1}  \gdef\uppersectionnumber{\thechapter. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+    \let\oldchapter\chapter % The reference command is saved and a new one is redefined, based on the old. 
+    % It is VERY important to catch the star version as well, otherwise it will not compile
+    \renewcommand*{\chapter}{\@ifstar{\starchapter}{\@dblarg\nostarchapter}}
+    
+    \newcommand*\starchapter[1]{%
+        \if@twocolumn % We want to make sure the chapter page is always on a one column full page
+        \onecolumn \cleardoublepage \oldchapter*{#1} \twocolumn
+        \else
+        \cleardoublepage \oldchapter*{#1}
+        \fi
+        \gdef\uppersectiontitle{#1} \gdef\uppersectionnumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+    
+    \def\nostarchapter[#1]#2{%
+        \if@twocolumn % We want to make sure the chapter page is always on a one column full page
+        \onecolumn \cleardoublepage \oldchapter[{#1}]{#2} \twocolumn
+        \else
+        \cleardoublepage \oldchapter[{#1}]{#2}
+        \fi
+        \gdef\uppersectiontitle{#1}  \gdef\uppersectionnumber{\thechapter. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
 
 \else
-\relax
+    \relax
 \fi
 \makeatother
 
