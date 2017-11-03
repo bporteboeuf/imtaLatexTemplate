@@ -36,6 +36,7 @@
 %                                  to a .sty package
 % 1.1.0      BP       31.10.2017   Original imta.sty package split into
 %                                  imt_core.sty and imta_extra.sty
+% 1.1.1      BP       03.11.2017   \imtaMakeCover command added
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -56,6 +57,9 @@
 
 % Output font management
 \RequirePackage[T1]{fontenc}
+
+% Cross-referencing
+\RequirePackage[hidelinks]{hyperref}
 
 % Document encoding management
 \RequirePackage[utf8]{inputenc}
@@ -159,25 +163,25 @@
 % \imtaLogoTikz
 % Outputs the IMT Atlantique logo using tikz according to the given width
 \newcommand{\imtaLogoTikz}[1]{%
-    \resizebox{3cm}{!}{%
+    \resizebox{#1}{!}{%
         \begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
-            \draw (-1,1) -- (8,1);
-            \draw (-1,0) -- (8,0);
-            \draw (-1,-1) -- (8,-1);
-            \draw (-1,-2) -- (8,-2);
-            \draw (-1,-3) -- (8,-3);
-            \draw (-1,-4) -- (8,-4);
-            \draw (-1,-5) -- (8,-5);
-            \draw (-1,1) -- (-1,-5);
-            \draw (0,1) -- (0,-5);
-            \draw (1,1) -- (1,-5);
-            \draw (2,1) -- (2,-5);
-            \draw (3,1) -- (3,-5);
-            \draw (4,1) -- (4,-5);
-            \draw (5,1) -- (5,-5);
-            \draw (6,1) -- (6,-5);
-            \draw (7,1) -- (7,-5);
-            \draw (8,1) -- (8,-5);
+%            \draw (-1,1) -- (8,1);
+%            \draw (-1,0) -- (8,0);
+%            \draw (-1,-1) -- (8,-1);
+%            \draw (-1,-2) -- (8,-2);
+%            \draw (-1,-3) -- (8,-3);
+%            \draw (-1,-4) -- (8,-4);
+%            \draw (-1,-5) -- (8,-5);
+%            \draw (-1,1) -- (-1,-5);
+%            \draw (0,1) -- (0,-5);
+%            \draw (1,1) -- (1,-5);
+%            \draw (2,1) -- (2,-5);
+%            \draw (3,1) -- (3,-5);
+%            \draw (4,1) -- (4,-5);
+%            \draw (5,1) -- (5,-5);
+%            \draw (6,1) -- (6,-5);
+%            \draw (7,1) -- (7,-5);
+%            \draw (8,1) -- (8,-5);
     
             \fill[imtaLightBlue] (0,0) -- (2,0) -- (3,-1) -- (4,0) -- (4,-1) -- %
                                           (5,0) -- (7,0) -- (5,-2) -- (5,-1) -- (4,-1) -- %
@@ -199,9 +203,9 @@
 % \geteltsize gets the 1/10th of the smallest dimension of the paper used
 \def\geteltsize{%
     \ifdim \paperwidth < \paperheight
-    \paperwidth/10
+        \paperwidth/10
     \else
-    \paperheight/10
+        \paperheight/10
     \fi%
 }
 
@@ -210,25 +214,23 @@
 %    \thispagestyle{empty}
     \thispagestyle{imtaFirstpage}
     \pagenumbering{gobble}
-    \newgeometry{top = 1cm, bottom = 1cm, inner = 1cm, outer = 1cm}
+    \newgeometry{top = .5cm, bottom = 1.5cm, left = 2cm, right = 1cm}
     \begin{flushright}
         \begin{tikzpicture}
         \filldraw[draw=imtaGreen,fill=imtaGreen] (-3\geteltsize,0) -- (0,-3\geteltsize) -- (0\geteltsize,0) -- cycle;
         \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\geteltsize,-3\geteltsize) -- (0,-5.24\geteltsize) -- (0,-3\geteltsize) -- cycle;
         \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\geteltsize,0) -- (-2.24\geteltsize,-3\geteltsize) -- (-5.24\geteltsize,-3\geteltsize) -- cycle;
         
-        \node (date) [draw=none, text width=.95\textwidth, align=left, anchor=west] at (-.95\textwidth, -6\geteltsize) {
+        \node (date) [draw=none, text width=\textwidth, align=left, anchor=west] at (-\textwidth, -6\geteltsize) {
             \large\fontfamily{phv}\selectfont\thedate \\
             \large\fontfamily{phv}\selectfont\theauthor \vspace*{1.5cm}\\
             \textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace*{.5cm}\\
             \textcolor{imtaGreen}{\Large\fontfamily{phv}\selectfont\subtitleValue}};
         \end{tikzpicture}
         \vfill
-        \begin{minipage}{.98\linewidth}
             \begin{flushleft}
-                \imtaLogo{6.26cm}
+                \imtaLogoTikz{5.3cm}
             \end{flushleft}
-        \end{minipage}
     \end{flushright}
     \cleardoublepage
     \restoregeometry
@@ -245,6 +247,64 @@
     \else
         \titleLayout
     \fi
+}
+\makeatother
+
+
+
+% We propose a standard back cover which ends on the left side
+\makeatletter
+\newcommand{\imtaMakeCover}{%
+    \clearpage
+    \if@twocolumn
+        \clearpage
+        \onecolumn
+    \fi
+    
+    \if@twoside
+        \ifodd\c@page
+            \shipout\null % We force the left page
+        \fi
+    \fi
+    \newpage \thispagestyle{empty}
+    \footnotesize
+    \begin{center}
+        \begin{minipage}{.85\textwidth}
+            \vspace*{.73\textheight}
+            \centerline{\imtaLogoTikz{3cm}}
+            \vspace*{1.25cm}
+            %    \newline
+            \begin{flushleft}
+                IMT Atlantique Bretagne - Pays de la Loire - \href{www.imt-atlantique.fr}{www.imt-atlantique.fr}\\
+            \end{flushleft}
+            \begin{minipage}{.28\textwidth}
+                Campus de Brest\\
+                Technopôle Brest-Iroise\\
+                CS 83818\\
+                29238 Brest Cedex 03\\
+                T +33 (0)2 29 00 11 11\\
+                F +33 (0)2 29 00 10 00
+            \end{minipage}
+            \hfill
+            \begin{minipage}{.34\textwidth}
+                Campus de Nantes\\
+                4, rue Alfred Kastler - La Chantrerie\\
+                CS 20722\\
+                44307 Nantes Cedex 03\\
+                T +33 (0)2 51 85 81 00\\
+                F +33 (0)2 51 85 81 99
+            \end{minipage}
+            \hfill
+            \begin{minipage}{.28\textwidth}
+                Campus de Rennes\\
+                2, rue de la Châtaigneraie\\
+                CS 17607\\
+                35576 Cesson Sévigné Cedex\\
+                T +33 (0)2 99 12 70 00\\
+                F +33 (0)2 99 12 70 08
+            \end{minipage}
+        \end{minipage}
+    \end{center}
 }
 \makeatother
 
