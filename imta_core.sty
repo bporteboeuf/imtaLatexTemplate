@@ -198,8 +198,8 @@
 % This is a twocolumns robust titlepage command
 \makeatletter
 
-% \geteltsize gets the 1/10th of the smallest dimension of the paper used
-\def\geteltsize{%
+% \imtaGetEltSize gets the 1/10th of the smallest dimension of the paper used
+\def\imtaGetEltSize{%
     \ifdim \paperwidth < \paperheight
         \paperwidth/10
     \else
@@ -215,11 +215,11 @@
     \newgeometry{top = .5cm, bottom = 1.5cm, left = 2cm, right = 1cm}
     \begin{flushright}
         \begin{tikzpicture}
-        \filldraw[draw=imtaGreen,fill=imtaGreen] (-3\geteltsize,0) -- (0,-3\geteltsize) -- (0\geteltsize,0) -- cycle;
-        \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\geteltsize,-3\geteltsize) -- (0,-5.24\geteltsize) -- (0,-3\geteltsize) -- cycle;
-        \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\geteltsize,0) -- (-2.24\geteltsize,-3\geteltsize) -- (-5.24\geteltsize,-3\geteltsize) -- cycle;
+        \filldraw[draw=imtaGreen,fill=imtaGreen] (-3\imtaGetEltSize,0) -- (0,-3\imtaGetEltSize) -- (0\imtaGetEltSize,0) -- cycle;
+        \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-3\imtaGetEltSize) -- cycle;
+        \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\imtaGetEltSize,0) -- (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (-5.24\imtaGetEltSize,-3\imtaGetEltSize) -- cycle;
         
-        \node (date) [draw=none, text width=\textwidth, align=left, anchor=west] at (-\textwidth, -6\geteltsize) {
+        \node (date) [draw=none, text width=\textwidth, align=left, anchor=west] at (-\textwidth, -6\imtaGetEltSize) {
             \large\fontfamily{phv}\selectfont\thedate \\
             \large\fontfamily{phv}\selectfont\theauthor \vspace*{1.5cm}\\
             \textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace*{.5cm}\\
