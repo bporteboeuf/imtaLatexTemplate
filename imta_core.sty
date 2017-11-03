@@ -10,17 +10,16 @@
 %
 % Errors:          None known
 %
-% Dependencies:    anyfontsize
-%                  geometry
+% Dependencies:    geometry
 %                  graphicx
 %                  fancyhdr
-%                  float
 %                  fontenc
+%                  hyperref
 %                  inputenc
-%                  pdfpages
 %                  secsty
 %                  tikz
 %                  titling
+%                  titlesec
 %
 % Author:          A. Foucault - armand.foucault@telecom-bretagne.eu
 % Contributors:    B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
@@ -53,7 +52,7 @@
 \RequirePackage{graphicx}
 
 % Floats management
-\RequirePackage{float}
+%\RequirePackage{float}
 
 % Output font management
 \RequirePackage[T1]{fontenc}
@@ -63,10 +62,6 @@
 
 % Document encoding management
 \RequirePackage[utf8]{inputenc}
-
-% Include external pdf documents
-% Used for generating the cover
-\RequirePackage{pdfpages}
 
 % Fancy headers and footers
 \RequirePackage{fancyhdr}
@@ -81,7 +76,7 @@
 \RequirePackage{titling}
 
 % Arbitrary font size
-\RequirePackage{anyfontsize}
+%\RequirePackage{anyfontsize}
 
 % Section styling
 \RequirePackage{sectsty}
