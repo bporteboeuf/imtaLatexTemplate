@@ -63,11 +63,9 @@
 
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %      D E F A U L T      E X P O R T       S E T T I N G S        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 % Some export-related booleans are introduced
 \makeatletter
@@ -83,6 +81,7 @@
 \makeatother
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %           O P T I O N S          D E C L A R A T I O N           %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,10 +93,18 @@
     \DeclareOption{nouppersectioninlot}{\@printuppersectioninLOTfalse}
 \makeatother
 
-
 \ExecuteOptions{}
 \ProcessOptions\relax
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%           C O L O R S           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Colors related to code formatting
+\definecolor{imtaCodeBackground}{RGB}{235, 235, 235}
+\definecolor{imtaInlineCodeBackground}{RGB}{230, 230, 230}
 
 
 
@@ -113,6 +120,8 @@
     \setlength{\fboxsep}{2pt}\colorbox{imtaInlineCodeBackground}{\mintinline{#1}{#2}}%
 }
 
+
+% \frontmatter
 \makeatletter
 % We propose the possibility to switch from roman to arabic numbers when starting the core content of the report
 \newif\if@mainmatter \@mainmattertrue
@@ -121,11 +130,13 @@
 \def\frontmatter{%
     \@mainmatterfalse \pagenumbering{roman} \setcounter{page}{1}}
 % The \mainmatter[o] command defines the begining of the document's core
+% \mainmatter
 \def\mainmatter{%
     \@mainmattertrue \pagenumbering{arabic} \setcounter{page}{1}}
 \makeatother
 
 
+% \chapter redefinition
 \makeatletter
 \newif\if@chapterdefined % A new \if statement is created to allow easier checking for the existance of \chapter
 \@ifundefined{chapter}{\global \@chapterdefinedfalse}{\global \@chapterdefinedtrue}
@@ -158,6 +169,7 @@
 \makeatother
 
 
+% \section redefinition
 % The section command is redefined, in order to update the upper section informations
 \makeatletter
     \if@chapterdefined
