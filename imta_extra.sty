@@ -19,10 +19,8 @@
 %
 % Dependencies:    imta_core
 %                  anyfontsize
-%                  float
 %                  mdframed
 %                  minted
-%                  titling
 %
 % Author:          A. Foucault - armand.foucault@telecom-bretagne.eu
 % Contributors:    B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
@@ -76,8 +74,8 @@
 \makeatletter
     \global\newif\if@uppersectionprintedinLOF  \global\@uppersectionprintedinLOFfalse
     \global\newif\if@uppersectionprintedinLOT  \global\@uppersectionprintedinLOTfalse
-    \gdef\uppersectiontitle\doctitle
-    \gdef\uppersectionnumber{ }
+    \gdef\imtaUpperSectionTitle\doctitle
+    \gdef\imtaUpperSectionNumber{ }
 \makeatother
 
 
@@ -121,22 +119,23 @@
 }
 
 
-% \frontmatter
+% \imtaFrontMatter
+% Resets the page counter and switches to roman numbers (useful for the preamble)
 \makeatletter
-% We propose the possibility to switch from roman to arabic numbers when starting the core content of the report
 \newif\if@mainmatter \@mainmattertrue
-% The \frontmatter command defines the begining of the document and its introduction
-% attributes (title page, table of contents, etc)
-\def\frontmatter{%
+
+\def\imtaFrontMatter{%
     \@mainmatterfalse \pagenumbering{roman} \setcounter{page}{1}}
-% The \mainmatter[o] command defines the begining of the document's core
-% \mainmatter
-\def\mainmatter{%
+
+% \imtaMainMatter
+% Resets the page counter and switches to arabic numbers (useful for the main content)
+\def\imtaMainMatter{%
     \@mainmattertrue \pagenumbering{arabic} \setcounter{page}{1}}
 \makeatother
 
 
-% \chapter redefinition
+% \chapter
+% \chapter is redefined to support other features
 \makeatletter
 \newif\if@chapterdefined % A new \if statement is created to allow easier checking for the existance of \chapter
 \@ifundefined{chapter}{\global \@chapterdefinedfalse}{\global \@chapterdefinedtrue}
@@ -153,7 +152,7 @@
         \else
         \cleardoublepage \oldchapter*{#1}
         \fi
-        \gdef\uppersectiontitle{#1} \gdef\uppersectionnumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+        \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
     
     \def\nostarchapter[#1]#2{%
         \if@twocolumn % We want to make sure the chapter page is always on a one column full page
@@ -161,7 +160,7 @@
         \else
         \cleardoublepage \oldchapter[{#1}]{#2}
         \fi
-        \gdef\uppersectiontitle{#1}  \gdef\uppersectionnumber{\thechapter. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+        \gdef\imtaUpperSectionTitle{#1}  \gdef\imtaUpperSectionNumber{\thechapter. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
 
 \else
     \relax
@@ -169,8 +168,8 @@
 \makeatother
 
 
-% \section redefinition
-% The section command is redefined, in order to update the upper section informations
+% \section 
+% \section is redefined, in order to update the upper section informations
 \makeatletter
     \if@chapterdefined
         \relax
@@ -178,9 +177,9 @@
         \let\oldsection\section
         \renewcommand{\section}{\@ifstar{\starsection}{\@dblarg\nostarsection}}
         \newcommand\starsection[1]{%
-            \oldsection*{#1}  \gdef\uppersectiontitle{#1} \gdef\uppersectionnumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+            \oldsection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
         \def\nostarsection[#1]#2{%
-            \oldsection[{#1}]{#2} \gdef\uppersectiontitle{#1} \gdef\uppersectionnumber{\thesection. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+            \oldsection[{#1}]{#2} \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\thesection. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
     \fi
 \makeatother
 
@@ -221,7 +220,7 @@
 
 
 
-
+%\figure
 % The figure environment is redefined to update the LOF with the upper section title when relevant
 \makeatletter
     \def\printuppersectioninlof{%
@@ -229,7 +228,7 @@
             \relax
         \else
             \if@printuppersectioninLOF
-                \addcontentsline{lof}{chapter}{\uppersectionnumber \uppersectiontitle}
+                \addcontentsline{lof}{chapter}{\imtaUpperSectionNumber \imtaUpperSectionTitle}
             \fi
         \fi
         \global\@uppersectionprintedinLOFtrue}
@@ -247,7 +246,7 @@
 \makeatother
 
 
-
+% \table
 % The table environment is redefined to update the LOT with the upper section title when relevant
 \makeatletter
     \def\printuppersectioninlot{%
@@ -255,7 +254,7 @@
             \relax
         \else
             \if@printuppersectioninLOT
-                \addcontentsline{lot}{chapter}{\uppersectionnumber \uppersectiontitle}
+                \addcontentsline{lot}{chapter}{\imtaUpperSectionNumber \imtaUpperSectionTitle}
             \fi
         \fi
         \global\@uppersectionprintedinLOTtrue}

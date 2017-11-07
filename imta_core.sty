@@ -194,7 +194,8 @@
 % This is a twocolumns robust titlepage command
 \makeatletter
 
-% \imtaGetEltSize gets the 1/10th of the smallest dimension of the paper used
+% \imtaGetEltSize
+% Gets the 1/10th of the smallest dimension of the paper used
 \def\imtaGetEltSize{%
     \ifdim \paperwidth < \paperheight
         \paperwidth/10
@@ -203,7 +204,21 @@
     \fi%
 }
 
-% \titleLayout is the actual layout used for the cover by \imtaMaketitlepage
+% \imtaMaketitlepage
+% Generates the title page
+\newcommand\imtaMaketitlepage{%
+    \clearpage
+    \if@twocolumn
+    \onecolumn % we force it to a one column environment
+    \titleLayout
+    \twocolumn
+    \else
+    \titleLayout
+    \fi
+}
+
+% \titleLayout
+% Corresponds to the actual layout used for the cover by \imtaMaketitlepage
 \def\titleLayout{%
 %    \thispagestyle{empty}
     \thispagestyle{imtaFirstpage}
@@ -231,22 +246,12 @@
     \pagenumbering{arabic}
     \setcounter{page}{2}
 }
-
-\newcommand\imtaMaketitlepage{%
-    \clearpage
-    \if@twocolumn
-        \onecolumn % we force it to a one column environment
-        \titleLayout
-        \twocolumn
-    \else
-        \titleLayout
-    \fi
-}
 \makeatother
 
 
 
-% We propose a standard back cover which ends on the left side
+% \imtaMakeCover
+% Generates a standard back cover which ends on the left side
 \makeatletter
 \newcommand{\imtaMakeCover}{%
     \clearpage
@@ -330,8 +335,8 @@
 }
 
 
+% \subsubsubsection
 % We introduce another layer with the \subsubsubsection command
-% Subsubsubsection
 \setcounter{secnumdepth}{4}                              % We increase the counters' level of visibility to 4
 \newcommand\subsubsubsection{}                           % We create a new command
 \titleclass{\subsubsubsection}{straight}[\subsubsection] % Make it a title command
@@ -341,8 +346,7 @@
 \titleformat{\subsubsubsection}[hang]{\normalsize\it}                % Layout is updated
 {\thesubsubsubsection.}{1em}{\normalsize\it}[\normalsize] % Formatting is updated
 
-
-% Adjusting Table Of Contents levels
+% Adjusting Table Of Contents levels for the \subsubsubsection
 \makeatletter
     \setcounter{tocdepth}{6} % We increase the level of visibility in the TOC
     \def\toclevel@subsubsubsection{4}

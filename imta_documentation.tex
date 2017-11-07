@@ -3,7 +3,7 @@
 %
 % Description:     Documentation of the IMT Atlantique LaTeX Template.
 %
-% Note:            /
+% Note:            THE DIFFERENCES BETWEEN CORE AND EXTRA SHOULD BE EXPLICIT
 %
 % Limitations:     /
 %
@@ -162,16 +162,19 @@ For instance, the IMT Atlantique header and footer style is defined as follows (
 }
 \end{imtaCode}
 
-\subsection{\texttt{float}}
+%\subsection{\texttt{float}}
 \subsection{\texttt{fontenc}}
 \subsection{\texttt{geometry}}
 \subsection{\texttt{graphicx}}
+\subsection{\texttt{hyperref}}
 \subsection{\texttt{inputenc}}
 \subsection{\texttt{mdframed}}
 \subsection{\texttt{minted}}
-\subsection{\texttt{pdfpages}}
+%\subsection{\texttt{pdfpages}}
+\subsection{\texttt{secsty}}
 \subsection{\texttt{tikz}}
 \subsection{\texttt{titling}}
+\subsection{\texttt{titlesec}}
 
 
 
@@ -192,6 +195,13 @@ The purpose of this macro is to provide a consistent way of defining a subtitle,
 It takes a single parameter, that is the subtitle to display.
 
 \subsection{\texttt{imta} commands}
+
+\subsubsection{Generating Covers}
+-> about \texttt{imtaMakeTitle} and \texttt{imtaMakeCover}
+
+\subsubsection{Additionnal document structuring}
+-> about \texttt{imtaFrontMatter}, \texttt{imtaMainMatter}, \texttt{imtaUpperSectionNumber}, \texttt{imtaUpperSectionTitle}, \texttt{printup\-per\-sectioninlof} and \texttt{printuppersectioninlot}
+
 
 \subsubsection{Typeset inline code with \texttt{imtaInlinecode}}
 
@@ -273,19 +283,19 @@ Thus, I decided to provide a command that enables that official style.
 The main aspects of the official style are:
 
 \begin{itemize}
-\item Use of the Helvetica font for the body;
-\item Section titles in green (\imtaInlinecode{latex}{\imtaGreen}) and other heading titles in gray (\imtaInlinecode{latex}{\imtaGray});
-\item Section title in the header;
-\item Page number at the right corner of the footer.
+    \item Use of the Helvetica font for the body;
+    \item Section titles in green (\imtaInlinecode{latex}{\imtaGreen}) and other heading titles in gray (\imtaInlinecode{latex}{\imtaGray});
+    \item Section title in the header;
+    \item Page number at the right corner of the footer.
 \end{itemize}
 
 For comparison, the default style of the template is:
 
 \begin{itemize}
-\item Use of the default Computer Modern font for the body;
-\item Default style for headings: all in black;
-\item Document title at the left corner and author's name at the right corner of the header;
-\item Page number at the center of the footer.
+    \item Use of the default Computer Modern font for the body;
+    \item Default style for headings: all in black;
+    \item Document title at the left corner and author's name at the right corner of the header;
+    \item Page number at the center of the footer.
 \end{itemize}
 
 The official IMT Atlantique style can be toggled with the \imtaInlinecode{latex}{\imtaSetIMTStyle} command.
