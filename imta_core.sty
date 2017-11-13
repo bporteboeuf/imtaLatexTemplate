@@ -81,6 +81,9 @@
 % Section styling
 \RequirePackage{sectsty}
 
+% Import \BeforeBeginEnvironment, \AfterBeginEnvironment, \BeforeEndEnvironment, and \AfterEndEnvironment
+\RequirePackage{etoolbox}
+
 
 
 %%%%%%%%%% COLORS %%%%%%%%%%
@@ -96,6 +99,8 @@
 %%%%%%%%%% GENERAL SETTINGS %%%%%%%%%%
 
 \raggedbottom
+
+\AfterEndEnvironment{itemize}{\hspace{\baselineskip}}
 
 
 
