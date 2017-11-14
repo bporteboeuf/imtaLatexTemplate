@@ -135,31 +135,18 @@
 
 
 % \chapter
-% \chapter is redefined to support other features
+% \chapter is redefined when relevant, in order to update the upper section informations
 \makeatletter
-\newif\if@chapterdefined % A new \if statement is created to allow easier checking for the existance of \chapter
-\@ifundefined{chapter}{\global \@chapterdefinedfalse}{\global \@chapterdefinedtrue}
-
-% The chapter command is redefined when relevant, in order to update the upper section informations
 \if@chapterdefined
-    \let\oldchapter\chapter % The reference command is saved and a new one is redefined, based on the old. 
-    % It is VERY important to catch the star version as well, otherwise it will not compile
-    \renewcommand*{\chapter}{\@ifstar{\starchapter}{\@dblarg\nostarchapter}}
+    \let\imtaExtraOldChapter\chapter
+    \renewcommand*{\chapter}{\@ifstar{\imtaStarChapter}{\@dblarg\imtaNoStarChapter}}
     
-    \newcommand*\starchapter[1]{%
-        \if@twocolumn % We want to make sure the chapter page is always on a one column full page
-        \onecolumn \cleardoublepage \oldchapter*{#1} \twocolumn
-        \else
-        \cleardoublepage \oldchapter*{#1}
-        \fi
+    \newcommand*\imtaExtraStarChapter[1]{%
+        \imtaExtraOldChapter*{#1}
         \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
     
-    \def\nostarchapter[#1]#2{%
-        \if@twocolumn % We want to make sure the chapter page is always on a one column full page
-        \onecolumn \cleardoublepage \oldchapter[{#1}]{#2} \twocolumn
-        \else
-        \cleardoublepage \oldchapter[{#1}]{#2}
-        \fi
+    \def\imtaExtraNoStarChapter[#1]#2{%
+        \imtaExtraOldChapter[{#1}]{#2}
         \gdef\imtaUpperSectionTitle{#1}  \gdef\imtaUpperSectionNumber{\thechapter. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
 
 \else
@@ -175,11 +162,11 @@
         \relax
     \else
         \let\oldsection\section
-        \renewcommand{\section}{\@ifstar{\starsection}{\@dblarg\nostarsection}}
-        \newcommand\starsection[1]{%
-            \oldsection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
-        \def\nostarsection[#1]#2{%
-            \oldsection[{#1}]{#2} \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\thesection. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+        \renewcommand{\section}{\@ifstar{\imtaStarSection}{\@dblarg\imtaNoStarSection}}
+        \newcommand\imtaExtraStarSection[1]{%
+            \imtaExtraOldSection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+        \def\imtaExtraNoStarSection[#1]#2{%
+            \imtaExtraOldSection[{#1}]{#2} \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\thesection. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
     \fi
 \makeatother
 
