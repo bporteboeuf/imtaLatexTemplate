@@ -161,8 +161,8 @@
     \if@chapterdefined
         \relax
     \else
-        \let\oldsection\section
-        \renewcommand{\section}{\@ifstar{\imtaStarSection}{\@dblarg\imtaNoStarSection}}
+        \let\imtaExtraOldSection\section
+        \renewcommand{\section}{\@ifstar{\imtaExtraStarSection}{\@dblarg\imtaExtraNoStarSection}}
         \newcommand\imtaExtraStarSection[1]{%
             \imtaExtraOldSection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
         \def\imtaExtraNoStarSection[#1]#2{%
