@@ -1,0 +1,9 @@
+*
+!.gitignore
+!imta_core.sty
+!imta_extra.sty
+!README.md
+!skeleton.tex
+!imta_logo.pdf
+!imta_documentation.tex
+!imta_documentation.pdf
