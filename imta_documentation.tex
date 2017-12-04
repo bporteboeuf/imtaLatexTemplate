@@ -1,44 +1,17 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% File Name:       main
-%
-% Description:     Documentation of the IMT Atlantique LaTeX Template.
-%
-% Note:            THE DIFFERENCES BETWEEN CORE AND EXTRA SHOULD BE EXPLICIT
-%
-% Limitations:     /
-%
-% Errors:          None known
-%
-% Dependencies:    imta_core
-%                  imta_extra
-%
-% Author:          A. Foucault - armand.foucault@telecom-bretagne.eu
-% Contributors:    B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
-%
-% University :     IMT Atlantique, Brest (France)
-%
-% TeX Environment: TeXLive + pdfLaTeX
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Revision List:
-% Version    Author   Date         Changes
-% 1.0        AF       15.10.2017   First Draft
-% 1.0        BP       31.10.2017   Minor update
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{report}
 
-\documentclass{article}
+\usepackage{imta_core}
+\usepackage{imta_extra}
 
+\usepackage[francais]{babel}
+\usepackage{bibtex}
 
-\usepackage{imta_core}  % IMTA Template's core (general layout and colors, compatible with standard TeX configurations)
-\usepackage{imta_extra} % IMTA Template's more advanced functionalities (might not be compatible with standard TeX configurations)
-
-
-\author{Armand FOUCAULT\\Benoît PORTEBŒUF}
-\date{\today}
-\title{\LaTeX{} report template}
-\subtitle{Description of the \LaTeX{} template for IMT Atlantique reports}
+\author{FOUCAULT Armand\\PORTEBOEUF Benoît}
+\date{December 2017}
+\title{Institut Mines-Télécom Atlantique - \LaTeX report template}
+\subtitle{Documentation for the \texttt{imta} package}
 
 \imtaSetIMTStyle
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -48,264 +21,93 @@
 \imtaMaketitlepage
 
 \tableofcontents
-\newpage
 
+\chapter{Core features: \texttt{imta_core}}
 
+\section{Sectioning}
 
-%%%%%%%%%% PROJECT CREATION AND COMPILATION %%%%%%%%%% 
+\subsection{\texttt{\imtaQuestion} and \texttt{\imtaQuestionReset}}
+\subsection{\texttt{\subsubsubsection}}
+\subsection{\texttt{\chapter}}
 
-\section{Project creation and compilation}
+\section{Document styling}
 
-\subsection{Project creation}
+\subsection{IMT Atlantique styling}
+\subsubsection{Colors}
+\subsubsection{\texttt{\imtaSetIMTStyle}}
+\subsubsection{\texttt{\imtaLogo}}
+\subsubsection{\texttt{\imtaLogoTikz}}
+\subsubsection{\texttt{\imtaMaketitlepage}}
+\subsubsection{\texttt{\imtaMakeCover}}
 
-In order to use this template, create a new directory, and copy into it the following files:
+\section{External dependancies}
 
-\begin{itemize}
-\item \imtaInlinecode{bash}{imta.tex}: this file declares all the data that composes the template.%
-      It needs to be included to the main document, by calling \imtaInlinecode{latex}{\include{imta}}.
-\item \imtaInlinecode{bash}{titlepage.pdf}: the title page of the document.%
-      It is a blank version of the IMT Atlantique report template, over which an overlay title is written %
-      by the \imtaInlinecode{latex}{\imtaMaketitlepage} command.
-\end{itemize}
-
-Your document should be a \imtaInlinecode{bash}{.tex} file, with the following skeleton:
-
-% Report skeleton
+\subsection{\texttt{geometry}}
 \begin{imtaCode}{latex}
-\documentclass{article}
-
-\include{imta}
-
-\author{Author name}
-\date{Writing date}
-\title{Document name}
-\subtitle{Short description or subtitle}
-
-\begin{document}
-
-\imtaMaketitlepage
-
-\section{First section}
-
-...
-
-\end{document}
-
-\end{imtaCode}
-% Skeleton end
-
-
-\subsection{Compilation}
-
-This template is intended to be compiled with \imtaInlinecode{bash}{pdflatex}.
-Furthermore, it makes use of the \imtaInlinecode{bash}{minted} package.
-As a consequence, the compiler needs to be passed the \imtaInlinecode{bash}{-shell-escape} flag.
-In addition, as usual when wishing a table of contents, the main document should be compiled twice, so as to make sure that the references refer to the right labels.
-If your main document is called \imtaInlinecode{bash}{main.tex}, use the following command to compile it:
-
-\begin{imtaConsole}
-$ pdflatex -shell-escape main.tex
-\end{imtaConsole}
-
-
-
-%%%%%%%%%% PACKAGES %%%%%%%%%% 
-
-\section{Packages}
-
-This template uses a number of packages, with specific options.
-Besides, some packages are further configured, through specific commands.
-These can be found in the source code itself, at the \imtaInlinecode{latex}{PACKAGES SETTINGS} section.
-The following is an abstract from the \imtaInlinecode{latex}{PACKAGES} section of the \imtaInlinecode{bash}{imta.tex} file.
-
-\begin{imtaCode}{latex}
-
-\usepackage[a4paper, margin=2cm, top=3cm]{geometry}
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{pdfpages}
-\usepackage{fancyhdr}
-\usepackage{minted}
-\usepackage{tikz}
-\usepackage{titling}
-\usepackage{anyfontsize}
-\usepackage{mdframed}
-
+\RequirePackage[a4paper, margin=2cm, top=3cm]{geometry}
 \end{imtaCode}
 
-\subsection{\texttt{anyfontsize}}
+\subsection{\texttt{graphicx}}
+\begin{imtaCode}{latex}
+\RequirePackage{graphicx}
+\end{imtaCode}
 
-The \imtaInlinecode{latex}{anyfontsize} package allows picking an arbitrary size for a local font.
-It provides the \imtaInlinecode{latex}{\fontsize} command, used for generating the title page inside of a \imtaInlinecode{latex}{tikzpicture} environment.
+\subsection{\texttt{fontenc}}
+\begin{imtaCode}{latex}
+\RequirePackage[T1]{fontenc}
+\end{imtaCode}
+
+\subsection{\texttt{hyperref}}
+\begin{imtaCode}{latex}
+\RequirePackage[hidelinks]{hyperref}
+\end{imtaCode}
+
+\subsection{\texttt{inputenc}}
+\begin{imtaCode}{latex}
+\RequirePackage[utf8]{inputenc}
+\end{imtaCode}
 
 \subsection{\texttt{fancyhdr}}
-
-The \imtaInlinecode{latex}{fancyhdr} package lets define custom headers and footers.
-For instance, the IMT Atlantique header and footer style is defined as follows (inside of the \imtaInlinecode{latex}{\imtaSetIMTStyle} command):
-
 \begin{imtaCode}{latex}
-\pagestyle{fancy}                       % Select the fancy style provided by fancyhdr
-
-\fancyhead{}                            % Clear the current header style
-\fancyfoot{}                            % Clear the current footer style
-
-\fancyhead[L]{\nouppercase\leftmark}    % Define the content of the header:
-                                        %     the current section title, on the left
-\fancyfoot[R]{\thepage}                 % Define the content of the footer:
-                                        %     the current page number, on the right
-
-\fancypagestyle{imtaFirstpage}{%        % Define the style for the first page
-    \fancyhf{}                          % Clear the current style
-    \renewcommand{\headrulewidth}{0pt}  % Clear the horizontal rule under the header
-}
+\RequirePackage{fancyhdr}
 \end{imtaCode}
 
-%\subsection{\texttt{float}}
-\subsection{\texttt{fontenc}}
-\subsection{\texttt{geometry}}
-\subsection{\texttt{graphicx}}
-\subsection{\texttt{hyperref}}
-\subsection{\texttt{inputenc}}
-\subsection{\texttt{mdframed}}
-\subsection{\texttt{minted}}
-%\subsection{\texttt{pdfpages}}
-\subsection{\texttt{secsty}}
 \subsection{\texttt{tikz}}
-\subsection{\texttt{titling}}
-\subsection{\texttt{titlesec}}
-
-
-
-%%%%%%%%%% COMMANDS %%%%%%%%%% 
-
-\section{Commands}
-
-This template provides a handful of new commands.
-
-\subsection{Generic commands}
-
-\subsubsection{Metadata commands}
-
-This template defines a \imtaInlinecode{latex}{\subtitle} macro, that receives the subtitle of the document.
-The latter will be displayed on the title page.
-The purpose of this macro is to provide a consistent way of defining a subtitle, with regard to the \imtaInlinecode{latex}{\title}, %
-\imtaInlinecode{latex}{\author}, and \imtaInlinecode{latex}{\date} standard macros.
-It takes a single parameter, that is the subtitle to display.
-
-\subsection{\texttt{imta} commands}
-
-\subsubsection{Generating Covers}
--> about \texttt{imtaMakeTitle} and \texttt{imtaMakeCover}
-
-\subsubsection{Additionnal document structuring}
--> about \texttt{imtaFrontMatter}, \texttt{imtaMainMatter}, \texttt{imtaUpperSectionNumber}, \texttt{imtaUpperSectionTitle}, \texttt{printup\-per\-sectioninlof} and \texttt{printuppersectioninlot}
-
-
-\subsubsection{Typeset inline code with \texttt{imtaInlinecode}}
-
-\subsubsection{Output the title page with \texttt{imtaMaketitlepage}}
-
-\subsubsection{Answer questions with \texttt{imtaQuestion} and \texttt{imtaQuestionReset}}
-
-The \imtaInlinecode{latex}{\imtaQuestion} command outputs and formats a question counter.
-It's meant to be used in reports for assignment with questions.
-The counter should be reset with the \imtaInlinecode{latex}{\imtaQuestionReset}.
-The output is as follows:
-
-\imtaQuestion
-Answer to first question
-
-\imtaQuestion
-Answer to second question
-
-\imtaQuestionReset
-
-\imtaQuestion
-Answer to first question of the second section
-
-\vspace{\baselineskip}
-And the corresponding code:
-
-\begin{minted}{latex}
-\imtaQuestion
-Answer to the first question
-
-\imtaQuestion
-Answer to the second question
-
-\imtaQuestionReset
-
-\imtaQuestion
-Answer to the first question of the second section
-\end{minted}
-
-
-
-%%%%%%%%%% ENVIRONMENTS %%%%%%%%%% 
-
-\section{Environments}
-
-\subsection{Generic environments}
-
-\subsubsection{Typeset code listings with \texttt{imtaCode}}
-
-\begin{imtaCode}{cpp}
-int a = 5;
+\begin{imtaCode}{latex}
+\RequirePackage{tikz}
 \end{imtaCode}
 
-\subsection{\texttt{imta} environments}
+\subsection{\texttt{titlesec}}
+\begin{imtaCode}{latex}
+\RequirePackage{titlesec}
+\end{imtaCode}
 
-% \subsubsection{Typeset console sessions with \texttt{minted} and the \texttt{imtaConsole} style}
-% 
-% The \imtaInlinecode{latex}{imtaConsole} style for \imtaInlinecode{latex}{minted} provides a way to format console sessions.
-% It outputs raw text in texttyper font, in a framed box.
-% Here is an output example:
-% 
-% \begin{minted}{imtaConsole}
-%     user@host:~$ mkdir newDirectory
-%     user@host:~$ cd newDirectory
-%     user@host:~$ touch newFile
-% \end{minted}
+\subsection{\texttt{titling}}
+\begin{imtaCode}{latex}
+\RequirePackage{titling}
+\end{imtaCode}
 
+\subsection{\texttt{sectsty}}
+\begin{imtaCode}{latex}
+\RequirePackage{sectsty}
+\end{imtaCode}
 
+\subsection{\texttt{etoolbox}}
+\begin{imtaCode}{latex}
+\RequirePackage{etoolbox}
+\end{imtaCode}
 
-%%%%%%%%%% STYLING %%%%%%%%%% 
+\subsection{\texttt{hyphenat}}
+\begin{imtaCode}{latex}
+\RequirePackage[none]{hyphenat}
+\end{imtaCode}
 
-\section{IMT Atlantique styling}
+\subsection{\texttt{footmisc}}
+\begin{imtaCode}{latex}
+\RequirePackage[bottom]{footmisc}
+\end{imtaCode}
 
-The official IMT Atlantique styling is not really \LaTeX-ish, and takes the decision to use a sans-serif font for body text.
-Therefore, I chose to use the default \LaTeX{} font settings, which look much more professional.
-Of course, this style does not suit the official report style.
-Thus, I decided to provide a command that enables that official style.
-
-The main aspects of the official style are:
-
-\begin{itemize}
-    \item Use of the Helvetica font for the body;
-    \item Section titles in green (\imtaInlinecode{latex}{\imtaGreen}) and other heading titles in gray (\imtaInlinecode{latex}{\imtaGray});
-    \item Section title in the header;
-    \item Page number at the right corner of the footer.
-\end{itemize}
-
-For comparison, the default style of the template is:
-
-\begin{itemize}
-    \item Use of the default Computer Modern font for the body;
-    \item Default style for headings: all in black;
-    \item Document title at the left corner and author's name at the right corner of the header;
-    \item Page number at the center of the footer.
-\end{itemize}
-
-The official IMT Atlantique style can be toggled with the \imtaInlinecode{latex}{\imtaSetIMTStyle} command.
-Since it makes use of the \imtaInlinecode{latex}{\usepackage} macro, it needs to be called in the preamble.
-No way is provided to disable later in the document the official style.
-As a consequence, you cannot have half of the document with the official style, and the other half in the default style.
-
-
-\imtaMakeCover
-
+\chapter{Additional features: \texttt{imta_extra}}
 
 \end{document}
 %%%%%%%%%% END %%%%%%%%%% 
