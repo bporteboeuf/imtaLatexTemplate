@@ -1,10 +1,9 @@
-\documentclass{report}
+\documentclass{article}
 
 \usepackage{imta_core}
 \usepackage{imta_extra}
 
 \usepackage[francais]{babel}
-\usepackage{bibtex}
 
 \author{FOUCAULT Armand\\PORTEBOEUF Benoît}
 \date{December 2017}
@@ -22,23 +21,72 @@
 
 \tableofcontents
 
-\chapter{Core features: \texttt{imta_core}}
+% \chapter{Core features: \texttt{imtacore}}
 
 \section{Sectioning}
 
-\subsection{\texttt{\imtaQuestion} and \texttt{\imtaQuestionReset}}
-\subsection{\texttt{\subsubsubsection}}
-\subsection{\texttt{\chapter}}
+\subsection{\texttt{imtaQuestion} and \texttt{imtaQuestionReset}}
+The \imtaInlinecode{latex}{\imtaQuestion} command outputs and formats a question counter.
+It's meant to be used in reports for assignment with questions.
+The counter should be reset with the \imtaInlinecode{latex}{\imtaQuestionReset}.
+This couple of commands is meant to be used for sectioning when the assignment does not use a more explicit titling.
+
+\subsection{\texttt{subsubsubsection}}
+The \imtaInlinecode{bash}{imta_core} package offers a one-level-deeper section than the usual deepest \imtaInlinecode{latex}{\subsubsection}.
+This provides an alternative to the usual \imtaInlinecode{latex}{\paragraph}.
+
+\subsection{\texttt{chapter}}
 
 \section{Document styling}
 
 \subsection{IMT Atlantique styling}
 \subsubsection{Colors}
-\subsubsection{\texttt{\imtaSetIMTStyle}}
-\subsubsection{\texttt{\imtaLogo}}
-\subsubsection{\texttt{\imtaLogoTikz}}
-\subsubsection{\texttt{\imtaMaketitlepage}}
-\subsubsection{\texttt{\imtaMakeCover}}
+The core package defines four colors, including the three colors of the IMT Atlantique, and a uniform and arbitrary gray.
+These are defined as follows:
+
+\begin{imtaCode}{latex}
+\definecolor{imtaGreen}{RGB}{164, 210, 51}
+\definecolor{imtaLightBlue}{RGB}{0, 184, 222}
+\definecolor{imtaDarkBlue}{RGB}{12, 35, 64}
+\definecolor{imtaGray}{RGB}{87, 87, 87}
+\end{imtaCode}
+
+Here are samples of these colors, with text in both black and white for previsualising the contrast.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{10cm}{!}{%
+    \begin{tikzpicture}
+        \fill[color=imtaGray] (0, 9) rectangle (6, 11);
+        \fill[color=imtaGray] (7, 9) rectangle (13, 11);
+        \node at (3, 10) {\LARGE \bf imtaGray};
+        \node[white] at (10, 10) {\LARGE \bf imtaGray};
+
+        \fill[color=imtaDarkBlue] (0, 6) rectangle (6, 8);
+        \fill[color=imtaDarkBlue] (7, 6) rectangle (13, 8);
+        \node at (3, 7) {\LARGE \bf imtaDarkBlue};
+        \node[white] at (10, 7) {\LARGE \bf imtaDarkBlue};
+
+        \fill[color=imtaLightBlue] (0, 3) rectangle (6, 5);
+        \fill[color=imtaLightBlue] (7, 3) rectangle (13, 5);
+        \node at (3, 4) {\LARGE \bf imtaLightBlue};
+        \node[white] at (10, 4) {\LARGE \bf imtaLightBlue};
+
+        \fill[color=imtaGreen] (0, 0) rectangle (6, 2);
+        \fill[color=imtaGreen] (7, 0) rectangle (13, 2);
+        \node at (3, 1) {\LARGE \bf imtaGreen};
+        \node[white] at (10, 1) {\LARGE \bf imtaGreen};
+    \end{tikzpicture}
+    }
+    \caption{Samples of the IMT Atlantique colors}
+    \label{fig:imtaColors}
+\end{figure}
+
+\subsubsection{\texttt{imtaSetIMTStyle}}
+\subsubsection{\texttt{imtaLogo}}
+\subsubsection{\texttt{imtaLogoTikz}}
+\subsubsection{\texttt{imtaMaketitlepage}}
+\subsubsection{\texttt{imtaMakeCover}}
 
 \section{External dependancies}
 
@@ -107,7 +155,7 @@
 \RequirePackage[bottom]{footmisc}
 \end{imtaCode}
 
-\chapter{Additional features: \texttt{imta_extra}}
+% \chapter{Additional features: \texttt{imta_extra}}
 
 \end{document}
 %%%%%%%%%% END %%%%%%%%%% 
