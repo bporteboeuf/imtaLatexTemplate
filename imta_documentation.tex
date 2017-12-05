@@ -21,6 +21,8 @@
 
 \tableofcontents
 
+\newpage
+
 % \chapter{Core features: \texttt{imtacore}}
 
 \section{Sectioning}
@@ -83,24 +85,82 @@ Here are samples of these colors, with text in both black and white for previsua
 \end{figure}
 
 \subsubsection{\texttt{imtaSetIMTStyle}}
-\subsubsection{\texttt{imtaLogo}}
-\subsubsection{\texttt{imtaLogoTikz}}
+The official IMT Atlantique styling is not really \LaTeX-ish, and takes the decision to use a sans-serif font for body text.
+Therefore, the default style uses the default \LaTeX{} font settings.
+However, it is possible to enable a more IMT Atlantique-compliant styling, by calling the \imtaInlinecode{latex}{\imtaSetIMTStyle} command in the preamble.
+
+The main aspects of the official style are:
+
+\begin{itemize}
+    \item Use of the Helvetica font for the body;
+    \item Section titles in green (\imtaInlinecode{latex}{\imtaGreen}) and other heading titles in gray (\imtaInlinecode{latex}{\imtaGray});
+    \item Section title in the header;
+    \item Page number at the right corner of the footer.
+\end{itemize}
+
+For comparison, the default style of the template is:
+
+\begin{itemize}
+    \item Use of the default Computer Modern font for the body;
+    \item Default style for headings: all in black;
+    \item Document title at the left corner and author's name at the right corner of the header;
+    \item Page number at the center of the footer.
+\end{itemize}
+
+\subsubsection{The IMT Atlantique logo with \texttt{imtaLogo} and \texttt{imtaLogoTikz}}
+The IMT Atlantique logo can be output at the desired width with the \imtaInlinecode{latex}{\imtaLogo} command.
+The latter includes an external pdf document, \imtaInlinecode{bash}{imta_logo.pdf}, that contains the official logo.
+On the other hand, the \imtaInlinecode{latex}{\imtaLogoTikz} draws an approximation of the logo with the \imtaInlinecode{latex}{tikz} package.
+The following is a comparison of both commands.
+
+\begin{figure}[H]
+    \centering
+    \imtaLogo{5cm}
+    \imtaLogoTikz{5cm}
+    \caption{Comparison between \imtaInlinecode{latex}{imtaLogo} and \imtaInlinecode{latex}{imtaLogoTikz}}
+    \label{fig:imtaLogo}
+\end{figure}
+
+
 \subsubsection{\texttt{imtaMaketitlepage}}
+This command outputs a title page with the names of the authors, the date of writing, and the title of the document, along with the subtitle.
+For this latter purpose, the \imtaInlinecode{latex}{\subtitle} command helps define a subtitle as a part of the document's metadata, and %
+is used inside of the \imtaInlinecode{latex}{\imtaMaketitlepage} command.
+
+
 \subsubsection{\texttt{imtaMakeCover}}
+
+This command outputs a cover as the last page of the document.
+This page will always be a left page in a two-side document.
 
 \section{External dependancies}
 
+This package depends upon a number of external packages.
+The use of these is explained hereafter, and the parameters each is used with are specified as well.
+Furthermore, a code snippet is presented, that shows the import line and the settings of the corresponding package.
+
 \subsection{\texttt{geometry}}
+
+The \imtaInlinecode{latex}{geometry} package provides ways to act on the document's format.
+This package defines a A4 format, with two-centimeter margins, and a top margin of an extra centimeter for the header.
+
 \begin{imtaCode}{latex}
 \RequirePackage[a4paper, margin=2cm, top=3cm]{geometry}
 \end{imtaCode}
 
 \subsection{\texttt{graphicx}}
+
+The \imtaInlinecode{latex}{graphicx} package lets input graphics and pictures into the document.
+
 \begin{imtaCode}{latex}
 \RequirePackage{graphicx}
 \end{imtaCode}
 
 \subsection{\texttt{fontenc}}
+
+The \imtaInlinecode{latex}{fontenc} package declares an encoding for the output font.
+The \imtaInlinecode{bash}{imta_core} package uses a latin font whose encoding is \imtaInlinecode{latex}{T1}.
+
 \begin{imtaCode}{latex}
 \RequirePackage[T1]{fontenc}
 \end{imtaCode}
