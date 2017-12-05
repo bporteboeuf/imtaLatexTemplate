@@ -134,41 +134,48 @@
 \makeatother
 
 
+
 % \chapter
 % \chapter is redefined when relevant, in order to update the upper section informations
-% \makeatletter
-% \if@chapterdefined
-%     \let\imtaExtraOldChapter\chapter
-%     \renewcommand*{\chapter}{\@ifstar{\imtaStarChapter}{\@dblarg\imtaNoStarChapter}}
-%     
-%     \newcommand*\imtaExtraStarChapter[1]{%
-%         \imtaExtraOldChapter*{#1}
-%         \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
-%     
-%     \def\imtaExtraNoStarChapter[#1]#2{%
-%         \imtaExtraOldChapter[{#1}]{#2}
-%         \gdef\imtaUpperSectionTitle{#1}  \gdef\imtaUpperSectionNumber{\thechapter. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
-% 
-% \else
-%     \relax
-% \fi
-% \makeatother
+ \makeatletter
+ \if@chapterdefined
+     \let\imtaExtraOldChapter\chapter
+     \renewcommand*{\chapter}{\@ifstar{\imtaExtraStarChapter}{\@dblarg\imtaExtraNoStarChapter}}
+     
+     \newcommand*\imtaExtraStarChapter[1]{%
+         \imtaExtraOldChapter*{#1}
+         \gdef\imtaUpperSectionNumber{ }
+          \gdef\imtaUpperSectionTitle{#1}
+          \global\@uppersectionprintedinLOFfalse
+          \global\@uppersectionprintedinLOTfalse}
+     
+     \def\imtaExtraNoStarChapter[#1]#2{%
+         \imtaExtraOldChapter[{#1}]{#2}
+         \gdef\imtaUpperSectionNumber{\thechapter. } 
+         \gdef\imtaUpperSectionTitle{#1}
+          \global\@uppersectionprintedinLOFfalse
+          \global\@uppersectionprintedinLOTfalse}
+
+\else
+     \relax
+ \fi
+\makeatother
 
 
 % \section 
 % \section is redefined, in order to update the upper section informations
-% \makeatletter
-%     \if@chapterdefined
-%         \relax
-%     \else
-%         \let\imtaExtraOldSection\section
-%         \renewcommand{\section}{\@ifstar{\imtaExtraStarSection}{\@dblarg\imtaExtraNoStarSection}}
-%         \newcommand\imtaExtraStarSection[1]{%
-%             \imtaExtraOldSection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
-%         \def\imtaExtraNoStarSection[#1]#2{%
-%             \imtaExtraOldSection[{#1}]{#2} \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\thesection. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
-%     \fi
-% \makeatother
+ \makeatletter
+     \if@chapterdefined
+         \relax
+     \else
+         \let\imtaExtraOldSection\section
+         \renewcommand{\section}{\@ifstar{\imtaExtraStarSection}{\@dblarg\imtaExtraNoStarSection}}
+         \newcommand\imtaExtraStarSection[1]{%
+             \imtaExtraOldSection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+         \def\imtaExtraNoStarSection[#1]#2{%
+             \imtaExtraOldSection[{#1}]{#2} \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\thesection. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+     \fi
+ \makeatother
 
 
 
@@ -209,28 +216,32 @@
 
 %\figure
 % The figure environment is redefined to update the LOF with the upper section title when relevant
-% \makeatletter
-%     \def\printuppersectioninlof{%
-%         \if@uppersectionprintedinLOF
-%             \relax
-%         \else
-%             \if@printuppersectioninLOF
-%                 \addcontentsline{lof}{chapter}{\imtaUpperSectionNumber \imtaUpperSectionTitle}
-%             \fi
-%         \fi
-%         \global\@uppersectionprintedinLOFtrue}
-%     
-%     \let\oldfigure\figure
-%     
-%     \def\figure{\@ifnextchar{[}{\figurewarg}{\figurewotarg}}
-%     
-%     
-%     \def\figurewarg[#1]{%        
-%         \oldfigure[#1]\printuppersectioninlof}
-%     
-%     \def\figurewotarg{%
-%         \oldfigure\printuppersectioninlof}
-% \makeatother
+ \makeatletter 
+     \def\printuppersectioninlof{%
+         \if@uppersectionprintedinLOF
+             \relax
+         \else
+             \if@printuppersectioninLOF
+                \if@chapterdefined
+                     \addcontentsline{lof}{chapter}{\imtaUpperSectionNumber \imtaUpperSectionTitle}
+                 \else
+                     \addcontentsline{lof}{section}{\imtaUpperSectionNumber \imtaUpperSectionTitle}
+                 \fi
+             \fi
+         \fi
+         \global\@uppersectionprintedinLOFtrue}
+     
+     \let\oldfigure\figure
+     
+     \def\figure{\@ifnextchar{[}{\figurewarg}{\figurewotarg}}
+     
+     
+     \def\figurewarg[#1]{%        
+         \oldfigure[#1]\printuppersectioninlof}
+     
+     \def\figurewotarg{%
+         \oldfigure\printuppersectioninlof}
+ \makeatother
 
 
 % \table
@@ -241,7 +252,11 @@
             \relax
         \else
             \if@printuppersectioninLOT
-                \addcontentsline{lot}{chapter}{\imtaUpperSectionNumber \imtaUpperSectionTitle}
+                \if@chapterdefined
+	                \addcontentsline{lot}{chapter}{\imtaUpperSectionNumber \imtaUpperSectionTitle}
+                \else
+                	\addcontentsline{lot}{section}{\imtaUpperSectionNumber \imtaUpperSectionTitle}
+                \fi
             \fi
         \fi
         \global\@uppersectionprintedinLOTtrue}

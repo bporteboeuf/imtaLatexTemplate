@@ -221,11 +221,11 @@
 \newcommand\imtaMaketitlepage{%
     \clearpage
     \if@twocolumn
-    \onecolumn % we force it to a one column environment
-    \titleLayout
+    	\onecolumn % we force it to a one column environment
+    	\titleLayout
     \twocolumn
-    \else
-    \titleLayout
+    	\else
+    	\titleLayout
     \fi
 }
 
@@ -372,76 +372,76 @@
 
 % \chapter
 % \chapter is redefined to support other features
-% \makeatletter
-%     \newif\if@chapterdefined % A new \if statement is created to allow easier checking for the existance of \chapter
-%     \@ifundefined{chapter}{\global \@chapterdefinedfalse}{\global \@chapterdefinedtrue}
-%     
-%     % \imtaChapterFigure
-%     % A TikzFigure is defined for chapter pages
-%     \def\imtaChapterFigure{
-%         \vspace*{\fill}
-%         \begin{flushright}
-%             \begin{tikzpicture}
-%             \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-5.24\imtaGetEltSize,-5.24\imtaGetEltSize) -- (0,0) -- (0,-5.24\imtaGetEltSize) -- cycle;
-%             \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (0,0) -- (-2.54\imtaGetEltSize,-2.54\imtaGetEltSize) -- (0,-2.54\imtaGetEltSize) -- cycle;
-%             \filldraw[draw=imtaGreen,fill=imtaGreen] (-2.54\imtaGetEltSize,-5.24\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-2.54\imtaGetEltSize) -- cycle;
-%             \end{tikzpicture}
-%         \end{flushright}
-%         \normalsize    
-%     }
-%     
-%     % The chapter command is redefined when relevant.
-%     % It becomes more robust to oneside/twoside and onecolumn/twocolumn options and imports a figure
-%     \if@chapterdefined
-%         \let\imtaOldChapter\chapter % The reference command is saved and a new one is redefined, based on the old. 
-%         % It is VERY important to catch the star version as well, otherwise it will not compile
-%         \renewcommand*{\chapter}{\@ifstar{\imtaStarChapter}{\@dblarg\imtaNoStarChapter}}
-%         
-%         \newcommand*\imtaStarChapter[1]{%
-%             \if@twocolumn % We want to make sure the chapter page is always on a one column full page
-%                 \onecolumn 
-%                 \cleardoublepage 
-%                 \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
-%                 \imtaOldChapter*{#1}
-%                 \imtaChapterFigure
-%                 \clearpage \newpage \restoregeometry \twocolumn                
-%             \else
-%             \cleardoublepage 
-%             \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
-%                 \imtaOldChapter*{#1}
-%                 \imtaChapterFigure
-%                 \clearpage \newpage \restoregeometry
-%             \fi    
-%         }
-%         
-%         \def\imtaNoStarChapter[#1]#2{%
-%             \if@twocolumn % We want to make sure the chapter page is always on a one column full page
-%                 \onecolumn
-%                 \cleardoublepage 
-%                 \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
-%                 \imtaOldChapter[{#1}]{#2}
-%                 \imtaChapterFigure
-%                 \clearpage \newpage \restoregeometry \twocolumn
-%             \else
-%                 \cleardoublepage 
-%                 \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
-%                 \imtaOldChapter[{#1}]{#2}
-%                 \imtaChapterFigure
-%                 \clearpage \newpage \restoregeometry
-%             \fi
-%         }
-%     
-%         % Finally, the chapter formatting is updated
-%         \titleformat
-%             {\chapter} % command
-%             [display] % shape
-%             {\bf\Huge} % format
-%             {Chapitre \thechapter} % label
-%             {1em} % sep
-%             {\hspace{2em}\bf\Huge\thispagestyle{empty}} % before-code
-%             [{}] % after-code ; does not accept \if statements
-%     \else
-%         \relax
-%     \fi
-% \makeatother
+ \makeatletter
+     \newif\if@chapterdefined % A new \if statement is created to allow easier checking for the existance of \chapter
+     \@ifundefined{chapter}{\global \@chapterdefinedfalse}{\global \@chapterdefinedtrue}
+     
+     % \imtaChapterFigure
+     % A TikzFigure is defined for chapter pages
+     \def\imtaChapterFigure{
+         \vspace*{\fill}
+         \begin{flushright}
+             \begin{tikzpicture}
+             \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-5.24\imtaGetEltSize,-5.24\imtaGetEltSize) -- (0,0) -- (0,-5.24\imtaGetEltSize) -- cycle;
+             \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (0,0) -- (-2.54\imtaGetEltSize,-2.54\imtaGetEltSize) -- (0,-2.54\imtaGetEltSize) -- cycle;
+             \filldraw[draw=imtaGreen,fill=imtaGreen] (-2.54\imtaGetEltSize,-5.24\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-2.54\imtaGetEltSize) -- cycle;
+             \end{tikzpicture}
+         \end{flushright}
+         \normalsize    
+     }
+     
+     % The chapter command is redefined when relevant.
+     % It becomes more robust to oneside/twoside and onecolumn/twocolumn options and imports a figure
+     \if@chapterdefined
+         \let\imtaOldChapter\chapter % The reference command is saved and a new one is redefined, based on the old. 
+         % It is VERY important to catch the star version as well, otherwise it will not compile
+         \renewcommand*{\chapter}{\@ifstar{\imtaStarChapter}{\@dblarg\imtaNoStarChapter}}
+         
+         \newcommand*\imtaStarChapter[1]{%
+             \if@twocolumn % We want to make sure the chapter page is always on a one column full page
+                 \onecolumn 
+                 \cleardoublepage 
+                 \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
+                 \imtaOldChapter*{#1}
+                 \imtaChapterFigure
+                 \clearpage \newpage \restoregeometry \twocolumn                
+             \else
+             \cleardoublepage 
+             \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
+                 \imtaOldChapter*{#1}
+                 \imtaChapterFigure
+                 \clearpage \newpage \restoregeometry
+             \fi    
+         }
+         
+         \def\imtaNoStarChapter[#1]#2{%
+             \if@twocolumn % We want to make sure the chapter page is always on a one column full page
+                 \onecolumn
+                 \cleardoublepage 
+                 \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
+                 \imtaOldChapter[{#1}]{#2}
+                 \imtaChapterFigure
+                 \clearpage \newpage \restoregeometry \twocolumn
+             \else
+                 \cleardoublepage 
+                 \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
+                 \imtaOldChapter[{#1}]{#2}
+                 \imtaChapterFigure
+                 \clearpage \newpage \restoregeometry
+             \fi
+         }
+     
+         % Finally, the chapter formatting is updated
+         \titleformat
+             {\chapter} % command
+             [display] % shape
+             {\bf\Huge} % format
+             {Chapitre \thechapter} % label
+             {1em} % sep
+             {\hspace{2em}\bf\Huge\thispagestyle{empty}} % before-code
+             [{}] % after-code ; does not accept \if statements
+     \else
+         \relax
+     \fi
+ \makeatother
 
