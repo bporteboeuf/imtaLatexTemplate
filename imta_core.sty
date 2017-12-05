@@ -10,7 +10,8 @@
 %
 % Errors:          None known
 %
-% Dependencies:    geometry
+% Dependencies:    babel
+%				   geometry
 %                  graphicx
 %                  fancyhdr
 %                  fontenc
@@ -36,6 +37,8 @@
 % 1.1.0      BP       31.10.2017   Original imta.sty package split into
 %                                  imt_core.sty and imta_extra.sty
 % 1.1.1      BP       03.11.2017   \imtaMakeCover command added
+% 1.1.2      BP       05.12.2017   chapter styling has now basic 
+%								   multilingual support
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -393,6 +396,27 @@
      % The chapter command is redefined when relevant.
      % It becomes more robust to oneside/twoside and onecolumn/twocolumn options and imports a figure
      \if@chapterdefined
+     
+	     % The Chapter header is made compatible with different languages, based on babel importation
+	     % (default is english)
+	     \def\imtaMultiLangChapter{%
+	     	 \iflanguage{english}{Chapter}{%
+%  	    	 \iflanguage{chinese}{章节}{%
+	     	 \iflanguage{french}{Chapitre}{%
+  	     	 \iflanguage{german}{Kapitull}{%
+%  	     	 \iflanguage{japanese}{章}{%
+  	     	 \iflanguage{portuguese}{Capítulo}{%
+  	     	 \iflanguage{spanish}{Capítulo}{%
+  	     	 	Chapter
+%  	     	}
+%	       	}
+		    }
+			}
+			}
+			}
+			}
+			}
+		
          \let\imtaOldChapter\chapter % The reference command is saved and a new one is redefined, based on the old. 
          % It is VERY important to catch the star version as well, otherwise it will not compile
          \renewcommand*{\chapter}{\@ifstar{\imtaStarChapter}{\@dblarg\imtaNoStarChapter}}
@@ -436,7 +460,7 @@
              {\chapter} % command
              [display] % shape
              {\bf\Huge} % format
-             {Chapitre \thechapter} % label
+             {\imtaMultiLangChapter{} \thechapter} % label
              {1em} % sep
              {\hspace{2em}\bf\Huge\thispagestyle{empty}} % before-code
              [{}] % after-code ; does not accept \if statements
