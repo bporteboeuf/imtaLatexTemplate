@@ -226,8 +226,8 @@
     \if@twocolumn
     	\onecolumn % we force it to a one column environment
     	\titleLayout
-    \twocolumn
-    	\else
+    	\twocolumn
+   	\else
     	\titleLayout
     \fi
 }
@@ -235,32 +235,36 @@
 % \titleLayout
 % Corresponds to the actual layout used for the cover by \imtaMaketitlepage
 \def\titleLayout{%
-%    \thispagestyle{empty}
-    \thispagestyle{imtaFirstpage}
-    \pagenumbering{gobble}
-    \newgeometry{top = .5cm, bottom = 1.5cm, left = 2cm, right = 1cm}
-    \begin{flushright}
-        \begin{tikzpicture}
-        \filldraw[draw=imtaGreen,fill=imtaGreen] (-3\imtaGetEltSize,0) -- (0,-3\imtaGetEltSize) -- (0\imtaGetEltSize,0) -- cycle;
-        \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-3\imtaGetEltSize) -- cycle;
-        \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\imtaGetEltSize,0) -- (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (-5.24\imtaGetEltSize,-3\imtaGetEltSize) -- cycle;
-        
-        \node (date) [draw=none, text width=\textwidth, align=left, anchor=west] at (-\textwidth, -6\imtaGetEltSize) {
-            \large\fontfamily{phv}\selectfont\thedate \\
-            \large\fontfamily{phv}\selectfont\theauthor \vspace*{1.5cm}\\
-            \textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace*{.5cm}\\
-            \textcolor{imtaGreen}{\Large\fontfamily{phv}\selectfont\subtitleValue}};
-        \end{tikzpicture}
-        \vfill
-            \begin{flushleft}
-                \imtaLogoTikz{5.3cm}
-            \end{flushleft}
-    \end{flushright}
-    \cleardoublepage
-    \restoregeometry
-    \pagenumbering{arabic}
-    \setcounter{page}{2}
+	%    \thispagestyle{empty}
+	\thispagestyle{imtaFirstpage}
+	\pagenumbering{gobble}
+	\newgeometry{top = .5cm, bottom = 1.5cm, left = 2cm, right = 1cm}
+	\begin{flushright}
+		\begin{tikzpicture}
+		\filldraw[draw=imtaGreen,fill=imtaGreen] (-3\imtaGetEltSize,0) -- (0,-3\imtaGetEltSize) -- (0\imtaGetEltSize,0) -- cycle;
+		\filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-3\imtaGetEltSize) -- cycle;
+		\filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\imtaGetEltSize,0) -- (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (-5.24\imtaGetEltSize,-3\imtaGetEltSize) -- cycle;
+		
+		\node (date) [draw=none, text width=\textwidth, align=left, anchor=north west] at (-\textwidth, -4.4\imtaGetEltSize) {
+			\large\fontfamily{phv}\selectfont\thedate \\
+			\large\fontfamily{phv}\selectfont\theauthor
+			\vspace*{1.25cm}};
+		\end{tikzpicture}
+	\end{flushright}
+	\begin{minipage}{.92\textwidth}
+		\textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace*{.5cm}\\
+		\textcolor{imtaGreen}{\Large\fontfamily{phv}\selectfont\subtitleValue}
+	\end{minipage}
+	\vfill
+	\begin{flushleft}
+		\imtaLogoTikz{5.3cm}
+	\end{flushleft}
+	\cleardoublepage
+	\restoregeometry
+	\pagenumbering{arabic}
+	\setcounter{page}{2}
 }
+
 \makeatother
 
 
