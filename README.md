@@ -33,10 +33,3 @@ At the first execution, the script will ask you the path of the main file, that 
     > 
 
 This will create a `.latexCompileSetup` file, that contains a pickled Python object, representing the settings for your project.
-
-
-## TODO
-
-- Complete and update the documentation (`imta_documentation.tex`)
-- Improve the experimental `\imtaLogo` command (`imta_core.tex`)
-- Add the desired width as a parameter to the `\imtaLogoTikz` command (`imta_core.tex`)
