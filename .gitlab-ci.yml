@@ -4,9 +4,13 @@
 # possible alternative: https://github.com/natlownes/docker-latex
 image: blang/latex
 
-build:
-  script:
-    - make
-  artifacts:
-    paths:
-      - "*.pdf"
+stages:
+    - build
+
+compile_documentation:
+    stage: build
+    script:
+        - make
+    artifacts:
+        paths:
+            - "imta_documentation.pdf"
