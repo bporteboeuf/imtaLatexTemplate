@@ -173,8 +173,10 @@
 % \imtaAddPartnerLogo
 % Enables the printing of a partner's logo on the main title page, next to IMT's
 % Its largest dimension is set to the corresponding dimension of the IMT Atlantique's logo.
-\def\imtaPartnerLogo{}
-\def\imtaAddPartnerLogo#1{\def\imtaPartnerLogo{#1}}
+\newcounter{imtaLogoCounter}     \setcounter{imtaLogoCounter}{0}
+\def\imtaPartnerLogo#1{\csname imtaPartnerLogo#1\endcsname}
+\def\imtaAddPartnerLogo#1{\global\addtocounter{imtaLogoCounter}{1}
+	\global\expandafter\def\csname imtaPartnerLogo\theimtaLogoCounter\endcsname{#1}}
 
 
 
@@ -271,17 +273,29 @@
 	\end{minipage}
 	\vfill
 	\begin{flushleft}
-		\begin{minipage}{6cm}
+		\newlength\imta@remainingWidth
+		\newlength\imta@picWidth
+		\begin{minipage}{5.6cm}
 			\imtaLogoTikz{5.3cm}
 		\end{minipage}
-		\begin{minipage}{6cm}
-			\if\imtaPartnerLogo\relax\relax
-				\relax
-			\else
-				\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo}
-			 \fi
-		\end{minipage}
-		\hfill
+%		\setlength{\remainingWidth}{\textwidth-5.6cm}
+		\newcounter{imta@idx}   \setcounter{imta@idx}{1}
+		\loop
+			\ifnum\value{imtaLogoCounter}>0
+				\settowidth\imta@picWidth{\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo{\theimta@idx}}}
+				\setlength\imta@picWidth{\imta@picWidth+.25cm}
+%				\ifnum\picWidth>\remainingWidth
+%					\newline
+%					\setlength\remainingwidth{\textwidth}
+%				\fi
+				\begin{minipage}{\imta@picWidth}
+					\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo{\theimta@idx}}
+				\end{minipage}
+%				\setlength\remainingWidth{\remainingWidth-\picWidth}
+			\fi
+			\addtocounter{imta@idx}{1}
+		\ifnum\value{imta@idx}<\value{imtaLogoCounter}
+		\repeat		
 	\end{flushleft}
 	\cleardoublepage
 	\restoregeometry
