@@ -40,6 +40,8 @@
 % 1.1.2      BP       05.12.2017   chapter styling has now basic 
 %								   multilingual support
 % 1.1.3      BP       14.12.2017   \imtaAuthorShort command added
+% 1.1.4      BP       16.12.2017   Multiple partners' logo support thanks
+%								   to the \imtaAddPartnerLogo command
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -173,10 +175,13 @@
 % \imtaAddPartnerLogo
 % Enables the printing of a partner's logo on the main title page, next to IMT's
 % Its largest dimension is set to the corresponding dimension of the IMT Atlantique's logo.
+% Argument: relative path to the resource
 \newcounter{imtaLogoCounter}     \setcounter{imtaLogoCounter}{0}
-\def\imtaPartnerLogo#1{\csname imtaPartnerLogo#1\endcsname}
 \def\imtaAddPartnerLogo#1{\global\addtocounter{imtaLogoCounter}{1}
 	\global\expandafter\def\csname imtaPartnerLogo\theimtaLogoCounter\endcsname{#1}}
+% \imtaPartnerLogo
+% Prints the path of the resource associated with the given number, in 0..\imtaLogoCounter
+\def\imtaPartnerLogo#1{\csname imtaPartnerLogo#1\endcsname}
 
 
 
@@ -251,10 +256,11 @@
 % \titleLayout
 % Corresponds to the actual layout used for the cover by \imtaMaketitlepage
 \def\titleLayout{%
-	%    \thispagestyle{empty}
+	% Geometry and pagestyle
 	\thispagestyle{imtaFirstpage}
 	\pagenumbering{gobble}
 	\newgeometry{top = .5cm, bottom = 1.5cm, left = 2cm, right = 1cm}
+	% Drawing the triangles
 	\begin{flushright}
 		\begin{tikzpicture}
 		\filldraw[draw=imtaGreen,fill=imtaGreen] (-3\imtaGetEltSize,0) -- (0,-3\imtaGetEltSize) -- (0\imtaGetEltSize,0) -- cycle;
@@ -267,33 +273,30 @@
 			\vspace*{1.25cm}};
 		\end{tikzpicture}
 	\end{flushright}
+	% Printing the title and other relevant informations
 	\begin{minipage}{.92\textwidth}
 		\textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace*{.5cm}\\
 		\textcolor{imtaGreen}{\Large\fontfamily{phv}\selectfont\subtitleValue}
 	\end{minipage}
 	\vfill
+	% Displaying the school's logo
 	\begin{flushleft}
 		\newlength\imta@remainingWidth
 		\newlength\imta@picWidth
 		\begin{minipage}{5.6cm}
 			\imtaLogoTikz{5.3cm}
 		\end{minipage}
-%		\setlength{\remainingWidth}{\textwidth-5.6cm}
-		\newcounter{imta@idx}   \setcounter{imta@idx}{1}
+		% Adding any potential user-defined partner's logo
+		\newcounter{imta@idx}   \setcounter{imta@idx}{0}
 		\loop
+			\addtocounter{imta@idx}{1}
 			\ifnum\value{imtaLogoCounter}>0
 				\settowidth\imta@picWidth{\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo{\theimta@idx}}}
-				\setlength\imta@picWidth{\imta@picWidth+.25cm}
-%				\ifnum\picWidth>\remainingWidth
-%					\newline
-%					\setlength\remainingwidth{\textwidth}
-%				\fi
+				\setlength\imta@picWidth{\imta@picWidth+.5cm}
 				\begin{minipage}{\imta@picWidth}
 					\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo{\theimta@idx}}
 				\end{minipage}
-%				\setlength\remainingWidth{\remainingWidth-\picWidth}
 			\fi
-			\addtocounter{imta@idx}{1}
 		\ifnum\value{imta@idx}<\value{imtaLogoCounter}
 		\repeat		
 	\end{flushleft}
