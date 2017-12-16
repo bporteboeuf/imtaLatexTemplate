@@ -170,6 +170,14 @@
 }
 
 
+% \imtaAddPartnerLogo
+% Enables the printing of a partner's logo on the main title page, next to IMT's
+% Its largest dimension is set to the corresponding dimension of the IMT Atlantique's logo.
+\def\imtaPartnerLogo{}
+\def\imtaAddPartnerLogo#1{\def\imtaPartnerLogo{#1}}
+
+
+
 % \imtaLogo
 % Include the IMTA logo according to the given width
 \newcommand\imtaLogo[1]{\includegraphics[width = #1]{imta_logo.pdf}}
@@ -263,7 +271,17 @@
 	\end{minipage}
 	\vfill
 	\begin{flushleft}
-		\imtaLogoTikz{5.3cm}
+		\begin{minipage}{6cm}
+			\imtaLogoTikz{5.3cm}
+		\end{minipage}
+		\begin{minipage}{6cm}
+			\if\imtaPartnerLogo\relax\relax
+				\relax
+			\else
+				\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo}
+			 \fi
+		\end{minipage}
+		\hfill
 	\end{flushleft}
 	\cleardoublepage
 	\restoregeometry
