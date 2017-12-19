@@ -1,20 +1,44 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File Name:       imta_documentation
+%
+% Description:     documentation of the IMT Atlantique LaTeX Template.
+%
+% Note:            /
+%
+% Limitations:     /
+%
+% Errors:          None known
+%
+% Dependencies:    babel
+%				   biblatex
+%                  imta_core
+%                  imta_extra
+%
+% Author:          A. Foucault - armand.foucault@telecom-bretagne.eu
+% Contributors:    B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
+%
+% University :     IMT Atlantique, Brest (France)
+%
+% TeX Environment: TeXLive + pdfLaTeX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \documentclass{report}
+
 
 \usepackage{imta_core}
 \usepackage{imta_extra}
 
 \usepackage[english]{babel}
 
+\usepackage{biblatex}
+\addbibresource{imta_documentation_bibliography}
+
+
 \author{FOUCAULT Armand\\PORTEBOEUF Benoît}
 %\imtaAuthorShort{A. Foucault \& B. Porteboeuf}
 \date{December 2017}
 \title{Institut Mines-Télécom Atlantique - \LaTeX{} report template}
 \subtitle{Documentation for the \texttt{imta} package}
-
-\imtaAddPartnerLogo{imtalogo1}
-\imtaAddPartnerLogo{imtalogo1}
-\imtaAddPartnerLogo{imtalogo1}
-\imtaAddPartnerLogo{imtalogo1}
 
 
 \imtaSetIMTStyle
@@ -26,17 +50,23 @@
 	
 \imtaMaketitlepage
 
-\imtaPartnerLogo{1}
-\imtaPartnerLogo{2}
-\imtaPartnerLogo{3}
-\imtaPartnerLogo{4}
-
 \tableofcontents
 
 \newpage
 
 \chapter{Core features: \texttt{imta\_core}}
- 
+
+\section{Introduction}
+The \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules \cite{charteGraphique}. For slightly more advanced or specific features, you might want to refer to the \texttt{imta\_extra} package.
+
+Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be usd in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries.
+
+\section{Set up}
+In order to use this template, you simply need to have a \TeX{} distribution installed, copy this file in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_core}} command in the preamble of your top document.
+
+Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager, as suggested in \cite{updatingMikTeX}.
+
+
 \section{Sectioning}
 
 \subsection{\texttt{imtaQuestion} and \texttt{imtaQuestionReset}}
@@ -134,16 +164,18 @@ The following is a comparison of both commands.
 \end{figure}
 
 
-\subsubsection{\texttt{imtaMaketitlepage}}
-This command outputs a title page with the names of the authors, the date of writing, and the title of the document, along with the subtitle.
+\subsubsection{Front cover}
+The \texttt{imtaMaketitlepage} command outputs a title page with the names of the authors, the date of writing, and the title of the document, along with the subtitle.
 For this latter purpose, the \imtaInlinecode{latex}{\subtitle} command helps define a subtitle as a part of the document's metadata, and %
 is used inside of the \imtaInlinecode{latex}{\imtaMaketitlepage} command.
 
 
-\subsubsection{\texttt{imtaMakeCover}}
+\subsubsection{Back cover}
 
-This command outputs a cover as the last page of the document.
+The \texttt{imtaMakeCover} command outputs a cover as the last page of the document.
 This page will always be a left page in a two-side document.
+
+\subsection{}
 
 \section{External dependancies}
 
@@ -232,8 +264,36 @@ To output a hypertext link, use the \imtaInlinecode{latex}{\hyperref} command.
 \RequirePackage[bottom]{footmisc}
 \end{imtaCode}
 
- \chapter{Additional features: \texttt{imta\_extra}}
+\chapter{Additional features: \texttt{imta\_extra}}
+
+\section{Introduction}
+While the \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules, \cite{charteGraphique} the \texttt{imta\_extra} package provides the user some slightly more advanced or specific features.
+
+Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be usd in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries.
+
+\section{Set up}
+In order to use this template, you need to have a \TeX{} distribution installed, copy this file as well as \texttt{imta\_core} in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_extra}} command in the preamble of your top document.
+
+Since \texttt{imta\_extra} uses the \texttt{minted} package for code colouring, two extra steps are necessary to fully resolve dependencies. First, you need to have \texttt{Pygmentize} installed. If this is not the case, you can do it using Python utilitary \texttt{pip} by executing \imtaInlinecode{python}{pip install Pygments}. Finally, you also need to build your document with the correct options. If you are using pdf\LaTeX{} as your compiler, you need to add the \imtaInlinecode{latex}{--shell-escape} option.
+
+Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager, as suggested in \cite{updatingMikTeX}.
+
+\section{Document Styling}
+\subsection{Code Colouring}
+\subsection{Structuring List of Figures and Tables}
+\subsection{Page numbering}
+
+\section{External dependancies}
+\subsection{anyfontsize}
+\subsection{imta\_core}
+\subsection{mdframed}
+\subsection{minted}
+
+
+%\chapter{References}
+\printbibliography[title=References,heading=bibintoc]
 
 \end{document}
+
 %%%%%%%%%% END %%%%%%%%%% 
 %%%%%%%%%%%%%%%%%%%%%%%%% 
