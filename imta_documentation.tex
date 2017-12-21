@@ -31,7 +31,7 @@
 \usepackage[english]{babel}
 
 \usepackage{biblatex}
-\addbibresource{imta_documentation_bibliography}
+\addbibresource{imta_documentation_bibliography.bib}
 
 
 \author{FOUCAULT Armand\\PORTEBOEUF Benoît}
@@ -157,8 +157,8 @@ The following is a comparison of both commands.
 
 \begin{figure}[H]
     \centering
-    \imtaLogo{5cm}
-    \imtaLogoTikz{5cm}
+    \fbox{\imtaLogo{5cm}}
+    \fbox{\imtaLogoTikz{5cm}}
     \caption{Comparison between \imtaInlinecode{latex}{imtaLogo} and \imtaInlinecode{latex}{imtaLogoTikz}}
     \label{fig:imtaLogo}
 \end{figure}
@@ -169,13 +169,17 @@ The \texttt{imtaMaketitlepage} command outputs a title page with the names of th
 For this latter purpose, the \imtaInlinecode{latex}{\subtitle} command helps define a subtitle as a part of the document's metadata, and %
 is used inside of the \imtaInlinecode{latex}{\imtaMaketitlepage} command.
 
+Since the \imtaInlinecode{latex}{\author} command consists of only one field, we recommend to simply add linebreaks when declaring the authors if several people co-author a document. However, should you not use the IMT Atlantique style and would like to print the authors' name on one line in the default header, we introduced the \imtaInlinecode{latex}{\imtaAuthorShort} command which sets the \imtaInlinecode{latex}{\imtaTheAuthorShort} macro. By default, it is equal to the \imtaInlinecode{latex}{\theauthor} command, but can be redefined to be on one line only.
+
+Moreover, you can also add one or several partner's logo on the front cover, next to the one of IMT Atlantique. In order to achieve this, you can simply use the \imtaInlinecode{latex}{\imtaAddPartnerLogo} command in the preamble of your document. The logo will be resized so that its maximum dimension is equal to the corresponding dimension of the IMT Atlantique's logo.
+
 
 \subsubsection{Back cover}
 
 The \texttt{imtaMakeCover} command outputs a cover as the last page of the document.
 This page will always be a left page in a two-side document.
 
-\subsection{}
+
 
 \section{External dependancies}
 
@@ -281,13 +285,16 @@ Note that this template is compatible with at least \TeX Live and MiK\TeX distri
 \section{Document Styling}
 \subsection{Code Colouring}
 \subsection{Structuring List of Figures and Tables}
+In long documents, in can be useful to structure the list of figures or tables by printing the highest section (chapter or section) containing the items. In order to achieve this, the \texttt{figure} and \texttt{table} environments have been redefined, as well as the \texttt{chapter} and \texttt{section} commands. The default behavior is thus to print the upper level section in the list of figures or tables. If you would like to disable this functionalities, you can do it by using the \texttt{nouppersectioninlof} or \texttt{nouppersectioninlot} option when loading the package. Simply type \imtaInlinecode{latex}{\usepackage[<options>]{imta_extra}} in the preamble.
+
 \subsection{Page numbering}
+In order to ease the page numbering and differentiate the preamble of your document (front cover, table of contents, list of figures, abstract, etc) from the corpus of your document, we introduced the \imtaInlinecode{latex}{\frontmatter} and \imtaInlinecode{latex}{\mainmatter}. They respectively set the page numbering style to roman or arabic.
 
 \section{External dependancies}
-\subsection{anyfontsize}
-\subsection{imta\_core}
-\subsection{mdframed}
-\subsection{minted}
+\subsection{\texttt{anyfontsize}}
+\subsection{\texttt{imta\_core}}
+\subsection{\texttt{mdframed}}
+\subsection{\texttt{minted}}
 
 
 %\chapter{References}
