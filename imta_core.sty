@@ -187,7 +187,9 @@
 
 % \imtaLogo
 % Include the IMTA logo according to the given width
-\newcommand\imtaLogo[1]{\includegraphics[width = #1]{imta_logo.pdf}}
+\newcommand\imtaLogo[1]{%
+	\includegraphics[width = #1, trim = 1.4cm 2cm 1.5cm 1.25cm, clip]{imta_logo.pdf}
+}
 
 
 % \imtaLogoTikz
