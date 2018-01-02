@@ -30,10 +30,6 @@
 \usepackage{imta_extra}
 
 
-\usepackage{biblatex}
-\addbibresource{imta_documentation_bibliography.bib}
-
-
 \author{FOUCAULT Armand\\PORTEBOEUF Benoît}
 %\imtaAuthorShort{A. Foucault \& B. Porteboeuf}
 \date{December 2017}
@@ -58,14 +54,14 @@
 \chapter{Core features: \texttt{imta\_core}}
 
 \section{Introduction}
-The \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules \cite{charteGraphique}. For slightly more advanced or specific features, you might want to refer to the \texttt{imta\_extra} package.
+The \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules.\footnote{See \textit{\href{https://intranet.imt-atlantique.fr/wp-content/uploads/2017/01/imt_atlantique_chartegraphique.pdf}{Charte Graphique}} on the IMT Atlantique's intranet for more details.} For slightly more advanced or specific features, you might want to refer to the \texttt{imta\_extra} package.
 
 Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be usd in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries.
 
 \section{Set up}
 In order to use this template, you simply need to have a \TeX{} distribution installed, copy this file in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_core}} command in the preamble of your top document. The \texttt{babel} package should be loaded first when used in combination with \texttt{imta\_core}.
 
-Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager, as suggested in \cite{updatingMikTeX}.
+Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager.\footnote{See \textit{\href{https://tex.stackexchange.com/a/359851}{General Guide to Installing Packages with MikTeX Package Manager}} on \TeX Stack Exchange for more details.}
 
 
 \section{Sectioning}
@@ -281,7 +277,7 @@ To output a hypertext link, use the \imtaInlinecode{latex}{\hyperref} command.
 \chapter{Additional features: \texttt{imta\_extra}}
 
 \section{Introduction}
-While the \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules, \cite{charteGraphique} the \texttt{imta\_extra} package provides the user some slightly more advanced or specific features.
+While the \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules\footnote{See \textit{\href{https://intranet.imt-atlantique.fr/wp-content/uploads/2017/01/imt_atlantique_chartegraphique.pdf}{Charte Graphique}} on the IMT Atlantique's intranet for more details.} the \texttt{imta\_extra} package provides the user some slightly more advanced or specific features.
 
 Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be usd in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries.
 
@@ -290,7 +286,7 @@ In order to use this template, you need to have a \TeX{} distribution installed,
 
 Since \texttt{imta\_extra} uses the \texttt{minted} package for code colouring, two extra steps are necessary to fully resolve dependencies. First, you need to have \texttt{Pygmentize} installed. If this is not the case, you can do it using Python utilitary \texttt{pip} by executing \imtaInlinecode{python}{pip install Pygments}. Finally, you also need to build your document with the correct options. If you are using pdf\LaTeX{} as your compiler, you need to add the \imtaInlinecode{latex}{--shell-escape} option.
 
-Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager, as suggested in \cite{updatingMikTeX}.
+Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager.\footnote{See \textit{\href{https://tex.stackexchange.com/a/359851}{General Guide to Installing Packages with MikTeX Package Manager}} on \TeX Stack Exchange for more details.}
 
 \section{Document Styling}
 \subsection{Code Colouring}
@@ -307,8 +303,6 @@ In order to ease the page numbering and differentiate the preamble of your docum
 \subsection{\texttt{minted}}
 
 
-%\chapter{References}
-\printbibliography[title=References,heading=bibintoc]
 
 \end{document}
 
