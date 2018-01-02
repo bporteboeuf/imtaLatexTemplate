@@ -24,11 +24,11 @@
 
 \documentclass{report}
 
+\usepackage[english]{babel}
 
 \usepackage{imta_core}
 \usepackage{imta_extra}
 
-\usepackage[english]{babel}
 
 \usepackage{biblatex}
 \addbibresource{imta_documentation_bibliography.bib}
@@ -63,7 +63,7 @@ The \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the 
 Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be usd in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries.
 
 \section{Set up}
-In order to use this template, you simply need to have a \TeX{} distribution installed, copy this file in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_core}} command in the preamble of your top document.
+In order to use this template, you simply need to have a \TeX{} distribution installed, copy this file in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_core}} command in the preamble of your top document. The \texttt{babel} package should be loaded first when used in combination with \texttt{imta\_core}.
 
 Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager, as suggested in \cite{updatingMikTeX}.
 
@@ -81,6 +81,10 @@ The \imtaInlinecode{bash}{imta_core} package offers a one-level-deeper section t
 This provides an alternative to the usual \imtaInlinecode{latex}{\paragraph}.
 
 \subsection{\texttt{chapter}}
+The \imtaInlinecode{latex}{\chapter} command has been redefined to print the word "chapter" in front of the figure. This command is compatible with several languages but requires the \texttt{babel} package to be loaded first. The default language is english.
+
+This command also prints a small design on the bottom right corner of the page and updates the upper section title.
+
 
 \section{Document styling}
 

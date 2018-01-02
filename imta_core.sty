@@ -10,12 +10,16 @@
 %
 % Errors:          None known
 %
-% Dependencies:    babel
+% Dependencies:    anyfontsize
+%				   babel
+%				   etoolbox
+%                  fancyhdr
+%				   footmisc
+%                  fontenc
 %				   geometry
 %                  graphicx
-%                  fancyhdr
-%                  fontenc
 %                  hyperref
+%				   hyphenat
 %                  inputenc
 %                  secsty
 %                  tikz
@@ -255,16 +259,16 @@
     \clearpage
     \if@twocolumn
     	\onecolumn % we force it to a one column environment
-    	\titleLayout
+    	\imtaTitleLayout
     	\twocolumn
    	\else
-    	\titleLayout
+    	\imtaTitleLayout
     \fi
 }
 
-% \titleLayout
+% \imtaTitleLayout
 % Corresponds to the actual layout used for the cover by \imtaMaketitlepage
-\def\titleLayout{%
+\def\imtaTitleLayout{%
 	% Geometry and pagestyle
 	\thispagestyle{imtaFirstpage}
 	\pagenumbering{gobble}
@@ -453,23 +457,22 @@
      
 	     % The Chapter header is made compatible with different languages, based on babel importation
 	     % (default is english)
-	     \def\imtaMultiLangChapter{%
-	     	 \iflanguage{english}{Chapter}{%
-%  	    	 \iflanguage{chinese}{章节}{%
-	     	 \iflanguage{french}{Chapitre}{%
-  	     	 \iflanguage{german}{Kapitull}{%
-%  	     	 \iflanguage{japanese}{章}{%
-  	     	 \iflanguage{portuguese}{Capítulo}{%
-  	     	 \iflanguage{spanish}{Capítulo}{%
-  	     	 	Chapter
-%  	     	}
-%	       	}
-		    }
+	     \edef\imtaMultiLangChapter{%
+	     		\@ifpackageloaded{babel}{
+			     	 \iflanguage{english}{Chapter}{%
+			     	 \iflanguage{french}{Chapitre}{%
+		  	     	 \iflanguage{german}{Kapitull}{%
+		  	     	 \iflanguage{portuguese}{Capítulo}{%
+		  	     	 \iflanguage{spanish}{Capítulo}{%
+		  	     	 	Chapter
+		  	     	}
+					}
+					}
+					}
+					}
+				}{Chapter}
 			}
-			}
-			}
-			}
-			}
+		
 		
          \let\imtaOldChapter\chapter % The reference command is saved and a new one is redefined, based on the old. 
          % It is VERY important to catch the star version as well, otherwise it will not compile
