@@ -4,22 +4,23 @@
 % Description:     Overall layout and colours of the IMT Atlantique
 %                  LaTeX Template.
 %
-% Note:            /
+% Note:            The babel package should be loaded first if used 
+%                  in combination.
 %
 % Limitations:     /
 %
 % Errors:          None known
 %
 % Dependencies:    anyfontsize
-%				   babel
-%				   etoolbox
+%                  babel
+%                  etoolbox
 %                  fancyhdr
-%				   footmisc
+%                  footmisc
 %                  fontenc
-%				   geometry
+%                  geometry
 %                  graphicx
 %                  hyperref
-%				   hyphenat
+%                  hyphenat
 %                  inputenc
 %                  secsty
 %                  tikz
@@ -42,10 +43,10 @@
 %                                  imt_core.sty and imta_extra.sty
 % 1.1.1      BP       03.11.2017   \imtaMakeCover command added
 % 1.1.2      BP       05.12.2017   chapter styling has now basic 
-%								   multilingual support
+%                                  multilingual support
 % 1.1.3      BP       14.12.2017   \imtaAuthorShort command added
 % 1.1.4      BP       16.12.2017   Multiple partners' logo support thanks
-%								   to the \imtaAddPartnerLogo command
+%                                  to the \imtaAddPartnerLogo command
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -183,7 +184,7 @@
 % Argument: relative path to the resource
 \newcounter{imtaLogoCounter}     \setcounter{imtaLogoCounter}{0}
 \def\imtaAddPartnerLogo#1{\global\addtocounter{imtaLogoCounter}{1}
-	\global\expandafter\def\csname imtaPartnerLogo\theimtaLogoCounter\endcsname{#1}}
+    \global\expandafter\def\csname imtaPartnerLogo\theimtaLogoCounter\endcsname{#1}}
 % \imtaPartnerLogo
 % Prints the path of the resource associated with the given number, in 0..\imtaLogoCounter
 \def\imtaPartnerLogo#1{\csname imtaPartnerLogo#1\endcsname}
@@ -193,7 +194,7 @@
 % \imtaLogo
 % Include the IMTA logo according to the given width
 \newcommand\imtaLogo[1]{%
-	\includegraphics[width = #1, trim = 1.4cm 2cm 1.5cm 1.25cm, clip]{imta_logo.pdf}
+    \includegraphics[width = #1, trim = 1.4cm 2cm 1.5cm 1.25cm, clip]{imta_logo.pdf}
 }
 
 
@@ -224,14 +225,14 @@
                                           (5,0) -- (7,0) -- (5,-2) -- (5,-1) -- (4,-1) -- %
                                           (4,-2) -- (2,-2) -- (2,0) -- (0,-2) -- (0,0);
             \node [anchor=west] at (0,-2.75) {
-            	\fontsize{19.5}{23}
-            	\fontfamily{phv}\selectfont \textbf{IMT Atlantique}};
+                \fontsize{19.5}{23}
+                \fontfamily{phv}\selectfont \textbf{IMT Atlantique}};
             \node [anchor=north west] at (0,-3.18) {
-            	\fontsize{15}{18}
-            	\fontfamily{phv}\selectfont Bretagne-Pays de la Loire};
+                \fontsize{15}{18}
+                \fontfamily{phv}\selectfont Bretagne-Pays de la Loire};
             \node [anchor=south west] at (0,-4.18) {
-            	\fontsize{15}{18}
-            	\fontfamily{phv}\selectfont École Mines-Télécom};
+                \fontsize{15}{18}
+                \fontfamily{phv}\selectfont École Mines-Télécom};
         \end{tikzpicture}  
     }
 }
@@ -258,65 +259,65 @@
 \newcommand\imtaMaketitlepage{%
     \clearpage
     \if@twocolumn
-    	\onecolumn % we force it to a one column environment
-    	\imtaTitleLayout
-    	\twocolumn
-   	\else
-    	\imtaTitleLayout
+        \onecolumn % we force it to a one column environment
+        \imtaTitleLayout
+        \twocolumn
+    \else
+        \imtaTitleLayout
     \fi
 }
 
 % \imtaTitleLayout
 % Corresponds to the actual layout used for the cover by \imtaMaketitlepage
 \def\imtaTitleLayout{%
-	% Geometry and pagestyle
-	\thispagestyle{imtaFirstpage}
-	\pagenumbering{gobble}
-	\newgeometry{top = .5cm, bottom = 1.5cm, left = 2cm, right = 1cm}
-	% Drawing the triangles
-	\begin{flushright}
-		\begin{tikzpicture}
-		\filldraw[draw=imtaGreen,fill=imtaGreen] (-3\imtaGetEltSize,0) -- (0,-3\imtaGetEltSize) -- (0\imtaGetEltSize,0) -- cycle;
-		\filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-3\imtaGetEltSize) -- cycle;
-		\filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\imtaGetEltSize,0) -- (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (-5.24\imtaGetEltSize,-3\imtaGetEltSize) -- cycle;
-		
-		\node (date) [draw=none, text width=\textwidth, align=left, anchor=north west] at (-\textwidth, -4.4\imtaGetEltSize) {
-			\large\fontfamily{phv}\selectfont\thedate \\
-			\large\fontfamily{phv}\selectfont\theauthor
-			\vspace*{1.25cm}};
-		\end{tikzpicture}
-	\end{flushright}
-	% Printing the title and other relevant informations
-	\begin{minipage}{.92\textwidth}
-		\textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace*{.5cm}\\
-		\textcolor{imtaGreen}{\Large\fontfamily{phv}\selectfont\subtitleValue}
-	\end{minipage}
-	\vfill
-	% Displaying the school's logo
-	\begin{flushleft}
-		\newlength\imta@remainingWidth
-		\newlength\imta@picWidth
-		\begin{minipage}{5.6cm}
-			\imtaLogoTikz{5.3cm}
-		\end{minipage}
-		% Adding any potential user-defined partner's logo
-		\newcounter{imta@idx}   \setcounter{imta@idx}{0}
-		\loop
-			\addtocounter{imta@idx}{1}
-			\ifnum\value{imtaLogoCounter}>0
-				\settowidth\imta@picWidth{\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo{\theimta@idx}}}
-				\setlength\imta@picWidth{\imta@picWidth+.5cm}
-				\begin{minipage}{\imta@picWidth}
-					\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo{\theimta@idx}}
-				\end{minipage}
-			\fi
-		\ifnum\value{imta@idx}<\value{imtaLogoCounter}
-		\repeat		
-	\end{flushleft}
-	\cleardoublepage
-	\restoregeometry
-	\pagenumbering{arabic}
-	\setcounter{page}{2}
+    % Geometry and pagestyle
+    \thispagestyle{imtaFirstpage}
+    \pagenumbering{gobble}
+    \newgeometry{top = .5cm, bottom = 1.5cm, left = 2cm, right = 1cm}
+    % Drawing the triangles
+    \begin{flushright}
+        \begin{tikzpicture}
+        \filldraw[draw=imtaGreen,fill=imtaGreen] (-3\imtaGetEltSize,0) -- (0,-3\imtaGetEltSize) -- (0\imtaGetEltSize,0) -- cycle;
+        \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-3\imtaGetEltSize) -- cycle;
+        \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\imtaGetEltSize,0) -- (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (-5.24\imtaGetEltSize,-3\imtaGetEltSize) -- cycle;
+        
+        \node (date) [draw=none, text width=\textwidth, align=left, anchor=north west] at (-\textwidth, -4.4\imtaGetEltSize) {
+            \large\fontfamily{phv}\selectfont\thedate \\
+            \large\fontfamily{phv}\selectfont\theauthor
+            \vspace*{1.25cm}};
+        \end{tikzpicture}
+    \end{flushright}
+    % Printing the title and other relevant informations
+    \begin{minipage}{.92\textwidth}
+        \textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace*{.5cm}\\
+        \textcolor{imtaGreen}{\Large\fontfamily{phv}\selectfont\subtitleValue}
+    \end{minipage}
+    \vfill
+    % Displaying the school's logo
+    \begin{flushleft}
+        \newlength\imta@remainingWidth
+        \newlength\imta@picWidth
+        \begin{minipage}{5.6cm}
+            \imtaLogoTikz{5.3cm}
+        \end{minipage}
+        % Adding any potential user-defined partner's logo
+        \newcounter{imta@idx}   \setcounter{imta@idx}{0}
+        \loop
+            \addtocounter{imta@idx}{1}
+            \ifnum\value{imtaLogoCounter}>0
+                \settowidth\imta@picWidth{\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo{\theimta@idx}}}
+                \setlength\imta@picWidth{\imta@picWidth+.5cm}
+                \begin{minipage}{\imta@picWidth}
+                    \includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo{\theimta@idx}}
+                \end{minipage}
+            \fi
+        \ifnum\value{imta@idx}<\value{imtaLogoCounter}
+        \repeat        
+    \end{flushleft}
+    \cleardoublepage
+    \restoregeometry
+    \pagenumbering{arabic}
+    \setcounter{page}{2}
 }
 
 \makeatother
@@ -343,7 +344,7 @@
     \begin{center}
         \begin{minipage}{.85\textwidth}
             \vspace*{.73\textheight}
-            \centerline{\imtaLogoTikz{3cm}}
+            \centerline{\imtaLogoTikz{4cm}}
             \vspace*{1.25cm}
             %    \newline
             \begin{flushleft}
@@ -455,25 +456,25 @@
      % It becomes more robust to oneside/twoside and onecolumn/twocolumn options and imports a figure
      \if@chapterdefined
      
-	     % The Chapter header is made compatible with different languages, based on babel importation
-	     % (default is english)
-	     \edef\imtaMultiLangChapter{%
-	     		\@ifpackageloaded{babel}{
-			     	 \iflanguage{english}{Chapter}{%
-			     	 \iflanguage{french}{Chapitre}{%
-		  	     	 \iflanguage{german}{Kapitull}{%
-		  	     	 \iflanguage{portuguese}{Capítulo}{%
-		  	     	 \iflanguage{spanish}{Capítulo}{%
-		  	     	 	Chapter
-		  	     	}
-					}
-					}
-					}
-					}
-				}{Chapter}
-			}
-		
-		
+         % The Chapter header is made compatible with different languages, based on babel importation
+         % (default is english)
+         \edef\imtaMultiLangChapter{%
+             \@ifpackageloaded{babel}{
+                  \iflanguage{english}{Chapter}{%
+                  \iflanguage{french}{Chapitre}{%
+                  \iflanguage{german}{Kapitull}{%
+                  \iflanguage{portuguese}{Capítulo}{%
+                  \iflanguage{spanish}{Capítulo}{%
+                      Chapter
+                    }
+                    }
+                    }
+                    }
+                    }
+                }{Chapter}
+            }
+        
+        
          \let\imtaOldChapter\chapter % The reference command is saved and a new one is redefined, based on the old. 
          % It is VERY important to catch the star version as well, otherwise it will not compile
          \renewcommand*{\chapter}{\@ifstar{\imtaStarChapter}{\@dblarg\imtaNoStarChapter}}
