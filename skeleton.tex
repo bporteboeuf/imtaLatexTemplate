@@ -1,13 +1,17 @@
 \documentclass{article}
 
+\usepackage[french]{babel}
+\usepackage[french]{isodate}
+
 \usepackage{imta_core}
 \usepackage{imta_extra}
 
-\usepackage[francais]{babel}
-% \usepackage{bibtex}
+% \usepackage{biblatex}
+
+\cleanlookdateon % formats date according to the loaded language from now on
 
 \author{}
-\date{}
+\date{} % use \date{\noexpand\today} to automatically print today's date
 \title{}
 \subtitle{}
 
@@ -19,6 +23,10 @@
 \begin{document}
 
 \imtaMaketitlepage
+
+% <content>
+
+\imtaMakeCover
 
 \end{document}
 %%%%%%%%%% END %%%%%%%%%% 

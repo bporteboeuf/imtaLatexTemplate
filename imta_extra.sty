@@ -18,7 +18,6 @@
 % Errors:          None known
 %
 % Dependencies:    imta_core
-%                  anyfontsize
 %                  mdframed
 %                  minted
 %
@@ -54,9 +53,6 @@
 % Fancy code listings
 \RequirePackage{minted}
 
-% Arbitrary font size
-\RequirePackage{anyfontsize}
-
 % Fancy frames and boxes
 \RequirePackage{mdframed}
 
@@ -75,7 +71,7 @@
 \makeatletter
     \global\newif\if@uppersectionprintedinLOF  \global\@uppersectionprintedinLOFfalse
     \global\newif\if@uppersectionprintedinLOT  \global\@uppersectionprintedinLOTfalse
-    \gdef\imtaUpperSectionTitle\doctitle
+    \gdef\imtaUpperSectionTitle\thetitle
     \gdef\imtaUpperSectionNumber{ }
 \makeatother
 
@@ -123,15 +119,15 @@
 % \imtaFrontMatter
 % Resets the page counter and switches to roman numbers (useful for the preamble)
 \makeatletter
-\newif\if@mainmatter \@mainmattertrue
+\newif\if@imtaMainMatter \@imtaMainMattertrue
 
 \def\imtaFrontMatter{%
-    \@mainmatterfalse \pagenumbering{roman} \setcounter{page}{1}}
+    \@imtaMainMatterfalse \pagenumbering{roman} \setcounter{page}{1}}
 
 % \imtaMainMatter
 % Resets the page counter and switches to arabic numbers (useful for the main content)
 \def\imtaMainMatter{%
-    \@mainmattertrue \pagenumbering{arabic} \setcounter{page}{1}}
+    \@imtaMainMattertrue \pagenumbering{arabic} \setcounter{page}{1}}
 \makeatother
 
 
@@ -232,17 +228,18 @@
          \fi
          \global\@uppersectionprintedinLOFtrue}
      
-     \let\oldfigure\figure
+     \let\imtaOldfigure\figure
      
-     \def\figure{\@ifnextchar{[}{\figurewarg}{\figurewotarg}}
+     \def\figure{\@ifnextchar{[}{\imtaFigurewarg}{\imtaFigurewotarg}}
      
      
-     \def\figurewarg[#1]{%        
-         \oldfigure[#1]\printuppersectioninlof}
+     \def\imtaFigurewarg[#1]{%        
+         \imtaOldfigure[#1]\printuppersectioninlof}
      
-     \def\figurewotarg{%
-         \oldfigure\printuppersectioninlof}
+     \def\imtaFigurewotarg{%
+         \imtaOldfigure\printuppersectioninlof}
  \makeatother
+
 
 
 % \table
@@ -262,14 +259,16 @@
         \fi
         \global\@uppersectionprintedinLOTtrue}
     
-    \let\oldtable\table
+    \let\imtaOldtable\table
     
-    \def\table{\@ifnextchar{[}{\tablewarg}{\tablewotarg}}    
+    \def\table{\@ifnextchar{[}{\imtaTablewarg}{\imtaTablewotarg}}    
     
-    \def\tablewarg[#1]{%        
-        \oldtable[#1]\printuppersectioninlot}
+    \def\imtaTablewarg[#1]{%        
+        \imtaOldtable[#1]\printuppersectioninlot}
     
-    \def\tablewotarg{%
-        \oldtable\printuppersectioninlot}
+    \def\imtaTablewotarg{%
+        \imtaOldtable\printuppersectioninlot}
 \makeatother
 
+%%%%%%%%%% END %%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%% 

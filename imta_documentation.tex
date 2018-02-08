@@ -1,22 +1,50 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File Name:       imta_documentation
+%
+% Description:     documentation of the IMT Atlantique LaTeX Template.
+%
+% Note:            /
+%
+% Limitations:     /
+%
+% Errors:          None known
+%
+% Dependencies:    babel
+%				   biblatex
+%                  imta_core
+%                  imta_extra
+%
+% Author:          A. Foucault - armand.foucault@telecom-bretagne.eu
+% Contributors:    B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
+%
+% University :     IMT Atlantique, Brest (France)
+%
+% TeX Environment: TeXLive + pdfLaTeX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \documentclass{report}
+
+\usepackage[english]{babel}
 
 \usepackage{imta_core}
 \usepackage{imta_extra}
 
-\usepackage[english]{babel}
 
 \author{FOUCAULT Armand\\PORTEBOEUF Benoît}
+%\imtaAuthorShort{A. Foucault \& B. Porteboeuf}
 \date{December 2017}
 \title{Institut Mines-Télécom Atlantique - \LaTeX{} report template}
 \subtitle{Documentation for the \texttt{imta} package}
 
-\imtaSetIMTStyle
 
+\imtaSetIMTStyle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%%%%%%%% BEGINNING %%%%%%%%%% 
 \begin{document}
 
+
+	
 \imtaMaketitlepage
 
 \tableofcontents
@@ -24,7 +52,18 @@
 \newpage
 
 \chapter{Core features: \texttt{imta\_core}}
- 
+
+\section{Introduction}
+The \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules.\footnote{See \textit{\href{https://intranet.imt-atlantique.fr/wp-content/uploads/2017/01/imt_atlantique_chartegraphique.pdf}{Charte Graphique}} on the IMT Atlantique's intranet for more details.} For slightly more advanced or specific features, you might want to refer to the \texttt{imta\_extra} package.
+
+Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be usd in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries.
+
+\section{Set up}
+In order to use this template, you simply need to have a \TeX{} distribution installed, copy this file in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_core}} command in the preamble of your top document. The \texttt{babel} package should be loaded first when used in combination with \texttt{imta\_core}.
+
+Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager.\footnote{See \textit{\href{https://tex.stackexchange.com/a/359851}{General Guide to Installing Packages with MikTeX Package Manager}} on \TeX Stack Exchange for more details.}
+
+
 \section{Sectioning}
 
 \subsection{\texttt{imtaQuestion} and \texttt{imtaQuestionReset}}
@@ -38,6 +77,10 @@ The \imtaInlinecode{bash}{imta_core} package offers a one-level-deeper section t
 This provides an alternative to the usual \imtaInlinecode{latex}{\paragraph}.
 
 \subsection{\texttt{chapter}}
+The \imtaInlinecode{latex}{\chapter} command has been redefined to print the word "chapter" in front of the figure. This command is compatible with several languages but requires the \texttt{babel} package to be loaded first. The default language is english.
+
+This command also prints a small design on the bottom right corner of the page and updates the upper section title.
+
 
 \section{Document styling}
 
@@ -115,23 +158,29 @@ The following is a comparison of both commands.
 
 \begin{figure}[H]
     \centering
-    \imtaLogo{5cm}
-    \imtaLogoTikz{5cm}
+    \fbox{\imtaLogo{5cm}}
+    \fbox{\imtaLogoTikz{5cm}}
     \caption{Comparison between \imtaInlinecode{latex}{imtaLogo} and \imtaInlinecode{latex}{imtaLogoTikz}}
     \label{fig:imtaLogo}
 \end{figure}
 
 
-\subsubsection{\texttt{imtaMaketitlepage}}
-This command outputs a title page with the names of the authors, the date of writing, and the title of the document, along with the subtitle.
+\subsubsection{Front cover}
+The \texttt{imtaMaketitlepage} command outputs a title page with the names of the authors, the date of writing, and the title of the document, along with the subtitle.
 For this latter purpose, the \imtaInlinecode{latex}{\subtitle} command helps define a subtitle as a part of the document's metadata, and %
 is used inside of the \imtaInlinecode{latex}{\imtaMaketitlepage} command.
 
+Since the \imtaInlinecode{latex}{\author} command consists of only one field, we recommend to simply add linebreaks when declaring the authors if several people co-author a document. However, should you not use the IMT Atlantique style and would like to print the authors' name on one line in the default header, we introduced the \imtaInlinecode{latex}{\imtaAuthorShort} command which sets the \imtaInlinecode{latex}{\imtaTheAuthorShort} macro. By default, it is equal to the \imtaInlinecode{latex}{\theauthor} command, but can be redefined to be on one line only.
 
-\subsubsection{\texttt{imtaMakeCover}}
+Moreover, you can also add one or several partner's logo on the front cover, next to the one of IMT Atlantique. In order to achieve this, you can simply use the \imtaInlinecode{latex}{\imtaAddPartnerLogo} command in the preamble of your document. The logo will be resized so that its maximum dimension is equal to the corresponding dimension of the IMT Atlantique's logo.
 
-This command outputs a cover as the last page of the document.
+
+\subsubsection{Back cover}
+
+The \texttt{imtaMakeCover} command outputs a cover as the last page of the document.
 This page will always be a left page in a two-side document.
+
+
 
 \section{External dependancies}
 
@@ -167,7 +216,7 @@ The \imtaInlinecode{bash}{imta_core} package uses a latin font whose encoding is
 
 \subsection{\texttt{hyperref}}
 
-The \mtaInlinecode{latex}{hyperref} package helps typeset hypertext links.
+The \imtaInlinecode{latex}{hyperref} package helps typeset hypertext links.
 The \imtaInlinecode{latex}{hidelinks} option hides the links, but keeps them clickable.
 To output a hypertext link, use the \imtaInlinecode{latex}{\hyperref} command.
 
@@ -200,6 +249,11 @@ To output a hypertext link, use the \imtaInlinecode{latex}{\hyperref} command.
 \RequirePackage{titling}
 \end{imtaCode}
 
+\subsection{\texttt{anyfontsize}}
+\begin{imtaCode}{latex}
+\RequirePackage{anyfontsize}
+\end{imtaCode}
+
 \subsection{\texttt{sectsty}}
 \begin{imtaCode}{latex}
 \RequirePackage{sectsty}
@@ -220,8 +274,38 @@ To output a hypertext link, use the \imtaInlinecode{latex}{\hyperref} command.
 \RequirePackage[bottom]{footmisc}
 \end{imtaCode}
 
- \chapter{Additional features: \texttt{imta\_extra}}
+\chapter{Additional features: \texttt{imta\_extra}}
+
+\section{Introduction}
+While the \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules\footnote{See \textit{\href{https://intranet.imt-atlantique.fr/wp-content/uploads/2017/01/imt_atlantique_chartegraphique.pdf}{Charte Graphique}} on the IMT Atlantique's intranet for more details.} the \texttt{imta\_extra} package provides the user some slightly more advanced or specific features.
+
+Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be usd in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries.
+
+\section{Set up}
+In order to use this template, you need to have a \TeX{} distribution installed, copy this file as well as \texttt{imta\_core} in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_extra}} command in the preamble of your top document.
+
+Since \texttt{imta\_extra} uses the \texttt{minted} package for code colouring, two extra steps are necessary to fully resolve dependencies. First, you need to have \texttt{Pygmentize} installed. If this is not the case, you can do it using Python utilitary \texttt{pip} by executing \imtaInlinecode{python}{pip install Pygments}. Finally, you also need to build your document with the correct options. If you are using pdf\LaTeX{} as your compiler, you need to add the \imtaInlinecode{latex}{--shell-escape} option.
+
+Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager.\footnote{See \textit{\href{https://tex.stackexchange.com/a/359851}{General Guide to Installing Packages with MikTeX Package Manager}} on \TeX Stack Exchange for more details.}
+
+\section{Document Styling}
+\subsection{Code Colouring}
+\subsection{Structuring List of Figures and Tables}
+In long documents, in can be useful to structure the list of figures or tables by printing the highest section (chapter or section) containing the items. In order to achieve this, the \texttt{figure} and \texttt{table} environments have been redefined, as well as the \texttt{chapter} and \texttt{section} commands. The default behavior is thus to print the upper level section in the list of figures or tables. If you would like to disable this functionalities, you can do it by using the \texttt{nouppersectioninlof} or \texttt{nouppersectioninlot} option when loading the package. Simply type \imtaInlinecode{latex}{\usepackage[<options>]{imta_extra}} in the preamble.
+
+\subsection{Page numbering}
+In order to ease the page numbering and differentiate the preamble of your document (front cover, table of contents, list of figures, abstract, etc) from the corpus of your document, we introduced the \imtaInlinecode{latex}{\frontmatter} and \imtaInlinecode{latex}{\mainmatter}. They respectively set the page numbering style to roman or arabic.
+
+\section{External dependancies}
+\subsection{\texttt{anyfontsize}}
+\subsection{\texttt{imta\_core}}
+\subsection{\texttt{mdframed}}
+\subsection{\texttt{minted}}
+
+
+\imtaMakeCover
 
 \end{document}
+
 %%%%%%%%%% END %%%%%%%%%% 
 %%%%%%%%%%%%%%%%%%%%%%%%% 
