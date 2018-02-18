@@ -20,7 +20,6 @@
 %                  geometry
 %                  graphicx
 %                  hyperref
-%                  hyphenat
 %                  inputenc
 %                  secsty
 %                  tikz
@@ -47,6 +46,7 @@
 % 1.1.3      BP       14.12.2017   \imtaAuthorShort command added
 % 1.1.4      BP       16.12.2017   Multiple partners' logo support thanks
 %                                  to the \imtaAddPartnerLogo command
+% 1.1.5      BP       17.02.2018   Hyphenation enabled
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -94,9 +94,6 @@
 
 % Import \BeforeBeginEnvironment, \AfterBeginEnvironment, \BeforeEndEnvironment, and \AfterEndEnvironment
 \RequirePackage{etoolbox}
-
-% Forbid hyphenation
-\RequirePackage[none]{hyphenat}
 
 % Force footnotes on page bottom
 \RequirePackage[bottom]{footmisc}
