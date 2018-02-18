@@ -36,6 +36,9 @@
 %                                  introduced - support for uppersection
 %                                  display in List of Tables/Figures
 % 1.2        BP       05.12.2017   Bug fixed in the \chapter redefinition
+% 1.3        BP       17.02.2018   Added \imtaCodeFromFile and 
+%                                  \imtaConsoleFromFrile commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -197,6 +200,19 @@
 }
 
 
+% imtaCodeFromFile{<file>}{<language>}
+% Formats a listing of code from an input file
+% Where <file> is the path to the file and <language> is the minted label
+% for the corresponding language 
+\newcommand{\imtaCodeFromFile}[2]{%
+    \renewcommand{\theFancyVerbLine}{\ttfamily \textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}%
+    \vspace{0.5\baselineskip}%
+    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]%
+        \inputminted[linenos, breaklines]{#2}{#1}
+    \end{mdframed}%
+}
+
+
 % imtaConsole
 % Format a console session
 \newenvironment{imtaConsole}{%
@@ -206,6 +222,17 @@
     \begin{minted}[breaklines]{text}%
 }{
     \end{minted}%
+    \end{mdframed}%
+}
+
+
+% imtaConsoleFromFile{<file>}
+% Formats a console session from an input file
+% Where <file> is the path to the file
+\newcommand{\imtaConsoleFromFile}[1]{%
+    \vspace{0.5\baselineskip}%
+    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]%
+        \inputminted[breaklines]{text}{#1}
     \end{mdframed}%
 }
 
