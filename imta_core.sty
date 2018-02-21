@@ -98,6 +98,12 @@
 % Force footnotes on page bottom
 \RequirePackage[bottom]{footmisc}
 
+% Import \setitemize for list customization
+\RequirePackage{enumitem}
+
+% Import fancy characters for list bullet customization
+\RequirePackage{pifont}
+
 
 
 
@@ -114,6 +120,10 @@
 %%%%%%%%%% GENERAL SETTINGS %%%%%%%%%%
 
 \raggedbottom
+
+% Itemize customization
+\setitemize[1]{label=\textcolor{imtaLightBlue}{\ding{228}}}
+\setitemize[2]{label=\textbullet}
 
 
 
