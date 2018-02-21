@@ -3,7 +3,7 @@ documentation: imta_documentation.tex
 	pdflatex -shell-escape imta_documentation.tex
 
 clean:
-	rm *.aux
-	rm *.log
-	rm *.out
-	rm *.toc
+	rm -f *.aux
+	rm -f *.log
+	rm -f *.out
+	rm -f *.toc
