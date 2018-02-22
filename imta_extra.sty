@@ -102,6 +102,7 @@
 
 % Colors related to code formatting
 \definecolor{imtaCodeBackground}{RGB}{235, 235, 235}
+\definecolor{imtaCodeLinenosFrame}{RGB}{205, 205, 205}
 \definecolor{imtaInlineCodeBackground}{RGB}{230, 230, 230}
 
 
@@ -190,12 +191,14 @@
 % This environment wraps around minted, and is therefore a verbatim environment
 \newenvironment{imtaCode}[1]{%
     \VerbatimEnvironment%
-    \renewcommand{\theFancyVerbLine}{\ttfamily \textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}%
+    \renewcommand{\theFancyVerbLine}{\texttt{\textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}}%
     \vspace{0.5\baselineskip}%
-    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]%
+    \begin{mdframed}[backgroundcolor=imtaCodeLinenosFrame, innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt, linewidth=0.5pt]
+    \begin{mdframed}[backgroundcolor=imtaCodeBackground, skipabove=0pt, skipbelow=0pt, rightmargin=0pt, leftmargin=0pt, linewidth=0pt, innertopmargin=5pt, innerbottommargin=5pt]%
     \begin{minted}[linenos, breaklines]{#1}%
 }{
     \end{minted}%
+    \end{mdframed}%
     \end{mdframed}%
 }
 
