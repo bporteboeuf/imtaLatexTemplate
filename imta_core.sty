@@ -167,6 +167,12 @@
 \def\imtaAuthorShort#1{\def\imtaTheAuthorShort{#1}}
 
 
+% \imtaSuperviser
+% Command to set the supervisers names as \imtaTheSuperviser
+\def\imtaSuperviser#1{\def\imtaTheSuperviser{#1}}
+
+
+
 % \imtaQuestion
 % Output "Question" followed by the current question number
 % The \imtaQuestionReset command should be called after each new section or subsection,
@@ -290,7 +296,9 @@
         
         \node (date) [draw=none, text width=\textwidth, align=left, anchor=north west] at (-\textwidth, -4.4\imtaGetEltSize) {
             \large\fontfamily{phv}\selectfont\thedate \\
-            \large\fontfamily{phv}\selectfont\theauthor
+            \large\fontfamily{phv}\selectfont\theauthor \\
+            \vspace{1.25ex}
+            \large\fontfamily{phv}\imtaTheSuperviser
             \vspace*{1.25cm}};
         \end{tikzpicture}
     \end{flushright}
