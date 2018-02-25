@@ -170,6 +170,7 @@
 % \imtaSuperviser
 % Command to set the supervisers names as \imtaTheSuperviser
 \def\imtaSuperviser#1{\def\imtaTheSuperviser{#1}}
+\def\imtaTheSuperviser{\relax}
 
 
 
@@ -294,12 +295,12 @@
         \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-3\imtaGetEltSize) -- cycle;
         \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\imtaGetEltSize,0) -- (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (-5.24\imtaGetEltSize,-3\imtaGetEltSize) -- cycle;
         
-        \node (date) [draw=none, text width=\textwidth, align=left, anchor=north west] at (-\textwidth, -4.4\imtaGetEltSize) {
+        \node (date) [draw=none, text width=\textwidth, align=left, anchor=north west] at (-\textwidth, -4\imtaGetEltSize) {
             \large\fontfamily{phv}\selectfont\thedate \\
             \large\fontfamily{phv}\selectfont\theauthor \\
             \vspace{1.25ex}
             \large\fontfamily{phv}\imtaTheSuperviser
-            \vspace*{1.25cm}};
+            \vspace*{1cm}};
         \end{tikzpicture}
     \end{flushright}
     % Printing the title and other relevant informations
