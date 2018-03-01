@@ -297,10 +297,14 @@
         \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\imtaGetEltSize,0) -- (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (-5.24\imtaGetEltSize,-3\imtaGetEltSize) -- cycle;
         
         \node (date) [draw=none, text width=\textwidth, align=left, anchor=north west] at (-\textwidth, -4\imtaGetEltSize) {
-            \large\fontfamily{phv}\selectfont\thedate \\
-            \large\fontfamily{phv}\selectfont\theauthor \\
-            \vspace{1.25ex}
-            \large\fontfamily{phv}\imtaTheSuperviser
+            \large\fontfamily{phv}\selectfont\thedate\linebreak
+            \large\fontfamily{phv}\selectfont\theauthor\linebreak
+            \if\imtaTheSuperviser\relax\relax
+                \relax
+            \else
+                \vspace{1.25ex}\linebreak
+                \large\fontfamily{phv}\imtaTheSuperviser\linebreak
+            \fi
             \vspace*{1cm}};
         \end{tikzpicture}
     \end{flushright}
