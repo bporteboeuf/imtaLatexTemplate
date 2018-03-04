@@ -87,16 +87,16 @@
 \RequirePackage{titling}
 
 % Arbitrary font size
-\RequirePackage{anyfontsize}
+%\RequirePackage{anyfontsize} % Superfluous?
 
 % Section styling
 \RequirePackage{sectsty}
 
 % Import \BeforeBeginEnvironment, \AfterBeginEnvironment, \BeforeEndEnvironment, and \AfterEndEnvironment
-\RequirePackage{etoolbox}
+%\RequirePackage{etoolbox} % Superfluous?
 
 % Force footnotes on page bottom
-\RequirePackage[bottom]{footmisc}
+%\RequirePackage[bottom]{footmisc} % Superfluous?
 
 % Import \setitemize for list customization
 \RequirePackage{enumitem}
@@ -361,6 +361,8 @@
         \fi
     \fi
     \newpage \thispagestyle{empty}
+    \begingroup
+    \fontfamily{phv}\selectfont
     \footnotesize
     \begin{center}
         \begin{minipage}{.85\textwidth}
@@ -399,6 +401,7 @@
             \end{minipage}
         \end{minipage}
     \end{center}
+    \endgroup
 }
 \makeatother
 

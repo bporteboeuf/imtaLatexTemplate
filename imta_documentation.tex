@@ -45,7 +45,6 @@
 %%%%%%%%%% BEGINNING %%%%%%%%%% 
 \begin{document}
 
-
 	
 \imtaMaketitlepage
 
@@ -170,7 +169,7 @@ For comparison, the default style of the template is:
 The IMT Atlantique logo can be output at the desired width with the \imtaInlinecode{latex}{\imtaLogo} command.
 The latter includes an external pdf document, \imtaInlinecode{bash}{imta_logo.pdf}, that contains the official logo.
 On the other hand, the \imtaInlinecode{latex}{\imtaLogoTikz} draws an approximation of the logo with the \imtaInlinecode{latex}{tikz} package.
-The following is a comparison of both commands. Note that the current version of this template uses \imtaInlinecode{latex}{\imtaLogoTikz} for both the front and back cover.
+The following is a comparison of both commands (with an added frame). Note that the current version of this template uses \imtaInlinecode{latex}{\imtaLogoTikz} for both the front and back cover.
 
 \begin{figure}[H]
     \centering
@@ -284,39 +283,66 @@ A blank style, \imtaInlinecode{latex}{imtaFirstpage}, is defined to remove the h
 \end{imtaCode}
 
 \subsection{\texttt{tikz}}
+
+The \imtaInlinecode{latex}{tikz} package is used to create the decorative figures on the front cover and on the new chapter pages. It is also used to recreate the IMT Atlantique logo, which can be used thanks to the \imtaInlinecode{latex}{\imtaLogoTikz{<width>}} command.
+
 \begin{imtaCode}{latex}
 \RequirePackage{tikz}
 \end{imtaCode}
 
 \subsection{\texttt{titlesec}}
+
+The \imtaInlinecode{latex}{titlesec} package allows to easily redefine a section title style, using various commands such as \imtaInlinecode{latex}{\titleformat} and \imtaInlinecode{latex}{\titlespacing}.
+
 \begin{imtaCode}{latex}
 \RequirePackage{titlesec}
 \end{imtaCode}
 
 \subsection{\texttt{titling}}
+
+The \imtaInlinecode{latex}{titling} package creates automated front cover or title pages. In this package, we provide a simple wrapper with respect to the IMT Atlantique colour code and additionnal capabilities.
+
 \begin{imtaCode}{latex}
 \RequirePackage{titling}
 \end{imtaCode}
 
-\subsection{\texttt{anyfontsize}}
+
+\subsection{\texttt{secsty}}
+
+The \imtaInlinecode{latex}{anyfontsize} package provides various tools to modify the formatting of sections and chapters, using the \imtaInlinecode{latex}{\chapterfont} and \imtaInlinecode{latex}{\sectionfont} commands for instance.
+
 \begin{imtaCode}{latex}
-\RequirePackage{anyfontsize}
+\RequirePackage{secsty}
 \end{imtaCode}
 
-\subsection{\texttt{sectsty}}
+
+%\subsection{\texttt{anyfontsize}}
+%
+%The \imtaInlinecode{latex}{anyfontsize} package allows to set the font size to any value, even if they are not natively supported by the font itself. It is used to match the IMT Atlantique's logo more accurately when drawing it using \imtaInlinecode{latex}{tikz}.
+%
+%\begin{imtaCode}{latex}
+%\RequirePackage{anyfontsize}
+%\end{imtaCode}
+
+\subsection{\texttt{enumitem}}
 \begin{imtaCode}{latex}
-\RequirePackage{sectsty}
+\RequirePackage{enumitem}
 \end{imtaCode}
 
-\subsection{\texttt{etoolbox}}
+\subsection{\texttt{pifont}}
 \begin{imtaCode}{latex}
-\RequirePackage{etoolbox}
+    \RequirePackage{pifont}
 \end{imtaCode}
 
-\subsection{\texttt{footmisc}}
-\begin{imtaCode}{latex}
-\RequirePackage[bottom]{footmisc}
-\end{imtaCode}
+%\subsection{\texttt{etoolbox}}
+%\begin{imtaCode}{latex}
+%\RequirePackage{etoolbox}
+%\end{imtaCode}
+
+%\subsection{\texttt{footmisc}}
+%\begin{imtaCode}{latex}
+%\RequirePackage[bottom]{footmisc}
+%\end{imtaCode}
 
 
 %% List of commands
@@ -328,7 +354,7 @@ A blank style, \imtaInlinecode{latex}{imtaFirstpage}, is defined to remove the h
     
     \item \imtaInlinecode{latex}{\imtaMaketitlepage} displays the IMT Atlantique styled front cover on the current page.
     
-    \item \imtaInlinecode{latex}{\imtaTheAuthorShort{<shortened names>}} defines shortened author names for the header in case the IMT Atlantique style is not enabled throughout the whole document. It works in a similar fashion to the \imtaInlinecode{latex}{\author} command.
+    \item \imtaInlinecode{latex}{\imtaAuthorShort{<shortened names>}} defines shortened author names for the header in case the IMT Atlantique style is not enabled throughout the whole document. It works in a similar fashion to the \imtaInlinecode{latex}{\author} command.
     
     \item \imtaInlinecode{latex}{\imtaAddPartnerLogo{<filepath>}} adds a partner's logo next to the one of IMT Atlantique on the front cover when using \imtaInlinecode{latex}{\imtaMaketitlepage}. By default, its largest dimension is set to the corresponding dimension of the IMT Atlantique's logo. It supports the insertion of multiple logos, adding a linebreak whenever necessary.
     
@@ -385,9 +411,12 @@ In order to ease the page numbering and differentiate the preamble of your docum
 
 %% Dependencies
 \section{External dependancies}
-\subsection{\texttt{anyfontsize}}
-\subsection{\texttt{imta\_core}}
+
+%\subsection{\texttt{imta\_core}}
+
+
 \subsection{\texttt{mdframed}}
+
 \subsection{\texttt{minted}}
 
 
