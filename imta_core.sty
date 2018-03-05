@@ -296,16 +296,17 @@
         \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-3\imtaGetEltSize) -- cycle;
         \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\imtaGetEltSize,0) -- (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (-5.24\imtaGetEltSize,-3\imtaGetEltSize) -- cycle;
         
-        \node (date) [draw=none, text width=\textwidth, align=left, anchor=north west] at (-\textwidth, -4\imtaGetEltSize) {
+        \node (date) [draw=none, text width=\textwidth, align=left, minimum height = 2\imtaGetEltSize, 
+                      anchor=south west] at (-\textwidth, -6\imtaGetEltSize) {
+            \vfill
             \large\fontfamily{phv}\selectfont\thedate\linebreak
             \large\fontfamily{phv}\selectfont\theauthor\linebreak
             \if\imtaTheSuperviser\relax\relax
                 \relax
             \else
-                \vspace{1.25ex}\linebreak
+                \linebreak
                 \large\fontfamily{phv}\imtaTheSuperviser\linebreak
-            \fi
-            \vspace*{1cm}};
+            \fi};
         \end{tikzpicture}
     \end{flushright}
     % Printing the title and other relevant informations
