@@ -109,11 +109,13 @@
 
 %%%%%%%%%% COLORS %%%%%%%%%%
 
-% The three colors of IMTA: green, light blue, and dark blue
+% The three colors of IMTA: green, light blue, and dark blue, plus the gray
 \definecolor{imtaGreen}{RGB}{164, 210, 51}
 \definecolor{imtaLightBlue}{RGB}{0, 184, 222}
 \definecolor{imtaDarkBlue}{RGB}{12, 35, 64}
 \definecolor{imtaGray}{RGB}{87, 87, 87}
+
+\definecolor{imtaQuoteBackground}{RGB}{245, 245, 245}
 
 
 
@@ -543,6 +545,18 @@
          \relax
      \fi
  \makeatother
+
+
+\newenvironment{imtaQuote}{%
+    \begin{quote}
+        \begin{mdframed}[backgroundcolor=imtaQuoteBackground, linewidth=0pt]
+            \textcolor{imtaLightBlue}{\Large \ding{125}}
+            \itshape\rmfamily\selectfont
+}{%
+            \textcolor{imtaLightBlue}{\Large \ding{126}}
+        \end{mdframed}
+    \end{quote}
+}
 
 %%%%%%%%%% END %%%%%%%%%% 
 %%%%%%%%%%%%%%%%%%%%%%%%% 
