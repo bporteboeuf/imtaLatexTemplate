@@ -174,6 +174,12 @@
 \def\imtaTheSuperviser{\relax}
 
 
+% \imtaVersion
+% Command to set the document's version as \imtaTheVersion
+\def\imtaVersion#1{\def\imtaTheVersion{#1}}
+\def\imtaTheVersion{\relax}
+
+
 
 % \imtaQuestion
 % Output "Question" followed by the current question number
@@ -310,9 +316,14 @@
         \end{tikzpicture}
     \end{flushright}
     % Printing the title and other relevant informations
+    \begingroup
     \begin{minipage}{.92\textwidth}
         \textcolor{imtaGreen}{\fontsize{25}{40}\fontseries{b}\fontfamily{phv}\selectfont\thetitle} \vspace*{.5cm}\\
         \textcolor{imtaGreen}{\Large\fontfamily{phv}\selectfont\subtitleValue}
+        \begin{flushright}
+            \vspace{.5cm}
+            \fontfamily{phv}\selectfont\normalsize\imtaTheVersion
+        \end{flushright}
     \end{minipage}
     \vfill
     % Displaying the school's logo
@@ -336,6 +347,7 @@
         \ifnum\value{imta@idx}<\value{imtaLogoCounter}
         \repeat        
     \end{flushleft}
+    \endgroup
     \cleardoublepage
     \restoregeometry
     \pagenumbering{arabic}
