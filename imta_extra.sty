@@ -51,7 +51,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Document geometry management
-\RequirePackage{imta_core}
+%\RequirePackage{imta_core} % Superfluous?
 
 % Fancy code listings
 \RequirePackage{minted}
@@ -188,30 +188,36 @@
 % imtaCode
 % Format a listing of code
 % The only argument of this environment is the language of the code to format
-% This environment wraps around minted, and is therefore a verbatim environment
+%% This environment wraps around minted, and is therefore a verbatim environment
 \newenvironment{imtaCode}[1]{%
     \VerbatimEnvironment%
     \renewcommand{\theFancyVerbLine}{\texttt{\textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}}%
     \vspace{0.5\baselineskip}%
-    \begin{mdframed}[backgroundcolor=imtaCodeLinenosFrame, innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt, linewidth=0.5pt]
-    \begin{mdframed}[backgroundcolor=imtaCodeBackground, skipabove=0pt, skipbelow=0pt, rightmargin=0pt, leftmargin=0pt, linewidth=0pt, innertopmargin=5pt, innerbottommargin=5pt]%
-    \begin{minted}[linenos, breaklines]{#1}%
-}{
-    \end{minted}%
-    \end{mdframed}%
+    \begin{mdframed}[backgroundcolor=imtaCodeLinenosFrame, innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt, linewidth=1pt]
+        \begin{mdframed}[backgroundcolor=imtaCodeBackground, skipabove=0pt, skipbelow=0pt, rightmargin=0pt, leftmargin=3ex, linewidth=0pt, 
+            innertopmargin=5pt, innerbottommargin=5pt, innerleftmargin=1ex]%
+            \begin{minted}[linenos, breaklines]{#1}%
+            }{
+            \end{minted}%
+        \end{mdframed}%
     \end{mdframed}%
 }
+
+
 
 
 % imtaCodeFromFile{<file>}{<language>}
 % Formats a listing of code from an input file
 % Where <file> is the path to the file and <language> is the minted label
 % for the corresponding language 
-\newcommand{\imtaCodeFromFile}[2]{%
-    \renewcommand{\theFancyVerbLine}{\ttfamily \textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}%
+\newcommand{\imtaCodeFromFile}[2]{%    \VerbatimEnvironment%
+    \renewcommand{\theFancyVerbLine}{\texttt{\textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}}%
     \vspace{0.5\baselineskip}%
-    \begin{mdframed}[backgroundcolor=imtaCodeBackground, innerleftmargin=5pt]%
-        \inputminted[linenos, breaklines]{#2}{#1}
+    \begin{mdframed}[backgroundcolor=imtaCodeLinenosFrame, innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt, linewidth=1pt]
+        \begin{mdframed}[backgroundcolor=imtaCodeBackground, skipabove=0pt, skipbelow=0pt, rightmargin=0pt, leftmargin=3ex, linewidth=0pt, 
+            innertopmargin=5pt, innerbottommargin=5pt, innerleftmargin=1ex]%
+            \inputminted[linenos, breaklines]{#2}{#1}
+        \end{mdframed}%
     \end{mdframed}%
 }
 
