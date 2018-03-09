@@ -1,33 +1,49 @@
-\documentclass{article}
+\documentclass{article} % for short documents
+%\documentclass{report} % for longer documents
 
-\usepackage[french]{babel}
-\usepackage[french]{isodate}
+
+%% Defining the language for the document
+\usepackage[english]{babel}
+\usepackage[english]{isodate}
 
 \usepackage{imta_core}
 \usepackage{imta_extra}
 
-% \usepackage{biblatex}
+
+%% Addtionnal packages can be loaded here
+% \usepackage{biblatex} % for a complete and flexible bibliography
+
 
 \cleanlookdateon % formats date according to the loaded language from now on
 
-\author{}
-\imtaSuperviser{}
-\date{} % use \date{\noexpand\today} to automatically print today's date
-\title{}
-\subtitle{}
+%% General informations
+\author{<author>}
+%\imtaAuthorShort{<author's initials>}
+%\imtaSuperviser{<superviser>}
+\date{\noexpand\today} % automatically print today's date, can be redefined using \date{<date>}
+\title{<title>}
+\subtitle{<subtitle>}
+%\imtaVersion{<version>}
+%\imtaAddPartnerLogo{<logo_path>}
 
-\imtaSetIMTStyle
+
+\imtaSetIMTStyle % Sets font and headers/footers according to the IMT Atlantue style guidelines
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%%%%%%%% BEGINNING %%%%%%%%%% 
 \begin{document}
 
+% front cover
 \imtaMaketitlepage
+
 
 
 % <content>
 
+
+
+% back cover
 \imtaMakeCover
 
 \end{document}
