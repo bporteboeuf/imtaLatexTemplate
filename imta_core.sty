@@ -333,10 +333,11 @@
         \loop
             \addtocounter{imta@idx}{1}
             \ifnum\value{imtaLogoCounter}>0
-                \settowidth\imta@picWidth{\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo{\theimta@idx}}}
+                \edef\@thelogo{\imtaPartnerLogo{\theimta@idx}}
+                \settowidth\imta@picWidth{\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\@thelogo}}
                 \setlength\imta@picWidth{\imta@picWidth+.5cm}
                 \begin{minipage}{\imta@picWidth}
-                    \includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\imtaPartnerLogo{\theimta@idx}}
+                    \includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\@thelogo}
                 \end{minipage}
             \fi
         \ifnum\value{imta@idx}<\value{imtaLogoCounter}
@@ -486,26 +487,7 @@
      
      % The chapter command is redefined when relevant.
      % It becomes more robust to oneside/twoside and onecolumn/twocolumn options and imports a figure
-     \if@chapterdefined
-     
-         % The Chapter header is made compatible with different languages, based on babel importation
-         % (default is english)
-         \edef\imtaMultiLangChapter{%
-             \@ifpackageloaded{babel}{
-                  \iflanguage{english}{Chapter}{%
-                  \iflanguage{french}{Chapitre}{%
-                  \iflanguage{german}{Kapitull}{%
-                  \iflanguage{portuguese}{Capítulo}{%
-                  \iflanguage{spanish}{Capítulo}{%
-                      Chapter
-                    }
-                    }
-                    }
-                    }
-                    }
-                }{Chapter}
-            }
-        
+     \if@chapterdefined        
         
          \let\imtaOldChapter\chapter % The reference command is saved and a new one is redefined, based on the old. 
          % It is VERY important to catch the star version as well, otherwise it will not compile
@@ -550,7 +532,7 @@
              {\chapter} % command
              [display] % shape
              {\bf\Huge} % format
-             {\imtaMultiLangChapter{} \thechapter} % label
+             {\chaptername{} \thechapter} % label
              {1em} % sep
              {\hspace{2em}\bf\Huge\thispagestyle{empty}} % before-code
              [{}] % after-code ; does not accept \if statements
