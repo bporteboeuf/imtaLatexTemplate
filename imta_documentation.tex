@@ -203,6 +203,7 @@ This page will always be a left page in a two-side document.
 
 \subsection{Blockquote typesetting}
 \label{sec:core:quote}
+In order to add beautiful quotes to your document, it is possible to use the \imtaInlinecode{latex}{\imtaQuote} environment.
 
 \begin{imtaQuote}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -415,6 +416,65 @@ Note that this template is compatible with at least \TeX Live and MiK\TeX distri
 %% Styling
 \section{Document Styling}
 \subsection{Code Colouring}
+When writing a technical report, it can be useful to write some code with syntax highlighting, which moreover matches the template colour code. With this idea in mind, we introduced two custom environments, based on the \imtaInlinecode{latex}{minted} package: \imtaInlinecode{latex}{\imtaCode{<language>}} and \imtaInlinecode{latex}{\imtaConsole}. This means they are both \imtaInlinecode{latex}{\verbatim}-based environments (ie: the text is not interpreted by \LaTeX in any way).
+
+\begin{figure}[!ht]
+\begin{minipage}{.45\linewidth}
+\renewcommand{\theFancyVerbLine}{\texttt{\textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}}%
+\vspace{0.5\baselineskip}%
+\begin{mdframed}[backgroundcolor=imtaCodeLinenosFrame, innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt, linewidth=1pt]
+\begin{mdframed}[backgroundcolor=imtaCodeBackground, skipabove=0pt, skipbelow=0pt, rightmargin=0pt, leftmargin=3ex, linewidth=0pt, innertopmargin=5pt, innerbottommargin=5pt, innerleftmargin=1ex]%
+\begin{minted}[linenos, breaklines]{latex}
+\begin{imtaCode}{python}
+    def mac(a, b, c = 0):
+    # multiply-accumulate function
+    return a*b + c
+\end{imtaCode}
+\end{minted}
+\end{mdframed}
+\end{mdframed}
+\end{minipage}
+\hfill
+\begin{minipage}{.45\linewidth}
+\vspace{2em}
+\begin{imtaCode}{python}
+def mac(a, b, c = 0):
+    # multiply-accumulate function
+    return a*b + c
+\end{imtaCode}
+\end{minipage}
+\caption{Example of the \texttt{imtaCode} environment (left) and its rendering (right)\label{fig:imtaCode}}
+\end{figure}
+
+
+\begin{figure}[!ht]
+\begin{minipage}{.45\linewidth}
+\renewcommand{\theFancyVerbLine}{\texttt{\textcolor{gray!150}{\normalsize \oldstylenums{\arabic{FancyVerbLine}}}}}%
+\vspace{0.5\baselineskip}%
+\begin{mdframed}[backgroundcolor=imtaCodeLinenosFrame, innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt, linewidth=1pt]
+\begin{mdframed}[backgroundcolor=imtaCodeBackground, skipabove=0pt, skipbelow=0pt, rightmargin=0pt, leftmargin=3ex, linewidth=0pt, innertopmargin=5pt, innerbottommargin=5pt, innerleftmargin=1ex]%
+\begin{minted}[linenos, breaklines]{latex}
+\begin{imtaConsole}
+    pwd
+    grep -R "lorem" *
+\end{imtaConsole}
+\end{minted}
+\end{mdframed}
+\end{mdframed}
+\end{minipage}
+\hfill
+\begin{minipage}{.45\linewidth}
+\vspace{2em}
+\begin{imtaConsole}
+pwd
+grep -R "lorem" *
+\end{imtaConsole}
+\end{minipage}
+\caption{Example of the \texttt{imtaConsole} environment (left) and its rendering (right)\label{fig:imtaCode}}
+\end{figure}
+
+To further ease this process and allow the user to import code from external documents (just as figures), two commands have been introduced: \imtaInlinecode{latex}{\imtaCodeFromFile{<file>}{<language>}} and \imtaInlinecode{latex}{\imtaConsoleFromFile{<file>}}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% >>>> TO DO <<<< %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%
