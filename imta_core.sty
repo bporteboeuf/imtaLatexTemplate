@@ -1,37 +1,37 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% File Name:       imta_core
+% File Name:        imta_core
 %
-% Description:     Overall layout and colours of the IMT Atlantique
-%                  LaTeX Template.
+% Description:      Overall layout and colours of the IMT Atlantique
+%                   LaTeX Template.
 %
-% Note:            The babel package should be loaded first if used 
-%                  in combination.
+% Note:             The babel package should be loaded first if used 
+%                   in combination.
 %
-% Limitations:     /
+% Limitations:      /
 %
-% Errors:          None known
+% Errors:           None known
 %
-% Dependencies:    anyfontsize
-%                  babel
-%                  etoolbox
-%                  fancyhdr
-%                  footmisc
-%                  fontenc
-%                  geometry
-%                  graphicx
-%                  hyperref
-%                  inputenc
-%                  secsty
-%                  tikz
-%                  titling
-%                  titlesec
+% Dependencies:     anyfontsize
+%                   enumitem
+%                   fancyhdr
+%                   fontenc
+%                   geometry
+%                   graphicx
+%                   hyperref
+%                   inputenc
+%                   mdframed
+%                   pifont
+%                   secsty
+%                   tikz
+%                   titling
+%                   titlesec
 %
-% Author:          A. Foucault - armand.foucault@telecom-bretagne.eu
-% Contributors:    B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
+% Author:           A. Foucault - armand.foucault@telecom-bretagne.eu
+% Contributors:     B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
 %
-% University :     IMT Atlantique, Brest (France)
+% University :      IMT Atlantique, Brest (France)
 %
-% TeX Environment: TeXLive + pdfLaTeX
+% TeX Environment:  TeXLive + pdfLaTeX
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Revision List:
 % Version    Author   Date         Changes
@@ -62,9 +62,6 @@
 % Images management
 \RequirePackage{graphicx}
 
-% Floats management
-%\RequirePackage{float}
-
 % Output font management
 \RequirePackage[T1]{fontenc}
 
@@ -92,18 +89,14 @@
 % Section styling
 \RequirePackage{sectsty}
 
-% Import \BeforeBeginEnvironment, \AfterBeginEnvironment, \BeforeEndEnvironment, and \AfterEndEnvironment
-%\RequirePackage{etoolbox} % Superfluous?
-
-% Force footnotes on page bottom
-%\RequirePackage[bottom]{footmisc} % Superfluous?
-
 % Import \setitemize for list customization
 \RequirePackage{enumitem}
 
 % Import fancy characters for list bullet customization
 \RequirePackage{pifont}
 
+% Fancy frames and boxes
+\RequirePackage{mdframed}
 
 
 

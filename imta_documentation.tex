@@ -1,18 +1,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% File Name:       imta_documentation
+% File Name:        imta_documentation
 %
-% Description:     documentation of the IMT Atlantique LaTeX Template.
+% Description:      documentation of the IMT Atlantique LaTeX Template.
 %
-% Note:            /
+% Note:             /
 %
-% Limitations:     /
+% Limitations:      /
 %
-% Errors:          None known
+% Errors:           None known
 %
-% Dependencies:    babel
-%				   biblatex
-%                  imta_core
-%                  imta_extra
+% Dependencies:     babel
+%				    imta_core
+%                   imta_extra
+%                   isodate
 %
 % Author:          A. Foucault - armand.foucault@telecom-bretagne.eu
 % Contributors:    B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
@@ -33,7 +33,7 @@
 \cleanlookdateon
 
 \author{FOUCAULT Armand\\PORTEBOEUF Benoît}
-%\imtaAuthorShort{A. Foucault \& B. Porteboeuf}
+\imtaAuthorShort{A. Foucault \& B. Porteboeuf}
 \date{\noexpand\today}
 \title{Institut Mines-Télécom Atlantique - \LaTeX{} report template}
 \subtitle{Documentation for the \texttt{imta} package}
@@ -78,15 +78,18 @@ Note that this template is compatible with at least \TeX Live and MiK\TeX distri
 %% Sectioning
 \section{Sectioning}
 
+
 \subsection{\texttt{imtaQuestion} and \texttt{imtaQuestionReset}}
 The \imtaInlinecode{latex}{\imtaQuestion} command outputs and formats a question counter.
 It's meant to be used in reports for assignment with questions.
 The counter should be reset with the \imtaInlinecode{latex}{\imtaQuestionReset}.
 This couple of commands is meant to be used for sectioning when the assignment does not use a more explicit titling.
 
+
 \subsection{\texttt{subsubsubsection}}
 The \imtaInlinecode{bash}{imta_core} package offers a one-level-deeper section than the usual deepest \imtaInlinecode{latex}{\subsubsection}.
 This provides an alternative to the usual \imtaInlinecode{latex}{\paragraph}.
+
 
 \subsection{\texttt{chapter}}
 The \imtaInlinecode{latex}{\chapter} command has been redefined to print the word "chapter" in front of the figure. This command is compatible with several languages\footnote{This functionality currently supports english, french, german, portuguese and spanish.} but requires the \texttt{babel} package to be loaded first. The default language is english.
@@ -140,6 +143,7 @@ Here are samples of these colors, with text in both black and white for previsua
     \label{fig:imtaColors}
 \end{figure}
 
+
 \subsubsection{\texttt{imtaSetIMTStyle}}
 The official IMT Atlantique styling is not really \LaTeX-ish, and takes the decision to use a sans-serif font for body text.
 Therefore, the default style uses the default \LaTeX{} font settings.
@@ -164,6 +168,7 @@ For comparison, the default style of the template is:
     \item Document title at the left corner and author's name at the right corner of the header;
     \item Page number at the center of the footer.
 \end{itemize}
+
 
 \subsubsection{The IMT Atlantique logo with \texttt{imtaLogo} and \texttt{imtaLogoTikz}}
 The IMT Atlantique logo can be output at the desired width with the \imtaInlinecode{latex}{\imtaLogo} command.
@@ -197,6 +202,7 @@ This page will always be a left page in a two-side document.
 
 
 \subsection{Blockquote typesetting}
+\label{sec:core:quote}
 
 \begin{imtaQuote}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -209,13 +215,12 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
 %% Dependencies
 \section{External dependancies}
-
 This package depends upon a number of external packages.
 The use of these is explained hereafter, and the parameters each is used with are specified as well.
 Furthermore, a code snippet is presented, that shows the import line and the settings of the corresponding package.
 
-\subsection{\texttt{geometry}}
 
+\subsection{\texttt{geometry}}
 The \imtaInlinecode{latex}{geometry} package provides ways to act on the document's format.
 This package defines a A4 format, with two-centimeter margins, and a top margin of an extra centimeter for the header.
 
@@ -225,7 +230,6 @@ This package defines a A4 format, with two-centimeter margins, and a top margin 
 
 
 \subsection{\texttt{graphicx}}
-
 The \imtaInlinecode{latex}{graphicx} package lets input graphics and pictures into the document.
 
 \begin{imtaCode}{latex}
@@ -234,7 +238,6 @@ The \imtaInlinecode{latex}{graphicx} package lets input graphics and pictures in
 
 
 \subsection{\texttt{fontenc}}
-
 The \imtaInlinecode{latex}{fontenc} package declares an encoding for the output font.
 The \imtaInlinecode{bash}{imta_core} package uses a latin font whose encoding is \imtaInlinecode{latex}{T1}.
 
@@ -244,7 +247,6 @@ The \imtaInlinecode{bash}{imta_core} package uses a latin font whose encoding is
 
 
 \subsection{\texttt{hyperref}}
-
 The \imtaInlinecode{latex}{hyperref} package helps typeset hypertext links.
 The \imtaInlinecode{latex}{hidelinks} option hides the links, but keeps them clickable.
 To output a hypertext link, use the \imtaInlinecode{latex}{\hyperref} command.
@@ -255,7 +257,6 @@ To output a hypertext link, use the \imtaInlinecode{latex}{\hyperref} command.
 
 
 \subsection{\texttt{inputenc}}
-
 The \imtaInlinecode{latex}{inputenc} package manages the input format.
 For uniformization purpose, the \imtaInlinecode{latex}{imta} package is written for a use with Unicode.
 Therefore, it is used with the \imtaInlinecode{latex}{utf8} option.
@@ -266,7 +267,6 @@ Therefore, it is used with the \imtaInlinecode{latex}{utf8} option.
 
 
 \subsection{\texttt{fancyhdr}}
-
 The \imtaInlinecode{latex}{fancyhdr} package is used for customizing the header and the footer.
 In the default style, the body pages have the \imtaInlinecode{latex}{fancy} style, that is defined as follows:
 
@@ -293,8 +293,8 @@ A blank style, \imtaInlinecode{latex}{imtaFirstpage}, is defined to remove the h
 \RequirePackage{fancyhdr}
 \end{imtaCode}
 
-\subsection{\texttt{tikz}}
 
+\subsection{\texttt{tikz}}
 The \imtaInlinecode{latex}{tikz} package is used to create the decorative figures on the front cover and on the new chapter pages. It is also used to recreate the IMT Atlantique logo, which can be used thanks to the \imtaInlinecode{latex}{\imtaLogoTikz{<width>}} command.
 
 \begin{imtaCode}{latex}
@@ -302,15 +302,14 @@ The \imtaInlinecode{latex}{tikz} package is used to create the decorative figure
 \end{imtaCode}
 
 \subsection{\texttt{titlesec}}
-
 The \imtaInlinecode{latex}{titlesec} package allows to easily redefine a section title style, using various commands such as \imtaInlinecode{latex}{\titleformat} and \imtaInlinecode{latex}{\titlespacing}.
 
 \begin{imtaCode}{latex}
 \RequirePackage{titlesec}
 \end{imtaCode}
 
-\subsection{\texttt{titling}}
 
+\subsection{\texttt{titling}}
 The \imtaInlinecode{latex}{titling} package creates automated front cover or title pages. In this package, we provide a simple wrapper with respect to the IMT Atlantique colour code and additionnal capabilities.
 
 \begin{imtaCode}{latex}
@@ -319,7 +318,6 @@ The \imtaInlinecode{latex}{titling} package creates automated front cover or tit
 
 
 \subsection{\texttt{secsty}}
-
 The \imtaInlinecode{latex}{anyfontsize} package provides various tools to modify the formatting of sections and chapters, using the \imtaInlinecode{latex}{\chapterfont} and \imtaInlinecode{latex}{\sectionfont} commands for instance.
 
 \begin{imtaCode}{latex}
@@ -327,33 +325,37 @@ The \imtaInlinecode{latex}{anyfontsize} package provides various tools to modify
 \end{imtaCode}
 
 
-%\subsection{\texttt{anyfontsize}}
-%
-%The \imtaInlinecode{latex}{anyfontsize} package allows to set the font size to any value, even if they are not natively supported by the font itself. It is used to match the IMT Atlantique's logo more accurately when drawing it using \imtaInlinecode{latex}{tikz}.
-%
-%\begin{imtaCode}{latex}
-%\RequirePackage{anyfontsize}
-%\end{imtaCode}
 
 \subsection{\texttt{enumitem}}
+The \imtaInlinecode{latex}{enumitem} package allows to modify various properties of lists, notably its bullets. This was used with the \imtaInlinecode{latex}{pifont} package to produce the IMT Atlantique list rendering.
+
 \begin{imtaCode}{latex}
 \RequirePackage{enumitem}
 \end{imtaCode}
 
+
 \subsection{\texttt{pifont}}
+Similarly to \imtaInlinecode{latex}{fontawesome}, the \imtaInlinecode{latex}{pifont} package offers multiple special characters and symbols. It is used along \imtaInlinecode{latex}{enumitem} to customize the lists rendering by redefining the bullets. It is also used to display the large quote symbols in the \imtaInlinecode{latex}{\imtaQuote} environment.
+
 \begin{imtaCode}{latex}
     \RequirePackage{pifont}
 \end{imtaCode}
 
-%\subsection{\texttt{etoolbox}}
-%\begin{imtaCode}{latex}
-%\RequirePackage{etoolbox}
-%\end{imtaCode}
 
-%\subsection{\texttt{footmisc}}
-%\begin{imtaCode}{latex}
-%\RequirePackage[bottom]{footmisc}
-%\end{imtaCode}
+\subsection{\texttt{mdframed}}
+The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes with a lot of customization options. It is used for the \imtaInlinecode{latex}{imtaQuote} environment.
+
+\begin{imtaCode}{latex}
+    \RequirePackage{mdframed}
+\end{imtaCode}
+
+
+
+% List of environments
+\section{List of Environments}
+\begin{itemize}
+    \item \imtaInlinecode{latex}{\imtaQuote} displays a quote in a beautiful frame as shown in section \ref{sec:core:quote}.
+\end{itemize}
 
 
 %% List of commands
@@ -413,8 +415,14 @@ Note that this template is compatible with at least \TeX Live and MiK\TeX distri
 %% Styling
 \section{Document Styling}
 \subsection{Code Colouring}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% >>>> TO DO <<<< %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \subsection{Structuring List of Figures and Tables}
 In long documents, in can be useful to structure the list of figures or tables by printing the highest section (chapter or section) containing the items. In order to achieve this, the \texttt{figure} and \texttt{table} environments have been redefined, as well as the \texttt{chapter} and \texttt{section} commands. The default behavior is thus to print the upper level section in the list of figures or tables. If you would like to disable this functionalities, you can do it by using the \texttt{nouppersectioninlof} or \texttt{nouppersectioninlot} option when loading the package. Simply type \imtaInlinecode{latex}{\usepackage[<options>]{imta_extra}} in the preamble.
+
 
 \subsection{Page numbering}
 In order to ease the page numbering and differentiate the preamble of your document (front cover, table of contents, list of figures, abstract, etc) from the corpus of your document, we introduced the \imtaInlinecode{latex}{\frontmatter} and \imtaInlinecode{latex}{\mainmatter}. They respectively set the page numbering style to roman or arabic.
@@ -423,12 +431,22 @@ In order to ease the page numbering and differentiate the preamble of your docum
 %% Dependencies
 \section{External dependancies}
 
-%\subsection{\texttt{imta\_core}}
-
 
 \subsection{\texttt{mdframed}}
+The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes with a lot of customization options. It is used for the custom code listings.
+
+\begin{imtaCode}{latex}
+    \RequirePackage{mdframed}
+\end{imtaCode}
+
 
 \subsection{\texttt{minted}}
+The \imtaInlinecode{latex}{minted} package provides powerful code listings tools. This package however requires the installation of the Python pakage \imtaInlinecode{text}{Pygments} as well as the compilation option \imtaInlinecode{text}{--shell-escape}. It is used for the custom code listings.
+
+\begin{imtaCode}{latex}
+    \RequirePackage{minted}
+\end{imtaCode}
+
 
 
 % List of environments
