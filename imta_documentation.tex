@@ -65,7 +65,8 @@
 \section{Introduction}
 The \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules.\footnote{See \textit{\href{https://intranet.imt-atlantique.fr/wp-content/uploads/2017/01/imt_atlantique_chartegraphique.pdf}{Charte Graphique}} on the IMT Atlantique's intranet for more details.} For slightly more advanced or specific features, you might want to refer to the \texttt{imta\_extra} package.
 
-Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be usd in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries.
+Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be used in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries. 
+If you are not sure how to start, we invite you to have a look at the \texttt{skeleton} file provided with this template.
 
 
 %% Set up
@@ -73,6 +74,7 @@ Since it is a package, it can be used for a variety of classes and geometry. It 
 In order to use this template, you simply need to have a \TeX{} distribution installed, copy this file in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_core}} command in the preamble of your top document. The \texttt{babel} package should be loaded first when used in combination with \texttt{imta\_core}.
 
 Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager.\footnote{See \textit{\href{https://tex.stackexchange.com/a/359851}{General Guide to Installing Packages with MikTeX Package Manager}} on \TeX Stack Exchange for more details.}
+
 
 
 %% Sectioning
@@ -191,6 +193,8 @@ For this latter purpose, the \imtaInlinecode{latex}{\subtitle} command helps def
 is used inside of the \imtaInlinecode{latex}{\imtaMaketitlepage} command.
 
 Since the \imtaInlinecode{latex}{\author} command consists of only one field, we recommend to simply add linebreaks when declaring the authors if several people co-author a document. However, should you not use the IMT Atlantique style and would like to print the authors' name on one line in the default header, we introduced the \imtaInlinecode{latex}{\imtaAuthorShort} command which sets the \imtaInlinecode{latex}{\imtaTheAuthorShort} macro. By default, it is equal to the \imtaInlinecode{latex}{\theauthor} command, but can be redefined to be on one line only.
+
+The version of the document can be user-specified ausing the \imtaInlinecode{latex}{\imtaVersion} command.
 
 Moreover, you can also add one or several partner's logo on the front cover, next to the one of IMT Atlantique. In order to achieve this, you can simply use the \imtaInlinecode{latex}{\imtaAddPartnerLogo} command in the preamble of your document. The logo will be resized so that its maximum dimension is equal to the corresponding dimension of the IMT Atlantique's logo.
 
@@ -366,11 +370,13 @@ The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes wi
     
     \item \imtaInlinecode{latex}{\imtaSuperviser{<name>}} defines a new field for the supervisers. It works in a similar fashion to the \imtaInlinecode{latex}{\author} command and is displayed on the front cover when using \imtaInlinecode{latex}{\imtaMaketitlepage}.
     
+    \item \imtaInlinecode{latex}{\imtaVersion{<version>}} defines the version of the document which is displayed on the front cover.
+    
+    \item \imtaInlinecode{latex}{\imtaAddPartnerLogo[<options>]{<filepath>}} adds a partner's logo next to the one of IMT Atlantique on the front cover when using \imtaInlinecode{latex}{\imtaMaketitlepage}. By default, its largest dimension is set to the corresponding dimension of the IMT Atlantique's logo, but it can be overrided thanks to the \imtaInlinecode{latex}{<options>} field, which is used as options for \imtaInlinecode{latex}{\includegraphics}. It supports the insertion of multiple logos, adding a linebreak whenever necessary.
+    
     \item \imtaInlinecode{latex}{\imtaMaketitlepage} displays the IMT Atlantique styled front cover on the current page.
     
     \item \imtaInlinecode{latex}{\imtaAuthorShort{<shortened names>}} defines shortened author names for the header in case the IMT Atlantique style is not enabled throughout the whole document. It works in a similar fashion to the \imtaInlinecode{latex}{\author} command.
-    
-    \item \imtaInlinecode{latex}{\imtaAddPartnerLogo{<filepath>}} adds a partner's logo next to the one of IMT Atlantique on the front cover when using \imtaInlinecode{latex}{\imtaMaketitlepage}. By default, its largest dimension is set to the corresponding dimension of the IMT Atlantique's logo. It supports the insertion of multiple logos, adding a linebreak whenever necessary.
     
     \item \imtaInlinecode{latex}{\imtaLogo{<width>}} inserts the IMT Atlantique's logo with the desired dimension by importing the \texttt{imta\_logo.pdf} document.
     
@@ -401,12 +407,13 @@ The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes wi
 \section{Introduction}
 While the \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules\footnote{See \textit{\href{https://intranet.imt-atlantique.fr/wp-content/uploads/2017/01/imt_atlantique_chartegraphique.pdf}{Charte Graphique}} on the IMT Atlantique's intranet for more details.} the \texttt{imta\_extra} package provides the user some slightly more advanced or specific features.
 
-Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be usd in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries.
+Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be used in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries.
+If you are not sure how to start, we invite you to have a look at the \texttt{skeleton} file provided with this template.
 
 
 %% Set up
 \section{Set up}
-In order to use this template, you need to have a \TeX{} distribution installed, copy this file as well as \texttt{imta\_core} in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_extra}} command in the preamble of your top document.
+In order to use this template, you need to have a \TeX{} distribution installed, copy this file in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_extra}} command in the preamble of your top document.
 
 Since \texttt{imta\_extra} uses the \texttt{minted} package for code colouring, two extra steps are necessary to fully resolve dependencies. First, you need to have \texttt{Pygmentize} installed. If this is not the case, you can do it using Python utilitary \texttt{pip} by executing \imtaInlinecode{python}{pip install Pygments}. Finally, you also need to build your document with the correct options. If you are using pdf\LaTeX{} as your compiler, you need to add the \imtaInlinecode{latex}{--shell-escape} option.
 
@@ -416,7 +423,7 @@ Note that this template is compatible with at least \TeX Live and MiK\TeX distri
 %% Styling
 \section{Document Styling}
 \subsection{Code Colouring}
-When writing a technical report, it can be useful to write some code with syntax highlighting, which moreover matches the template colour code. With this idea in mind, we introduced two custom environments, based on the \imtaInlinecode{latex}{minted} package: \imtaInlinecode{latex}{\imtaCode{<language>}} and \imtaInlinecode{latex}{\imtaConsole}. This means they are both \imtaInlinecode{latex}{\verbatim}-based environments (ie: the text is not interpreted by \LaTeX in any way).
+When writing a technical report, it can be useful to write some code with syntax highlighting, which moreover matches the template colour code. With this idea in mind, we introduced two custom environments, based on the \imtaInlinecode{latex}{minted} package: \imtaInlinecode{latex}{\imtaCode{<language>}} and \imtaInlinecode{latex}{\imtaConsole}. This means they are both \imtaInlinecode{latex}{\verbatim}-based environments (ie: the text is not interpreted by \LaTeX{} in any way).
 
 \begin{figure}[!ht]
 \begin{minipage}{.45\linewidth}
@@ -426,7 +433,7 @@ When writing a technical report, it can be useful to write some code with syntax
 \begin{mdframed}[backgroundcolor=imtaCodeBackground, skipabove=0pt, skipbelow=0pt, rightmargin=0pt, leftmargin=3ex, linewidth=0pt, innertopmargin=5pt, innerbottommargin=5pt, innerleftmargin=1ex]%
 \begin{minted}[linenos, breaklines]{latex}
 \begin{imtaCode}{python}
-    def mac(a, b, c = 0):
+def mac(a, b, c = 0):
     # multiply-accumulate function
     return a*b + c
 \end{imtaCode}
@@ -475,9 +482,6 @@ grep -R "lorem" *
 
 To further ease this process and allow the user to import code from external documents (just as figures), two commands have been introduced: \imtaInlinecode{latex}{\imtaCodeFromFile{<file>}{<language>}} and \imtaInlinecode{latex}{\imtaConsoleFromFile{<file>}}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% >>>> TO DO <<<< %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \subsection{Structuring List of Figures and Tables}
@@ -522,7 +526,7 @@ The \imtaInlinecode{latex}{minted} package provides powerful code listings tools
 \begin{itemize}
     \item \imtaInlinecode{latex}{\imtaInlinecode{<language>}{<code>}} displays its content on the current line as syntax highlighted code according to the provided language.
     \item \imtaInlinecode{latex}{\imtaCodeFromFile{<language>}{<path>}} displays the content of the given file as syntax highlighted code according to the provided language and with line numbers on the side.
-    \item \imtaInlinecode{latex}{\imtaconsoleFromFile{<path>}} displays the content of a given file in a custom verbatim environment.
+    \item \imtaInlinecode{latex}{\imtaConsoleFromFile{<path>}} displays the content of a given file in a custom verbatim environment.
     \item \imtaInlinecode{latex}{\imtaFrontMatter} resets the page counter and changes its style to roman numerals.
     \item \imtaInlinecode{latex}{\imtaMainMatter} resets the page counter and changes its style to arabic numerals.
 \end{itemize}

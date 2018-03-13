@@ -47,6 +47,8 @@
 % 1.1.4      BP       16.12.2017   Multiple partners' logo support thanks
 %                                  to the \imtaAddPartnerLogo command
 % 1.1.5      BP       17.02.2018   Hyphenation enabled
+% 1.1.6      BP       13.03.2018   Added support for \includegraphics options
+%                                  in \imtaAddPartnerLogo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -199,11 +201,17 @@
 % Its largest dimension is set to the corresponding dimension of the IMT Atlantique's logo.
 % Argument: relative path to the resource
 \newcounter{imtaLogoCounter}     \setcounter{imtaLogoCounter}{0}
-\def\imtaAddPartnerLogo#1{\global\addtocounter{imtaLogoCounter}{1}
-    \global\expandafter\def\csname imtaPartnerLogo\theimtaLogoCounter\endcsname{#1}}
+\newcommand{\imtaAddPartnerLogo}[2][\relax]{%
+    % The logo counter is increased and the path is stored in a new command (emulates an array)
+    \global\addtocounter{imtaLogoCounter}{1}
+    \global\expandafter\def\csname imtaPartnerLogo\theimtaLogoCounter\endcsname{#2}
+    % The \includegraphics options are also saved
+    \global\expandafter\def\csname imtaPartnerLogo\theimtaLogoCounter Options\endcsname{#1}}
+
 % \imtaPartnerLogo
 % Prints the path of the resource associated with the given number, in 0..\imtaLogoCounter
 \def\imtaPartnerLogo#1{\csname imtaPartnerLogo#1\endcsname}
+\def\imtaPartnerLogoOptions#1{\csname imtaPartnerLogo#1Options\endcsname}
 
 
 
@@ -333,11 +341,17 @@
         \loop
             \addtocounter{imta@idx}{1}
             \ifnum\value{imtaLogoCounter}>0
-                \edef\@thelogo{\imtaPartnerLogo{\theimta@idx}}
-                \settowidth\imta@picWidth{\includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\@thelogo}}
+                \edef\imta@thelogo{\imtaPartnerLogo{\theimta@idx}} % Expansion is enforced
+                \edef\imta@thelogooptions{\imtaPartnerLogoOptions{\theimta@idx}} % Expansion is enforced
+                % Default dimensions are based on the IMT Atlantique logo
+                \if\imta@thelogooptions\relax\relax
+                    \edef\imta@thelogooptions{width=5.3cm, height=3cm, keepaspectratio}
+                \fi
+                % Because of the behavior of \includegraphics, we need to be very careful about our expansions of macros here
+                \settowidth\imta@picWidth{\expandafter\includegraphics\expandafter[\imta@thelogooptions]{\imta@thelogo}}
                 \setlength\imta@picWidth{\imta@picWidth+.5cm}
                 \begin{minipage}{\imta@picWidth}
-                    \includegraphics[width=5.3cm, height=3cm, keepaspectratio]{\@thelogo}
+                    \expandafter\includegraphics\expandafter[\imta@thelogooptions]{\imta@thelogo}
                 \end{minipage}
             \fi
         \ifnum\value{imta@idx}<\value{imtaLogoCounter}
