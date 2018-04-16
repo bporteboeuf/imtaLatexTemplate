@@ -49,6 +49,8 @@
 % 1.1.5      BP       17.02.2018   Hyphenation enabled
 % 1.1.6      BP       13.03.2018   Added support for \includegraphics options
 %                                  in \imtaAddPartnerLogo
+% 1.1.7      BP       16.04.2018   Fixed bug in \imtaAddPartnerLogo when specifying
+%                                  a width relative to \textwidth or \linewidth
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -331,16 +333,17 @@
     \vfill
     % Displaying the school's logo
     \begin{flushleft}
-        \newlength\imta@remainingWidth
         \newlength\imta@picWidth
         \begin{minipage}{5.6cm}
             \imtaLogoTikz{5.3cm}
-        \end{minipage}
+        \end{minipage}%
         % Adding any potential user-defined partner's logo
-        \newcounter{imta@idx}   \setcounter{imta@idx}{0}
+        \newcounter{imta@idx}   \setcounter{imta@idx}{0}%
+        \newlength\imta@oldlinewidth
+        \newlength\imta@oldtextwidth
         \loop
             \addtocounter{imta@idx}{1}
-            \ifnum\value{imtaLogoCounter}>0
+            \ifnum\value{imtaLogoCounter}>0%
                 \edef\imta@thelogo{\imtaPartnerLogo{\theimta@idx}} % Expansion is enforced
                 \edef\imta@thelogooptions{\imtaPartnerLogoOptions{\theimta@idx}} % Expansion is enforced
                 % Default dimensions are based on the IMT Atlantique logo
@@ -349,13 +352,18 @@
                 \fi
                 % Because of the behavior of \includegraphics, we need to be very careful about our expansions of macros here
                 \settowidth\imta@picWidth{\expandafter\includegraphics\expandafter[\imta@thelogooptions]{\imta@thelogo}}
-                \setlength\imta@picWidth{\imta@picWidth+.5cm}
+                % In order for the user to be able to use relative widths, we need to store the current values and redefine them in the minipage environment
+                \setlength\imta@oldlinewidth{\linewidth}
+                \setlength\imta@oldtextwidth{\textwidth}
                 \begin{minipage}{\imta@picWidth}
+                    \setlength\linewidth{\imta@oldlinewidth}
+                    \setlength\textwidth{\imta@oldtextwidth}
                     \expandafter\includegraphics\expandafter[\imta@thelogooptions]{\imta@thelogo}
                 \end{minipage}
+                \hspace{.25cm}
             \fi
-        \ifnum\value{imta@idx}<\value{imtaLogoCounter}
-        \repeat        
+            \ifnum\value{imta@idx}<\value{imtaLogoCounter}
+                \repeat
     \end{flushleft}
     \endgroup
     \cleardoublepage
