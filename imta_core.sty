@@ -303,21 +303,21 @@
     % Drawing the triangles
     \begin{flushright}
         \begin{tikzpicture}
-        \filldraw[draw=imtaGreen,fill=imtaGreen] (-3\imtaGetEltSize,0) -- (0,-3\imtaGetEltSize) -- (0\imtaGetEltSize,0) -- cycle;
-        \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-3\imtaGetEltSize) -- cycle;
-        \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\imtaGetEltSize,0) -- (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (-5.24\imtaGetEltSize,-3\imtaGetEltSize) -- cycle;
-        
-        \node (date) [draw=none, text width=\textwidth, align=left, minimum height = 2\imtaGetEltSize, 
-                      anchor=south west] at (-\textwidth, -6\imtaGetEltSize) {
-            \vfill
-            \large\fontfamily{phv}\selectfont\thedate\linebreak
-            \large\fontfamily{phv}\selectfont\theauthor\linebreak
-            \if\imtaTheSuperviser\relax\relax
-                \relax
-            \else
-                \linebreak
+            \filldraw[draw=imtaGreen,fill=imtaGreen] (-3\imtaGetEltSize,0) -- (0,-3\imtaGetEltSize) -- (0\imtaGetEltSize,0) -- cycle;
+            \filldraw[draw=imtaLightBlue,fill=imtaLightBlue] (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (0,-5.24\imtaGetEltSize) -- (0,-3\imtaGetEltSize) -- cycle;
+            \filldraw[draw=imtaDarkBlue,fill=imtaDarkBlue] (-5.24\imtaGetEltSize,0) -- (-2.24\imtaGetEltSize,-3\imtaGetEltSize) -- (-5.24\imtaGetEltSize,-3\imtaGetEltSize) -- cycle;
+            
+            \node (date) [draw=none, text width=\textwidth, align=left, minimum height = 2\imtaGetEltSize, 
+            anchor=south west] at (-\textwidth, -6\imtaGetEltSize) {
+                \vfill
+                \large\fontfamily{phv}\selectfont\thedate\linebreak
+                \large\fontfamily{phv}\selectfont\theauthor\linebreak
+                \if\imtaTheSuperviser\relax\relax
+                    \relax
+                \else
+                    \linebreak
                 \large\fontfamily{phv}\imtaTheSuperviser\linebreak
-            \fi};
+                \fi};
         \end{tikzpicture}
     \end{flushright}
     % Printing the title and other relevant informations
@@ -333,37 +333,40 @@
     \vfill
     % Displaying the school's logo
     \begin{flushleft}
-        \newlength\imta@picWidth
-        \begin{minipage}{5.6cm}
-            \imtaLogoTikz{5.3cm}
-        \end{minipage}%
-        % Adding any potential user-defined partner's logo
-        \newcounter{imta@idx}   \setcounter{imta@idx}{0}%
-        \newlength\imta@oldlinewidth
-        \newlength\imta@oldtextwidth
-        \loop
-            \addtocounter{imta@idx}{1}
-            \ifnum\value{imtaLogoCounter}>0%
-                \edef\imta@thelogo{\imtaPartnerLogo{\theimta@idx}} % Expansion is enforced
-                \edef\imta@thelogooptions{\imtaPartnerLogoOptions{\theimta@idx}} % Expansion is enforced
-                % Default dimensions are based on the IMT Atlantique logo
-                \if\imta@thelogooptions\relax\relax
-                    \edef\imta@thelogooptions{width=5.3cm, height=3cm, keepaspectratio}
+        \begin{minipage}{.92\textwidth}
+            \newlength\imta@picWidth
+            \begin{minipage}{5.3cm}
+                \imtaLogoTikz{5.3cm}
+            \end{minipage}%
+            % Adding any potential user-defined partner's logo
+            \newcounter{imta@idx}   \setcounter{imta@idx}{0}%
+            \newlength\imta@oldlinewidth
+            \newlength\imta@oldtextwidth
+            \loop
+                \addtocounter{imta@idx}{1}
+                \ifnum\value{imtaLogoCounter}>0%
+                    \edef\imta@thelogo{\imtaPartnerLogo{\theimta@idx}} % Expansion is enforced
+                    \edef\imta@thelogooptions{\imtaPartnerLogoOptions{\theimta@idx}} % Expansion is enforced
+                    % Default dimensions are based on the IMT Atlantique logo
+                    \if\imta@thelogooptions\relax\relax
+                        \edef\imta@thelogooptions{width=5.3cm, height=3cm, keepaspectratio}
+                    \fi
+                    % Because of the behavior of \includegraphics, we need to be very careful about our expansions of macros here
+                    \settowidth\imta@picWidth{\expandafter\includegraphics\expandafter[\imta@thelogooptions]{\imta@thelogo}}
+                    % In order for the user to be able to use relative widths, we need to store the current values and redefine them in the minipage environment
+                    \setlength\imta@oldlinewidth{\linewidth}
+                    \setlength\imta@oldtextwidth{\textwidth}
+                    \hfill
+                    \begin{minipage}{\imta@picWidth}
+                        \setlength\linewidth{\imta@oldlinewidth}
+                        \setlength\textwidth{\imta@oldtextwidth}
+                        \expandafter\includegraphics\expandafter[\imta@thelogooptions]{\imta@thelogo}
+                    \end{minipage}
+%                    \hfill
                 \fi
-                % Because of the behavior of \includegraphics, we need to be very careful about our expansions of macros here
-                \settowidth\imta@picWidth{\expandafter\includegraphics\expandafter[\imta@thelogooptions]{\imta@thelogo}}
-                % In order for the user to be able to use relative widths, we need to store the current values and redefine them in the minipage environment
-                \setlength\imta@oldlinewidth{\linewidth}
-                \setlength\imta@oldtextwidth{\textwidth}
-                \begin{minipage}{\imta@picWidth}
-                    \setlength\linewidth{\imta@oldlinewidth}
-                    \setlength\textwidth{\imta@oldtextwidth}
-                    \expandafter\includegraphics\expandafter[\imta@thelogooptions]{\imta@thelogo}
-                \end{minipage}
-                \hspace{.25cm}
-            \fi
-            \ifnum\value{imta@idx}<\value{imtaLogoCounter}
-                \repeat
+                \ifnum\value{imta@idx}<\value{imtaLogoCounter}
+                    \repeat
+        \end{minipage}
     \end{flushleft}
     \endgroup
     \cleardoublepage
