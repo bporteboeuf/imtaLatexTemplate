@@ -25,36 +25,52 @@
 ####################################################################
 # Revision List:
 # Version    Author   Date         	Changes
-# 1.0        BP       29.05.2018   	First Draft with support for TeX Live only
+# 0.1        BP       29.05.2018   	First Draft with support for TeX Live only
+# 0.2        BP       30.05.2018   	First draft for MikTeX support
 ####################################################################
 
 import os,platform,subprocess,shutil
 
 
+def f_chdir(my_dir):
+    if not os.path.isdir(my_dir):
+        os.mkdir(my_dir)
+    os.chdir(my_dir)
+    return
+
+def copy_files(or_dir,template_dir):
+    shutil.copy(os.path.join(or_dir, 'imta_core.sty'),template_dir)
+    shutil.copy(os.path.join(or_dir, 'imta_extra.sty'),template_dir)
+    shutil.copy(os.path.join(or_dir, 'imta_documentation.tex'),template_dir)
+    shutil.copy(os.path.join(or_dir, 'imta_logo.pdf'),template_dir)
+    print('Template files copied at {}'.format(template_dir))
+    return
+
+
 # First, we need to know if the user is running TeX Live or MikTeX
 bashCommand = "pdflatex --version"
-process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-output, error = process.communicate()
+output = subprocess.check_output(bashCommand, shell=True)
 
 orDir = os.getcwd()
 
-if error:
-    print(error)
     
 if 'TeX Live' in str(output):
     print('A TeX Live distribution has been found.')
     system = platform.system()
     if system is 'Windows':
         print('A Windows system has been detected.')
+        default_dir = '/texlive/'
     elif system is 'Linux':
         print('A Windows system has been detected.')
+        default_dir = '/usr/local/texlive'
     else:
-        print("Error: System '{}' not supported".format(system))
+        print("System '{}' is not known. Continuing...".format(system))
+        default_dir = '/'
 
     print('Looking for configuration file...')
     # If available, the default root path is used
-    if os.path.isdir('/texlive/'):
-        os.chdir('/texlive/')
+    if os.path.isdir(default_dir):
+        os.chdir(default_dir)
     else:
         os.chdir('/')
     # Then we look for the config file
@@ -63,70 +79,28 @@ if 'TeX Live' in str(output):
             filePath = os.path.join(root,'texmf.cnf')
             print('Configuration file found at {}'.format(filePath))
             break
-    
+    if filePath is None:
+        print('Warning: no configuration file has been found. Continuing with default settings...')
+        filePath = default_dir
+
     # And now for the actual local texmf folder, which is created if not already there
     os.chdir(os.path.join(root,'..'))
     texmf_dir = os.path.join(os.getcwd(),'texmf-local')
-    if not os.path.isdir(texmf_dir):
-        os.mkdir(texmf_dir)
-    os.chdir(texmf_dir)
+    f_chdir(texmf_dir)
     new_dir = 'tex'
-    if not os.path.isdir(new_dir):
-        os.mkdir(new_dir)
-    os.chdir(new_dir)
+    f_chdir(new_dir)
     new_dir = 'latex'
-    if not os.path.isdir(new_dir):
-        os.mkdir(new_dir)
-    os.chdir(new_dir)
+    f_chdir(new_dir)
 
     # template files are copied
     new_dir = 'imta'
-    if not os.path.isdir(new_dir):
-        os.mkdir(new_dir)
-    os.chdir(new_dir)
+    f_chdir(new_dir)
     templatePath = os.getcwd()
-    shutil.copy(os.path.join(orDir, 'imta_core.sty'),templatePath)
-    shutil.copy(os.path.join(orDir, 'imta_extra.sty'),templatePath)
-    shutil.copy(os.path.join(orDir, 'imta_documentation.tex'),templatePath)
-    shutil.copy(os.path.join(orDir, 'imta_logo.pdf'),templatePath)
-    print('Copying files at {}'.format(templatePath))
-    
-    # File is opened and is content is read
-    f = open(filePath,'r')
-    fc = f.read()
-    f.close()
+    copy_files(orDir,templatePath)
 
-    # We look for the definition of the TEXMFHOME variable
-    # if it is not there, we simply append it
-    if 'TEXMFHOME' not in fc:
-        fc += '\nTEXMFHOME = {}'.format(texmf_dir)
-    # otherwise, we just need to add the correct directory
-    else:
-        # regex should be used here
-        lines = fc.split('\n')
-        i = 0
-        for l in lines:
-            if 'TEXMFHOME' in l:
-                break
-            i += 1
-        
-        if not texmf_dir in l:
-            l = l.split('=')
-            r = l[1]; l = l[0]
-            rl = r.split('{') 
-            if len(rl) == 1:
-                r = ' {'+texmf_dir+','+rl[0]+'}'
-            else:
-                r = rl[0]+texmf_dir+','+rl[1]
-            l = '='.join([l,r])
-            lines[i] = l
-            fc = '\n'.join(lines)
-
-    # File is overwritten
-    f = open(filePath,'w')
-    f.write(fc)
-    f.close()
-
+    bashCommand = "tlmgr conf auxtrees add {}".format(texmf_dir)
+    output = str(subprocess.check_output(bashCommand, shell=True))
+   
     print('Configuration file updated')
     print('Done.')
 
@@ -134,7 +108,32 @@ if 'TeX Live' in str(output):
 elif 'MikTeX' in str(output):
     print('A MikTeX distribution has been found.') 
 
-    print('No setup scheme has been provided for now.')
+    bashCommand = "initexmf --report"
+    output = str(subprocess.check_output(bashCommand, shell=True))
+    for l in output.split('\n'):
+        if 'CommonData' in l:
+            r = l.split(': ')
+            base_dir = r[1]
+            break
+    
+    texmf_dir = os.path.join(base_dir,'texmf-local')
+    os.chdir(texmf_dir)
+    new_dir = 'tex'
+    f_chdir(new_dir)
+    new_dir = 'latex'
+    f_chdir(new_dir)
+    templatePath = os.getcwd()
+
+    copy_files(orDir,templatePath)
+
+    bashCommand = "initexmf --register-root={}".format(texmf_dir)
+    output = str(subprocess.check_output(bashCommand, shell=True))
+    print(str(output))
+    bashCommand = "initexmf --update-fndb"
+    output = str(subprocess.check_output(bashCommand, shell=True))
+    print(str(output))
+
+    print('Done.')
 
 else:
     print('Error: Unsupported distribution or setup.')
