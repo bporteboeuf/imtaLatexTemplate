@@ -13,8 +13,9 @@
 #
 # Dependencies:     os
 #                   platform
-#                   subprocess
 #                   shutil
+#                   subprocess
+#                   sys
 #
 # Author:           B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
 # Contributor:      /
@@ -27,35 +28,60 @@
 # Version    Author   Date         	Changes
 # 0.1        BP       29.05.2018   	First Draft with support for TeX Live only
 # 0.2        BP       30.05.2018   	First draft for MikTeX support
+# 1.0        BP       31.05.2018    Some bugs fixed with MikTeX support
 ####################################################################
 
-import os,platform,subprocess,shutil
+import os,sys,platform,subprocess,shutil
 
 
 def f_chdir(my_dir):
+    # f_chdir(my_dir) forces to change directory by creating it if needed
+    # (only 1 level can be created at a time)
     if not os.path.isdir(my_dir):
         os.mkdir(my_dir)
     os.chdir(my_dir)
     return
 
-def copy_files(or_dir,template_dir):
-    shutil.copy(os.path.join(or_dir, 'imta_core.sty'),template_dir)
-    shutil.copy(os.path.join(or_dir, 'imta_extra.sty'),template_dir)
-    shutil.copy(os.path.join(or_dir, 'imta_documentation.tex'),template_dir)
-    shutil.copy(os.path.join(or_dir, 'imta_logo.pdf'),template_dir)
+    
+def copy_source_files(or_dir,template_dir):
+    # copy_source_files(or_dir,template_dir) copies the source files from or_dir
+    # to template_dir
+    
+    def copy_sc(file,fpA,fpB):
+        fpA = os.path.join(fpA,file)
+        if os.path.isfile(fpA):
+            shutil.copy(fpA,fpB)
+        else:
+            print("Error: File '{}' is missing".format(file))
+            raise Exception
+        return
+    
+    copy_sc('imta_core.sty',or_dir,template_dir)
+    copy_sc('imta_extra.sty',or_dir,template_dir)
+    copy_sc('imta_logo.pdf',or_dir,template_dir)
+    copy_sc('imta_documentation.tex',or_dir,template_dir)
     print('Template files copied at {}'.format(template_dir))
     return
-
-
-# First, we need to know if the user is running TeX Live or MikTeX
-bashCommand = "pdflatex --version"
-output = subprocess.check_output(bashCommand, shell=True)
-
-orDir = os.getcwd()
-
     
-if 'TeX Live' in str(output):
-    print('A TeX Live distribution has been found.')
+    
+def _input(msg):
+    # _input(msg) prints the given message and returns the user input
+    # supports both Python 2 and 3
+    if sys.version_info.major >= 3:
+        ans = input(msg)
+    elif sys.version_info.major == 2:
+        ans = raw_input(msg)
+    else:
+        print('Error: Unsupported Python version. Please upgrade to Python 2 or higher.') 
+        raise Exception
+        ans = None
+    return ans
+    
+    
+def texlive_install():
+    # texlive_install() is the complete template installation scheme for TeX Live on both
+    # Windows and Linux
+    orDir = os.getcwd()
     system = platform.system()
     if system is 'Windows':
         print('A Windows system has been detected.')
@@ -96,47 +122,77 @@ if 'TeX Live' in str(output):
     new_dir = 'imta'
     f_chdir(new_dir)
     templatePath = os.getcwd()
-    copy_files(orDir,templatePath)
+    copy_source_files(orDir,templatePath)
 
-    bashCommand = "tlmgr conf auxtrees add {}".format(texmf_dir)
-    output = str(subprocess.check_output(bashCommand, shell=True))
+    
+    output = subprocess.check_output("tlmgr conf auxtrees add {}".format(texmf_dir), 
+                                     shell=True).decode('utf-8')
    
     print('Configuration file updated')
-    print('Done.')
-
-
-elif 'MikTeX' in str(output):
-    print('A MikTeX distribution has been found.') 
-
-    bashCommand = "initexmf --report"
-    output = str(subprocess.check_output(bashCommand, shell=True))
+    return
+    
+    
+def miktex_install():
+    # miktex_install is the complete template installation scheme for MikTeX on Windows
+    orDir = os.getcwd()
+    output = subprocess.check_output("initexmf --report", shell=True).decode('utf-8')
     for l in output.split('\n'):
-        if 'CommonData' in l:
-            r = l.split(': ')
+        if 'CommonInstall' in l:
+            r = l.split('CommonInstall: ')
             base_dir = r[1]
+            base_dir = base_dir.split('\r')
+            base_dir = base_dir[0]
             break
     
+    texmfSuccess = True
     texmf_dir = os.path.join(base_dir,'texmf-local')
-    os.chdir(texmf_dir)
-    new_dir = 'tex'
-    f_chdir(new_dir)
-    new_dir = 'latex'
-    f_chdir(new_dir)
-    templatePath = os.getcwd()
+    try:
+        f_chdir(texmf_dir)
+    except Exception as e:
+        print(e)
+        default_dir = os.path.join(orDir,'texmf-local')
+        ans = _input('Continuing with default folder <{}>? (y/n)'.format(default_dir))
+        if ans == 'y':
+            f_chdir(default_dir)
+        else:
+            print('Aborting procedure...')
+            texmfSuccess = False
+            
+    if texmfSuccess:
+        new_dir = 'tex'
+        f_chdir(new_dir)
+        new_dir = 'latex'
+        f_chdir(new_dir)
+        templatePath = os.getcwd()
 
-    copy_files(orDir,templatePath)
+        copy_source_files(orDir,templatePath)
 
-    bashCommand = "initexmf --register-root={}".format(texmf_dir)
-    output = str(subprocess.check_output(bashCommand, shell=True))
-    print(str(output))
-    bashCommand = "initexmf --update-fndb"
-    output = str(subprocess.check_output(bashCommand, shell=True))
-    print(str(output))
+        output = subprocess.check_output("initexmf --register-root={}".format(texmf_dir), 
+                                         shell=True).decode('utf-8')
+        output = subprocess.check_output("initexmf --update-fndb", shell=True).decode('utf-8')
+        
+        print('Configuration file updated.')
+        return
 
-    print('Done.')
 
-else:
-    print('Error: Unsupported distribution or setup.')
+
+# Actual main function
+if __name__ == '__main__':
+    output = subprocess.check_output("pdflatex --version", shell=True).decode('utf-8')
+        
+    if 'TeX Live' in output:
+        print('A TeX Live distribution has been found.')
+        texlive_install()
+        print('Done.')
+
+    elif 'MiKTeX' in output:
+        print('A MikTeX distribution has been found.') 
+        miktex_install()
+        print('Done.')
+
+    else:
+        print('Error: Unsupported distribution or setup.')
+        raise Exception
 
 
 
