@@ -31,29 +31,32 @@
 # 1.0        BP       31.05.2018    Some bugs fixed with MikTeX support
 ####################################################################
 
-import os,sys,platform,subprocess,shutil
+import os
+import platform
+import shutil
+import subprocess
+import sys
 
 
 def f_chdir(my_dir):
-    # f_chdir(my_dir) forces to change directory by creating it if needed
-    # (only 1 level can be created at a time)
+    """f_chdir(my_dir) forces to change directory by creating it if needed
+    (only 1 level can be created at a time)
+    """
     if not os.path.isdir(my_dir):
         os.mkdir(my_dir)
     os.chdir(my_dir)
-    return
 
     
 def copy_source_files(or_dir,template_dir):
-    # copy_source_files(or_dir,template_dir) copies the source files from or_dir
-    # to template_dir
-    
+    """copy_source_files(or_dir,template_dir) copies the source files from or_dir
+    to template_dir
+    """    
     def copy_sc(file,fpA,fpB):
         fpA = os.path.join(fpA,file)
         if os.path.isfile(fpA):
             shutil.copy(fpA,fpB)
         else:
-            print("Error: File '{}' is missing".format(file))
-            raise Exception
+            raise Exception("Error: File '{}' is missing".format(file))
         return
     
     copy_sc('imta_core.sty',or_dir,template_dir)
@@ -61,26 +64,26 @@ def copy_source_files(or_dir,template_dir):
     copy_sc('imta_logo.pdf',or_dir,template_dir)
     copy_sc('imta_documentation.tex',or_dir,template_dir)
     print('Template files copied at {}'.format(template_dir))
-    return
     
     
 def _input(msg):
-    # _input(msg) prints the given message and returns the user input
-    # supports both Python 2 and 3
+    """_input(msg) prints the given message and returns the user input
+    supports both python 2 and 3
+    """
     if sys.version_info.major >= 3:
         ans = input(msg)
     elif sys.version_info.major == 2:
         ans = raw_input(msg)
     else:
-        print('Error: Unsupported Python version. Please upgrade to Python 2 or higher.') 
-        raise Exception
-        ans = None
+        raise Exception("Unsupported python version. Please upgrade to python 2 or higher.")
+
     return ans
     
     
 def texlive_install():
-    # texlive_install() is the complete template installation scheme for TeX Live on both
-    # Windows and Linux
+    """texlive_install() is the complete template installation scheme for TeX Live on both
+    Windows and Linux
+    """
     orDir = os.getcwd()
     system = platform.system()
     if system is 'Windows':
@@ -129,11 +132,11 @@ def texlive_install():
                                      shell=True).decode('utf-8')
    
     print('Configuration file updated')
-    return
     
     
 def miktex_install():
-    # miktex_install is the complete template installation scheme for MikTeX on Windows
+    """miktex_install is the complete template installation scheme for MikTeX on Windows
+    """
     orDir = os.getcwd()
     output = subprocess.check_output("initexmf --report", shell=True).decode('utf-8')
     for l in output.split('\n'):
@@ -172,7 +175,6 @@ def miktex_install():
         output = subprocess.check_output("initexmf --update-fndb", shell=True).decode('utf-8')
         
         print('Configuration file updated.')
-        return
 
 
 
