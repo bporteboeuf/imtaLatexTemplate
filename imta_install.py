@@ -5,7 +5,8 @@
 #
 # Description:      Installation Python script for the IMTA LaTeX template.
 #
-# Note:             /
+# Note:             Supports Python 2 and 3, TeX Live on Windows and Linux
+#                   as well as MikTeX.
 #
 # Limitations:      /
 #
@@ -18,7 +19,7 @@
 #                   sys
 #
 # Author:           B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
-# Contributor:      /
+# Contributor:      A. Foucault   - armand.foucault@telecom-bretagne.eu
 #
 # University:       IMT Atlantique, Brest (France)
 #
@@ -29,6 +30,7 @@
 # 0.1        BP       29.05.2018   	First Draft with support for TeX Live only
 # 0.2        BP       30.05.2018   	First draft for MikTeX support
 # 1.0        BP       31.05.2018    Some bugs fixed with MikTeX support
+# 1.1        AF       04.06.2018    Light code refactoring
 ####################################################################
 
 import os
