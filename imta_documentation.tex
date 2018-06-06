@@ -63,17 +63,28 @@
 
 %% Introduction
 \section{Introduction}
-The \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules.\footnote{See \textit{\href{https://intranet.imt-atlantique.fr/wp-content/uploads/2017/01/imt_atlantique_chartegraphique.pdf}{Charte Graphique}} on the IMT Atlantique's intranet for more details.} For slightly more advanced or specific features, you might want to refer to the \texttt{imta\_extra} package.
+The \texttt{imta\_core} package provides a \LaTeX{} template that satisfies the IMT Atlantique corporate identity rules.
+\footnote{See \textit{\href{https://intranet.imt-atlantique.fr/wp-content/uploads/2017/01/imt_atlantique_chartegraphique.pdf}{Charte Graphique}} on the IMT Atlantique's intranet for more details.} 
+For slightly more advanced or specific features, you might want to refer to the \texttt{imta\_extra} package.
 
-Since it is a package, it can be used for a variety of classes and geometry. It has been primarily designed to be used in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries. 
+Since it is a package, it can be used for a variety of classes and geometry. 
+It has been primarily designed to be used in \texttt{article} and \texttt{report} documents, either with \texttt{oneside}/\texttt{twoside} or \texttt{onecolumn}/\texttt{twocolumn} geometries. 
 If you are not sure how to start, we invite you to have a look at the \texttt{skeleton} file provided with this template.
 
 
 %% Set up
 \section{Set up}
-In order to use this template, you simply need to have a \TeX{} distribution installed, copy this file in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_core}} command in the preamble of your top document. The \texttt{babel} package should be loaded first when used in combination with \texttt{imta\_core}.
+In order to use this template, you simply need to have a \TeX{} distribution installed, copy this file in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_core}} command in the preamble of your top document. 
+The \texttt{babel} package should be loaded first when used in combination with \texttt{imta\_core}.
 
-Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager.\footnote{See \textit{\href{https://tex.stackexchange.com/a/359851}{General Guide to Installing Packages with MikTeX Package Manager}} on \TeX Stack Exchange for more details.}
+If you would prefer to properly install the package once it for all instead of having multiple copies, you can do so by manually installing it. 
+Since this can be a little bit tedious for a new \LaTeX{} user, we introduced a custom Python script. 
+Simply run the \texttt{imta\_install.py} script and everything should be alright.
+This script supports Python 2 and 3, and both Mik\TeX{} and \TeX{}Live environments. 
+
+Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. 
+If so, then try to update your distribution using your Mik\TeX manager.
+\footnote{See \textit{\href{https://tex.stackexchange.com/a/359851}{General Guide to Installing Packages with MikTeX Package Manager}} on \TeX Stack Exchange for more details.}
 
 
 
@@ -94,12 +105,17 @@ This provides an alternative to the usual \imtaInlinecode{latex}{\paragraph}.
 
 
 \subsection{\texttt{chapter}}
-The \imtaInlinecode{latex}{\chapter} command has been redefined to print the word "chapter" in front of the figure. This command is compatible with several languages\footnote{This functionality currently supports english, french, german, portuguese and spanish.} but requires the \texttt{babel} package to be loaded first. The default language is english.
+The \imtaInlinecode{latex}{\chapter} command has been redefined to print the word "chapter" in front of the figure. 
+This command is compatible with several languages\footnote{This functionality currently supports english, french, german, portuguese and spanish.} but requires the \texttt{babel} package to be loaded first. 
+The default language is english.
 
-This command also prints a small design on the bottom right corner of the page and updates the upper section title. In case the document is in \texttt{twoside} mode, it ensures the chapter page is on the right by inserting a blank page if necessary. In case the document is in \texttt{twocolumn} mode, it also temporarily restores a \texttt{onecolumn} geometry to print the chapter page.
+This command also prints a small design on the bottom right corner of the page and updates the upper section title. 
+In case the document is in \texttt{twoside} mode, it ensures the chapter page is on the right by inserting a blank page if necessary. 
+In case the document is in \texttt{twocolumn} mode, it also temporarily restores a \texttt{onecolumn} geometry to print the chapter page.
 
 
 %% Document Styling
+\clearpage
 \section{Document styling}
 
 \subsection{IMT Atlantique styling}
@@ -192,11 +208,15 @@ The \texttt{imtaMaketitlepage} command outputs a title page with the names of th
 For this latter purpose, the \imtaInlinecode{latex}{\subtitle} command helps define a subtitle as a part of the document's metadata, and %
 is used inside of the \imtaInlinecode{latex}{\imtaMaketitlepage} command.
 
-Since the \imtaInlinecode{latex}{\author} command consists of only one field, we recommend to simply add linebreaks when declaring the authors if several people co-author a document. However, should you not use the IMT Atlantique style and would like to print the authors' name on one line in the default header, we introduced the \imtaInlinecode{latex}{\imtaAuthorShort} command which sets the \imtaInlinecode{latex}{\imtaTheAuthorShort} macro. By default, it is equal to the \imtaInlinecode{latex}{\theauthor} command, but can be redefined to be on one line only.
+Since the \imtaInlinecode{latex}{\author} command consists of only one field, we recommend to simply add linebreaks when declaring the authors if several people co-author a document. 
+However, should you not use the IMT Atlantique style and would like to print the authors' name on one line in the default header, we introduced the \imtaInlinecode{latex}{\imtaAuthorShort} command which sets the \imtaInlinecode{latex}{\imtaTheAuthorShort} macro. 
+By default, it is equal to the \imtaInlinecode{latex}{\theauthor} command, but can be redefined to be on one line only.
 
 The version of the document can be user-specified ausing the \imtaInlinecode{latex}{\imtaVersion} command.
 
-Moreover, you can also add one or several partner's logo on the front cover, next to the one of IMT Atlantique. In order to achieve this, you can simply use the \imtaInlinecode{latex}{\imtaAddPartnerLogo} command in the preamble of your document. The logo will be resized so that its maximum dimension is equal to the corresponding dimension of the IMT Atlantique's logo, unless instructed otherwise.
+Moreover, you can also add one or several partner's logo on the front cover, next to the one of IMT Atlantique. 
+In order to achieve this, you can simply use the \imtaInlinecode{latex}{\imtaAddPartnerLogo} command in the preamble of your document. 
+The logo will be resized so that its maximum dimension is equal to the corresponding dimension of the IMT Atlantique's logo, unless instructed otherwise.
 
 
 \subsubsection{Back cover}
@@ -300,7 +320,8 @@ A blank style, \imtaInlinecode{latex}{imtaFirstpage}, is defined to remove the h
 
 
 \subsection{\texttt{tikz}}
-The \imtaInlinecode{latex}{tikz} package is used to create the decorative figures on the front cover and on the new chapter pages. It is also used to recreate the IMT Atlantique logo, which can be used thanks to the \imtaInlinecode{latex}{\imtaLogoTikz{<width>}} command.
+The \imtaInlinecode{latex}{tikz} package is used to create the decorative figures on the front cover and on the new chapter pages. 
+It is also used to recreate the IMT Atlantique logo, which can be used thanks to the \imtaInlinecode{latex}{\imtaLogoTikz{<width>}} command.
 
 \begin{imtaCode}{latex}
 \RequirePackage{tikz}
@@ -315,7 +336,8 @@ The \imtaInlinecode{latex}{titlesec} package allows to easily redefine a section
 
 
 \subsection{\texttt{titling}}
-The \imtaInlinecode{latex}{titling} package creates automated front cover or title pages. In this package, we provide a simple wrapper with respect to the IMT Atlantique colour code and additionnal capabilities.
+The \imtaInlinecode{latex}{titling} package creates automated front cover or title pages. 
+In this package, we provide a simple wrapper with respect to the IMT Atlantique colour code and additionnal capabilities.
 
 \begin{imtaCode}{latex}
 \RequirePackage{titling}
@@ -332,7 +354,8 @@ The \imtaInlinecode{latex}{anyfontsize} package provides various tools to modify
 
 
 \subsection{\texttt{enumitem}}
-The \imtaInlinecode{latex}{enumitem} package allows to modify various properties of lists, notably its bullets. This was used with the \imtaInlinecode{latex}{pifont} package to produce the IMT Atlantique list rendering.
+The \imtaInlinecode{latex}{enumitem} package allows to modify various properties of lists, notably its bullets. 
+This was used with the \imtaInlinecode{latex}{pifont} package to produce the IMT Atlantique list rendering.
 
 \begin{imtaCode}{latex}
 \RequirePackage{enumitem}
@@ -340,7 +363,9 @@ The \imtaInlinecode{latex}{enumitem} package allows to modify various properties
 
 
 \subsection{\texttt{pifont}}
-Similarly to \imtaInlinecode{latex}{fontawesome}, the \imtaInlinecode{latex}{pifont} package offers multiple special characters and symbols. It is used along \imtaInlinecode{latex}{enumitem} to customize the lists rendering by redefining the bullets. It is also used to display the large quote symbols in the \imtaInlinecode{latex}{\imtaQuote} environment.
+Similarly to \imtaInlinecode{latex}{fontawesome}, the \imtaInlinecode{latex}{pifont} package offers multiple special characters and symbols. 
+It is used along \imtaInlinecode{latex}{enumitem} to customize the lists rendering by redefining the bullets. 
+It is also used to display the large quote symbols in the \imtaInlinecode{latex}{\imtaQuote} environment.
 
 \begin{imtaCode}{latex}
     \RequirePackage{pifont}
@@ -348,7 +373,8 @@ Similarly to \imtaInlinecode{latex}{fontawesome}, the \imtaInlinecode{latex}{pif
 
 
 \subsection{\texttt{mdframed}}
-The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes with a lot of customization options. It is used for the \imtaInlinecode{latex}{imtaQuote} environment.
+The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes with a lot of customization options. 
+It is used for the \imtaInlinecode{latex}{imtaQuote} environment.
 
 \begin{imtaCode}{latex}
     \RequirePackage{mdframed}
@@ -368,19 +394,24 @@ The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes wi
 \begin{itemize}
     \item \imtaInlinecode{latex}{\subtitle{<subtitle>}} defines a subtitle for the document, which is displayed on the front cover when using \imtaInlinecode{latex}{\imtaMaketitlepage}.
     
-    \item \imtaInlinecode{latex}{\imtaSuperviser{<name>}} defines a new field for the supervisers. It works in a similar fashion to the \imtaInlinecode{latex}{\author} command and is displayed on the front cover when using \imtaInlinecode{latex}{\imtaMaketitlepage}.
+    \item \imtaInlinecode{latex}{\imtaSuperviser{<name>}} defines a new field for the supervisers. 
+    It works in a similar fashion to the \imtaInlinecode{latex}{\author} command and is displayed on the front cover when using \imtaInlinecode{latex}{\imtaMaketitlepage}.
     
     \item \imtaInlinecode{latex}{\imtaVersion{<version>}} defines the version of the document which is displayed on the front cover.
     
-    \item \imtaInlinecode{latex}{\imtaAddPartnerLogo[<options>]{<filepath>}} adds a partner's logo next to the one of IMT Atlantique on the front cover when using \imtaInlinecode{latex}{\imtaMaketitlepage}. By default, its largest dimension is set to the corresponding dimension of the IMT Atlantique's logo, but it can be overrided thanks to the \imtaInlinecode{latex}{<options>} field, which is used as options for \imtaInlinecode{latex}{\includegraphics}. It supports the insertion of multiple logos, adding a linebreak whenever necessary.
+    \item \imtaInlinecode{latex}{\imtaAddPartnerLogo[<options>]{<filepath>}} adds a partner's logo next to the one of IMT Atlantique on the front cover when using \imtaInlinecode{latex}{\imtaMaketitlepage}. 
+    By default, its largest dimension is set to the corresponding dimension of the IMT Atlantique's logo, but it can be overrided thanks to the \imtaInlinecode{latex}{<options>} field, which is used as options for \imtaInlinecode{latex}{\includegraphics}. 
+    It supports the insertion of multiple logos, adding a linebreak whenever necessary.
     
     \item \imtaInlinecode{latex}{\imtaMaketitlepage} displays the IMT Atlantique styled front cover on the current page.
     
-    \item \imtaInlinecode{latex}{\imtaAuthorShort{<shortened names>}} defines shortened author names for the header in case the IMT Atlantique style is not enabled throughout the whole document. It works in a similar fashion to the \imtaInlinecode{latex}{\author} command.
+    \item \imtaInlinecode{latex}{\imtaAuthorShort{<shortened names>}} defines shortened author names for the header in case the IMT Atlantique style is not enabled throughout the whole document.
+    It works in a similar fashion to the \imtaInlinecode{latex}{\author} command.
     
     \item \imtaInlinecode{latex}{\imtaLogo{<width>}} inserts the IMT Atlantique's logo with the desired dimension by importing the \texttt{imta\_logo.pdf} document.
     
-    \item \imtaInlinecode{latex}{\imtaLogoTikz{<width}} inserts the TikZ version of the IMT Atlantique's logo with the desired dimension. This removed the dependency to the \texttt{imta\_logo.pdf} file.
+    \item \imtaInlinecode{latex}{\imtaLogoTikz{<width}} inserts the TikZ version of the IMT Atlantique's logo with the desired dimension. 
+    This removes the dependency to the \texttt{imta\_logo.pdf} file.
     
     \item \imtaInlinecode{latex}{\imtaSetIMTStyle} enables the IMT Atlantique document styling throughout the whole document.
     
@@ -390,7 +421,8 @@ The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes wi
     
     \item \imtaInlinecode{latex}{\imtaQuestionReset} resets the question counter.
     
-    \item \imtaInlinecode{latex}{\imtaMakeCover} displays the IMT Atlantique styled back cover on the current page. If the document is in \texttt{twoside} mode, this command will insert a blank page if necessary, to ensure the last page is on the left side.
+    \item \imtaInlinecode{latex}{\imtaMakeCover} displays the IMT Atlantique styled back cover on the current page. 
+    If the document is in \texttt{twoside} mode, this command will insert a blank page if necessary, to ensure the last page is on the left side.
 \end{itemize}
 
 
@@ -415,15 +447,27 @@ If you are not sure how to start, we invite you to have a look at the \texttt{sk
 \section{Set up}
 In order to use this template, you need to have a \TeX{} distribution installed, copy this file in your working directory and add the \imtaInlinecode{latex}{\usepackage{imta_extra}} command in the preamble of your top document.
 
-Since \texttt{imta\_extra} uses the \texttt{minted} package for code colouring, two extra steps are necessary to fully resolve dependencies. First, you need to have \texttt{Pygmentize} installed. If this is not the case, you can do it using Python utilitary \texttt{pip} by executing \imtaInlinecode{python}{pip install Pygments}. Finally, you also need to build your document with the correct options. If you are using pdf\LaTeX{} as your compiler, you need to add the \imtaInlinecode{latex}{--shell-escape} option.
+If you would prefer to properly install the package once it for all instead of having multiple copies, you can do so by manually installing it. 
+Since this can be a little tedious for a recent \LaTeX{} user, we introduced a custom Python script. 
+Simply run the \texttt{imta\_install.py} script and everything should be alright.
+This script supports Python 2 and 3, and both Mik\TeX{} and \TeX{}Live environments. 
 
-Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager.\footnote{See \textit{\href{https://tex.stackexchange.com/a/359851}{General Guide to Installing Packages with MikTeX Package Manager}} on \TeX Stack Exchange for more details.}
+Since \texttt{imta\_extra} uses the \texttt{minted} package for code colouring, two extra steps are necessary to fully resolve dependencies. 
+First, you need to have \texttt{Pygmentize} installed. 
+If this is not the case, you can do it using Python utilitary \texttt{pip} by executing \imtaInlinecode{python}{pip install Pygments}. 
+Finally, you also need to build your document with the correct options. 
+If you are using pdf\LaTeX{} as your compiler, you need to add the \imtaInlinecode{latex}{--shell-escape} option.
+
+Note that this template is compatible with at least \TeX Live and MiK\TeX distributions, although we have noticed some issues might happen when trying to resolve dependencies with the latter. If so, then try to update your distribution using your Mik\TeX manager.
+\footnote{See \textit{\href{https://tex.stackexchange.com/a/359851}{General Guide to Installing Packages with MikTeX Package Manager}} on \TeX Stack Exchange for more details.}
 
 
 %% Styling
 \section{Document Styling}
 \subsection{Code Colouring}
-When writing a technical report, it can be useful to write some code with syntax highlighting, which moreover matches the template colour code. With this idea in mind, we introduced two custom environments, based on the \imtaInlinecode{latex}{minted} package: \imtaInlinecode{latex}{\imtaCode{<language>}} and \imtaInlinecode{latex}{\imtaConsole}. This means they are both \imtaInlinecode{latex}{\verbatim}-based environments (ie: the text is not interpreted by \LaTeX{} in any way).
+When writing a technical report, it can be useful to write some code with syntax highlighting, which moreover matches the template colour code.
+ With this idea in mind, we introduced two custom environments, based on the \imtaInlinecode{latex}{minted} package: \imtaInlinecode{latex}{\imtaCode{<language>}} and \imtaInlinecode{latex}{\imtaConsole}. 
+ This means they are both \imtaInlinecode{latex}{\verbatim}-based environments (ie: the text is not interpreted by \LaTeX{} in any way).
 
 \begin{figure}[!ht]
 \begin{minipage}{.45\linewidth}
@@ -485,11 +529,15 @@ To further ease this process and allow the user to import code from external doc
 
 
 \subsection{Structuring List of Figures and Tables}
-In long documents, in can be useful to structure the list of figures or tables by printing the highest section (chapter or section) containing the items. In order to achieve this, the \texttt{figure} and \texttt{table} environments have been redefined, as well as the \texttt{chapter} and \texttt{section} commands. The default behavior is thus to print the upper level section in the list of figures or tables. If you would like to disable this functionalities, you can do it by using the \texttt{nouppersectioninlof} or \texttt{nouppersectioninlot} option when loading the package. Simply type \imtaInlinecode{latex}{\usepackage[<options>]{imta_extra}} in the preamble.
+In long documents, in can be useful to structure the list of figures or tables by printing the highest section (chapter or section) containing the items. 
+In order to achieve this, the \texttt{figure} and \texttt{table} environments have been redefined, as well as the \texttt{chapter} and \texttt{section} commands. 
+The default behavior is thus to print the upper level section in the list of figures or tables. 
+If you would like to disable this functionalities, you can do it by using the \texttt{nouppersectioninlof} or \texttt{nouppersectioninlot} option when loading the package. Simply type \imtaInlinecode{latex}{\usepackage[<options>]{imta_extra}} in the preamble.
 
 
 \subsection{Page numbering}
-In order to ease the page numbering and differentiate the preamble of your document (front cover, table of contents, list of figures, abstract, etc) from the corpus of your document, we introduced the \imtaInlinecode{latex}{\frontmatter} and \imtaInlinecode{latex}{\mainmatter}. They respectively set the page numbering style to roman or arabic.
+In order to ease the page numbering and differentiate the preamble of your document (front cover, table of contents, list of figures, abstract, etc) from the corpus of your document, we introduced the \imtaInlinecode{latex}{\frontmatter} and \imtaInlinecode{latex}{\mainmatter}. 
+They respectively set the page numbering style to roman or arabic.
 
 
 %% Dependencies
@@ -497,7 +545,8 @@ In order to ease the page numbering and differentiate the preamble of your docum
 
 
 \subsection{\texttt{mdframed}}
-The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes with a lot of customization options. It is used for the custom code listings.
+The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes with a lot of customization options. 
+It is used for the custom code listings.
 
 \begin{imtaCode}{latex}
     \RequirePackage{mdframed}
@@ -505,7 +554,8 @@ The \imtaInlinecode{latex}{mdframed} package creates various frames and boxes wi
 
 
 \subsection{\texttt{minted}}
-The \imtaInlinecode{latex}{minted} package provides powerful code listings tools. This package however requires the installation of the Python pakage \imtaInlinecode{text}{Pygments} as well as the compilation option \imtaInlinecode{text}{--shell-escape}. It is used for the custom code listings.
+The \imtaInlinecode{latex}{minted} package provides powerful code listings tools. This package however requires the installation of the Python pakage \imtaInlinecode{text}{Pygments} as well as the compilation option \imtaInlinecode{text}{--shell-escape}. 
+It is used for the custom code listings.
 
 \begin{imtaCode}{latex}
     \RequirePackage{minted}
