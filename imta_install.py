@@ -92,7 +92,7 @@ def texlive_install():
         print('A Windows system has been detected.')
         default_dir = '/texlive/'
     elif system is 'Linux':
-        print('A Windows system has been detected.')
+        print('A Linux system has been detected.')
         default_dir = '/usr/local/texlive'
     else:
         print("System '{}' is not known. Continuing...".format(system))
