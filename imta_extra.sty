@@ -37,7 +37,8 @@
 % 1.2        BP       05.12.2017   Bug fixed in the \chapter redefinition
 % 1.3        BP       17.02.2018   Added \imtaCodeFromFile and 
 %                                  \imtaConsoleFromFrile commands
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1.4        BP       18.06.2018   Fixed rare bug in \chapter command
+%                                  existance verification
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -134,8 +135,10 @@
 
 % \chapter
 % \chapter is redefined when relevant, in order to update the upper section informations
- \makeatletter
- \if@chapterdefined
+\makeatletter
+\@ifundefined{chapter}{%
+     \relax
+    }{%
      \let\imtaExtraOldChapter\chapter
      \renewcommand*{\chapter}{\@ifstar{\imtaExtraStarChapter}{\@dblarg\imtaExtraNoStarChapter}}
      
@@ -152,27 +155,25 @@
          \gdef\imtaUpperSectionTitle{#1}
           \global\@uppersectionprintedinLOFfalse
           \global\@uppersectionprintedinLOTfalse}
-
-\else
-     \relax
- \fi
+}
 \makeatother
 
 
 % \section 
 % \section is redefined, in order to update the upper section informations
- \makeatletter
-     \if@chapterdefined
-         \relax
-     \else
-         \let\imtaExtraOldSection\section
-         \renewcommand{\section}{\@ifstar{\imtaExtraStarSection}{\@dblarg\imtaExtraNoStarSection}}
-         \newcommand\imtaExtraStarSection[1]{%
-             \imtaExtraOldSection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
-         \def\imtaExtraNoStarSection[#1]#2{%
-             \imtaExtraOldSection[{#1}]{#2} \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\thesection. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
-     \fi
- \makeatother
+\makeatletter
+\@ifundefined{chapter}{%
+ 
+     \let\imtaExtraOldSection\section
+     \renewcommand{\section}{\@ifstar{\imtaExtraStarSection}{\@dblarg\imtaExtraNoStarSection}}
+     \newcommand\imtaExtraStarSection[1]{%
+         \imtaExtraOldSection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+     \def\imtaExtraNoStarSection[#1]#2{%
+         \imtaExtraOldSection[{#1}]{#2} \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\thesection. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+    }{%    
+    \relax
+}
+\makeatother
 
 
 
