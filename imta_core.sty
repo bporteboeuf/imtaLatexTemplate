@@ -51,6 +51,9 @@
 %                                  in \imtaAddPartnerLogo
 % 1.1.7      BP       16.04.2018   Fixed bug in \imtaAddPartnerLogo when specifying
 %                                  a width relative to \textwidth or \linewidth
+% 1.1.8      BP       18.06.2018   The geometry and hyperref packages import
+%                                  checks for pre-existent import (avoiding options 
+%                                  clash) - geometry is locally enforced on back cover
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -61,7 +64,7 @@
 %%%%%%%%%% PACKAGES %%%%%%%%%%
 
 % Document geometry management
-\RequirePackage[a4paper, margin=2cm, top=3cm]{geometry}
+\@ifpackageloaded{geometry}{\relax}{\RequirePackage[a4paper, margin=2cm, top=3cm]{geometry}}
 
 % Images management
 \RequirePackage{graphicx}
@@ -70,7 +73,7 @@
 \RequirePackage[T1]{fontenc}
 
 % Cross-referencing
-\RequirePackage[hidelinks]{hyperref}
+\@ifpackageloaded{hyperref}{\relax}{\RequirePackage[hidelinks]{hyperref}}
 
 % Document encoding management
 \RequirePackage[utf8]{inputenc}
@@ -130,11 +133,6 @@
 
 
 %%%%%%%%%% PACKAGES SETTINGS %%%%%%%%%%
-
-
-% graphicx
-% Globally set the width for figures to \linewidth
-\setkeys{Gin}{width=\linewidth}
 
 
 % fancyhdr
@@ -397,6 +395,7 @@
         \fi
     \fi
     \newpage \thispagestyle{empty}
+    \newgeometry{top = .5cm, bottom = 1.5cm, left = 2cm, right = 1cm}
     \begingroup
     \fontfamily{phv}\selectfont
     \footnotesize
@@ -438,6 +437,7 @@
         \end{minipage}
     \end{center}
     \endgroup
+    \restoregeometry
 }
 \makeatother
 
