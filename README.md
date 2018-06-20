@@ -32,7 +32,10 @@ If you are new to LaTeX, we recommend you to have a look at the following resour
   Also, you might want to have a look to the provided `skeleton.tex` file for a ready-to-use first document. 
 
 
-
+<br>
+<br>
+<br>
+__________________________
 
 ## Installation
 
