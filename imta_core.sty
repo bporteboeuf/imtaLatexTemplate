@@ -524,15 +524,19 @@
                  \onecolumn 
                  \cleardoublepage 
                  \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
+                 \begin{minipage}{.92\textwidth}
                  \imtaOldChapter*{#1}
+                 \end{minipage}
                  \imtaChapterFigure
                  \clearpage \newpage \restoregeometry \twocolumn                
              \else
              \cleardoublepage 
              \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
-                 \imtaOldChapter*{#1}
-                 \imtaChapterFigure
-                 \clearpage \newpage \restoregeometry
+             \begin{minipage}{.92\textwidth}
+             \imtaOldChapter*{#1}
+             \end{minipage}
+             \imtaChapterFigure
+             \clearpage \newpage \restoregeometry
              \fi    
          }
          
@@ -541,13 +545,17 @@
                  \onecolumn
                  \cleardoublepage 
                  \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
+                 \begin{minipage}{.92\textwidth}
                  \imtaOldChapter[{#1}]{#2}
+                 \end{minipage}
                  \imtaChapterFigure
                  \clearpage \newpage \restoregeometry \twocolumn
              \else
                  \cleardoublepage 
                  \newgeometry{top = 4cm, bottom = 1cm, left = 2cm, right = 1cm}
+                 \begin{minipage}{.92\textwidth}
                  \imtaOldChapter[{#1}]{#2}
+                 \end{minipage}
                  \imtaChapterFigure
                  \clearpage \newpage \restoregeometry
              \fi
