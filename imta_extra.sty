@@ -76,7 +76,7 @@
     \global\newif\if@uppersectionprintedinLOF  \global\@uppersectionprintedinLOFfalse
     \global\newif\if@uppersectionprintedinLOT  \global\@uppersectionprintedinLOTfalse
     \gdef\imtaUpperSectionTitle\thetitle
-    \gdef\imtaUpperSectionNumber{ }
+    \gdef\imtaUpperSectionNumber{\relax}
 \makeatother
 
 
@@ -148,7 +148,7 @@
      
      \newcommand*\imtaExtraStarChapter[1]{%
          \imtaExtraOldChapter*{#1}
-         \gdef\imtaUpperSectionNumber{ }
+         \gdef\imtaUpperSectionNumber{\relax}
           \gdef\imtaUpperSectionTitle{#1}
           \global\@uppersectionprintedinLOFfalse
           \global\@uppersectionprintedinLOTfalse}
@@ -171,7 +171,7 @@
      \let\imtaExtraOldSection\section
      \renewcommand{\section}{\@ifstar{\imtaExtraStarSection}{\@dblarg\imtaExtraNoStarSection}}
      \newcommand\imtaExtraStarSection[1]{%
-         \imtaExtraOldSection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{ } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
+         \imtaExtraOldSection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\relax} \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
      \def\imtaExtraNoStarSection[#1]#2{%
          \imtaExtraOldSection[{#1}]{#2} \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\thesection. } \global\@uppersectionprintedinLOFfalse  \global\@uppersectionprintedinLOTfalse}
     }{%    

@@ -52,11 +52,16 @@
 % 1.2.3      AF       04.03.2018   \imtaLogoTikz rendering improved
 % 1.2.4      BP       13.03.2018   Added support for \includegraphics options
 %                                  in \imtaAddPartnerLogo
-% 1.2.5      BP       16.04.2018   Fixed bug in \imtaAddPartnerLogo when specifying
-%                                  a width relative to \textwidth or \linewidth
+% 1.2.5      BP       16.04.2018   Fixed bug in \imtaAddPartnerLogo when 
+%                                  specifying a width relative to \textwidth 
+%                                  or \linewidth
 % 1.2.6      BP       18.06.2018   The geometry and hyperref packages import
-%                                  checks for pre-existent import (avoiding options 
-%                                  clash) - geometry is locally enforced on back cover
+%                                  checks for pre-existent import (avoiding 
+%                                  options clash) - geometry is locally 
+%                                  enforced on back cover
+% 1.2.7      BP       08.07.2018   \leftmark command in header replaced by 
+%                                  \imtaUpperSectionTitle to avoid bugs when
+%                                  using starred sections or chapters
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -147,6 +152,11 @@
 \fancyhead[R]{\imtaTheAuthorShort}
 \fancyfoot[C]{\thepage}
 
+\makeatletter
+    % upper section number / title are defined
+    \gdef\imtaUpperSectionTitle\thetitle
+    \gdef\imtaUpperSectionNumber{\relax}
+\makeatother
 
 
 
@@ -447,6 +457,7 @@
 
 % \imtaSetIMTStyle
 % Set a styling that conforms to the official report template
+\makeatletter
 \newcommand{\imtaSetIMTStyle}{%
     % Set global font to Helvetica
     \usepackage{helvet}
@@ -463,9 +474,14 @@
     \pagestyle{fancy}
     \fancyhead{}
     \fancyfoot{}
-    \fancyhead[L]{\nouppercase\leftmark}
+    \fancyhead[L]{\if\imtaUpperSectionNumber\relax\relax
+                    \imtaUpperSectionTitle
+                  \else
+                     \@ifundefined{chapter}{\relax}{\chaptername{}} \imtaUpperSectionNumber \imtaUpperSectionTitle
+                  \fi}%\nouppercase\leftmark}
     \fancyfoot[R]{\thepage}
 }
+\makeatother
 
 
 % \subsubsubsection
@@ -528,6 +544,9 @@
                  \imtaOldChapter*{#1}
                  \end{minipage}
                  \imtaChapterFigure
+                 % upper section number / title are defined
+                 \gdef\imtaUpperSectionNumber{\relax}
+                 \gdef\imtaUpperSectionTitle{#1}
                  \clearpage \newpage \restoregeometry \twocolumn                
              \else
              \cleardoublepage 
@@ -536,6 +555,9 @@
              \imtaOldChapter*{#1}
              \end{minipage}
              \imtaChapterFigure
+             % upper section number / title are defined
+             \gdef\imtaUpperSectionNumber{\relax}
+             \gdef\imtaUpperSectionTitle{#1}
              \clearpage \newpage \restoregeometry
              \fi    
          }
@@ -571,8 +593,14 @@
              {\hspace{2em}\bf\Huge\thispagestyle{empty}} % before-code
              [{}] % after-code ; does not accept \if statements
      \else
-         \relax
-     \fi
+         % upper section number / title are defined
+         \let\imtaCoreOldSection\section
+         \renewcommand{\section}{\@ifstar{\imtaCoreStarSection}{\@dblarg\imtaCoreNoStarSection}}
+         \newcommand\imtaCoreStarSection[1]{%
+             \imtaCoreOldSection*{#1}  \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\relax}}
+         \def\imtaCoreNoStarSection[#1]#2{%
+             \imtaCoreOldSection[{#1}]{#2} \gdef\imtaUpperSectionTitle{#1} \gdef\imtaUpperSectionNumber{\thesection. }}
+         \fi
  \makeatother
 
 
