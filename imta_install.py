@@ -38,6 +38,39 @@ import platform
 import shutil
 import subprocess
 import sys
+import re
+
+
+def read_deps():
+    """Read the list of dependencies from the deps file"""
+    with open("./dependencies.txt", 'r') as deps:
+        return [d for d in re.split(r'\s', ''.join(deps)) if d]
+
+
+def texlive_install_deps():
+    """Install the dependencies for a TeXlive installation"""
+    print('Installing dependencies...')
+    subprocess.run(["tlmgr", "install"] + read_deps())
+    print('Dependencies installed')
+
+
+def install_pygments():
+    """Install pygments if not present"""
+    print("Checking pygments...")
+    try:
+        import pygments
+        print("pygments already installed!")
+    except ImportError:
+        print("Could not find pygments, installing it...")
+        subprocess.run("python3 -m pip install pygments".split())
+        print("Installed pygments")
+
+
+def install_deps():
+    """Install the dependencies, regardless the TeX distribution"""
+    texlive_install_deps()
+
+    install_pygments()
 
 
 def f_chdir(my_dir):
