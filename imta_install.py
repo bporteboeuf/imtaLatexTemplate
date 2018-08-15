@@ -47,9 +47,13 @@ class Distribution(enum.Enum):
     MIKTEX      = "MiKTeX"
 
 
-def check_distribution():
+def check_distribution() -> Distribution:
     """Get the local ditribution"""
-    return subprocess.check_output("pdflatex --version", shell=True).decode('utf-8')
+    output = subprocess.check_output("pdflatex --version", shell=True).decode('utf-8')
+    for dist in Distribution:
+        if dist.value in output:
+            return dist
+
 
 def read_deps():
     """Read the list of dependencies from the deps file"""
@@ -223,14 +227,14 @@ def miktex_install():
 
 
 def main():
-    output = subprocess.check_output("pdflatex --version", shell=True).decode('utf-8')
+    dist = check_distribution()
         
-    if 'TeX Live' in output:
+    if dist == Distribution.TEXLIVE:
         print('A TeX Live distribution has been found.')
         texlive_install()
         print('Done.')
 
-    elif 'MiKTeX' in output:
+    elif dist == Distribution.MIKTEX:
         print('A MikTeX distribution has been found.') 
         miktex_install()
         print('Done.')
