@@ -39,7 +39,17 @@ import shutil
 import subprocess
 import sys
 import re
+import enum
 
+
+class Distribution(enum.Enum):
+    TEXLIVE     = "TeX Live"
+    MIKTEX      = "MiKTeX"
+
+
+def check_distribution():
+    """Get the local ditribution"""
+    return subprocess.check_output("pdflatex --version", shell=True).decode('utf-8')
 
 def read_deps():
     """Read the list of dependencies from the deps file"""
