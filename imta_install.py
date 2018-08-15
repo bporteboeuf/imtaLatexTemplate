@@ -68,6 +68,11 @@ def texlive_install_deps():
     print('Dependencies installed')
 
 
+def miktex_install_deps():
+    """Install the dependencies for a MikTeX installation"""
+    raise NotImplementedError
+
+
 def install_pygments():
     """Install pygments if not present"""
     print("Checking pygments...")
@@ -82,7 +87,11 @@ def install_pygments():
 
 def install_deps():
     """Install the dependencies, regardless the TeX distribution"""
-    texlive_install_deps()
+    dist = check_distribution()
+    if dist == Distribution.TEXLIVE:
+        texlive_install_deps()
+    elif dist == Distribution.MIKTEX:
+        miktex_install_deps()
 
     install_pygments()
 
@@ -232,11 +241,13 @@ def main():
     if dist == Distribution.TEXLIVE:
         print('A TeX Live distribution has been found.')
         texlive_install()
+        texlive_intall_deps()
         print('Done.')
 
     elif dist == Distribution.MIKTEX:
         print('A MikTeX distribution has been found.') 
         miktex_install()
+        miktex_install_deps()
         print('Done.')
 
     else:
