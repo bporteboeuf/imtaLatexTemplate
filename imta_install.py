@@ -222,9 +222,7 @@ def miktex_install():
         print('Configuration file updated.')
 
 
-
-# Actual main function
-if __name__ == '__main__':
+def main():
     output = subprocess.check_output("pdflatex --version", shell=True).decode('utf-8')
         
     if 'TeX Live' in output:
@@ -240,6 +238,11 @@ if __name__ == '__main__':
     else:
         print('Error: Unsupported distribution or setup.')
         raise Exception
+
+
+# Actual main function
+if __name__ == '__main__':
+    main()
 
 
 
