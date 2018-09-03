@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 #####################################################################
@@ -144,15 +145,15 @@ def texlive_install():
     """
     orDir = os.getcwd()
     system = platform.system()
-    if system is 'Windows':
+    if system == 'Windows':
         print('A Windows system has been detected.')
         default_dir = '/texlive/'
-    elif system is 'Linux':
+    elif system == 'Linux':
         print('A Linux system has been detected.')
         default_dir = '/usr/local/texlive'
     else:
-        print("System '{}' is not known. Continuing...".format(system))
-        default_dir = '/'
+        print("System '{}' is not known. Aborting.".format(system))
+        raise SystemExit()
 
     print('Looking for configuration file...')
     # If available, the default root path is used
