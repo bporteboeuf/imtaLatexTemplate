@@ -20,7 +20,7 @@
 #                   sys
 #
 # Author:           B. Porteboeuf - benoit.porteboeuf@telecom-bretagne.eu
-# Contributor:      A. Foucault   - armand.foucault@telecom-bretagne.eu
+# Contributors:     A. Foucault   - armand.foucault@telecom-bretagne.eu
 #
 # University:       IMT Atlantique, Brest (France)
 #
@@ -32,6 +32,8 @@
 # 0.2        BP       30.05.2018   	First draft for MikTeX support
 # 1.0        BP       31.05.2018    Some bugs fixed with MikTeX support
 # 1.1        AF       04.06.2018    Light code refactoring
+# 1.2        AF       16.08.2018    Automatic dependencies installation 
+#                                   support added
 ####################################################################
 
 import os
@@ -191,6 +193,8 @@ def texlive_install():
                                      shell=True).decode('utf-8')
    
     print('Configuration file updated')
+    # original directory is restored
+    f_chdir(orDir)
     
     
 def miktex_install():
@@ -234,6 +238,8 @@ def miktex_install():
         output = subprocess.check_output("initexmf --update-fndb", shell=True).decode('utf-8')
         
         print('Configuration file updated.')
+    # original directory is restored
+    f_chdir(orDir)
 
 
 def main():
@@ -242,7 +248,7 @@ def main():
     if dist == Distribution.TEXLIVE:
         print('A TeX Live distribution has been found.')
         texlive_install()
-        texlive_intall_deps()
+        texlive_install_deps()
         print('Done.')
 
     elif dist == Distribution.MIKTEX:
