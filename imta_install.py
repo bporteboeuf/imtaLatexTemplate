@@ -152,7 +152,7 @@ def texlive_install():
         default_dir = '/texlive/'
     elif system == 'Linux':
         print('A Linux system has been detected.')
-        default_dir = '/usr/local/texlive'
+        default_dir = '/usr/share/texlive'
     else:
         print("System '{}' is not known. Aborting.".format(system))
         raise SystemExit()
